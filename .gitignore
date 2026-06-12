@@ -1,0 +1,17 @@
+node_modules/
+.godot/
+*.import
+.superpowers/
+
+# Large binary files
+website/downloads/
+doupo-demo/assets/
+website/assets/enemies/
+website/assets/events/
+website/assets/cards/
+website/assets/relics/
+website/assets/scenes/
+website/assets/idle/
+doupo-demo/windows/
+doupo-demo/android/
+doupo-demo/.godot/

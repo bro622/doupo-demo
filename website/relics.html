@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遗物图鉴 — 斗破苍穹·斗帝之路</title>
+<meta name="description" content="斗破苍穹·斗帝之路全部遗物图鉴，58件遗物按品质和角色筛选浏览。">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   ROOT
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --parchment: #f4efe4;
+  --parchment-l: #faf7f0;
+  --parchment-d: #e8dfce;
+  --ink: #1e1a14;
+  --ink-soft: #3d3428;
+  --ink-muted: #7a6e5d;
+  --ink-ghost: #b5a892;
+  --gold: #b8963e;
+  --gold-light: #d4b45c;
+  --gold-dim: rgba(184,150,62,0.12);
+  --cinnabar: #c23a2b;
+  --jade: #4a7c59;
+  --sapphire: #3a6b8c;
+  --amethyst: #7b5ea7;
+  --serif: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --display: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --nav-bg: rgba(244,239,228,0.92);
+  --nav-bg-solid: rgba(244,239,228,0.96);
+  --shadow-color: rgba(30,26,20,0.06);
+}
+[data-theme="dark"] {
+  --parchment: #1a1714;
+  --parchment-l: #222019;
+  --parchment-d: #2a2720;
+  --ink: #f0e6d3;
+  --ink-soft: #d4c5a9;
+  --ink-muted: #a89880;
+  --ink-ghost: #7a6e5d;
+  --gold-dim: rgba(184,150,62,0.18);
+  --nav-bg: rgba(26,23,20,0.92);
+  --nav-bg-solid: rgba(26,23,20,0.96);
+  --shadow-color: rgba(0,0,0,0.2);
+}
+[data-theme="dark"] body::before { opacity: 0.015; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+::selection { background: var(--gold-dim); color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+nav {
+  position: sticky; top: 0;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(24px, 5vw, 64px);
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(184,150,62,0.15);
+  z-index: 1000;
+}
+.nav-brand {
+  font-family: var(--display); font-size: 20px;
+  color: var(--ink); letter-spacing: 3px;
+  text-decoration: none; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand::before {
+  content: ''; display: inline-block;
+  width: 32px; height: 32px;
+  background: url('assets/icon.png') center/cover no-repeat;
+  border-radius: 6px;
+}
+.nav-links { display: flex; align-items: center; gap: 28px; height: 100%; }
+.nav-links a {
+  display: inline-flex; align-items: center; height: 100%;
+  text-decoration: none; color: var(--ink-muted);
+  font-size: 14px; font-weight: 500; letter-spacing: 1px;
+  position: relative; transition: color 0.25s;
+}
+.nav-links a:not(.nav-cta):hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); }
+.nav-links a:not(.nav-cta)::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-links a.active::after,
+.nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+.nav-cta {
+  display: inline-flex !important; align-items: center !important;
+  height: auto !important; padding: 8px 24px !important;
+  background: var(--ink) !important; color: var(--parchment) !important;
+  border-radius: 6px !important; font-size: 13px !important;
+  font-weight: 600 !important; letter-spacing: 1.5px !important;
+  transition: background 0.25s, transform 0.2s !important;
+}
+.nav-cta:hover { background: var(--ink-soft) !important; transform: translateY(-1px); }
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--parchment-d);
+  border-radius: 6px;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ═══════════════════════════════════════════
+   HAMBURGER MENU
+   ═══════════════════════════════════════════ */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--parchment);
+    flex-direction: column;
+    padding: 80px 24px 24px;
+    transition: right 0.3s;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a {
+    height: auto;
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════ */
+.page-header { text-align: center; padding: 48px 24px 32px; }
+.page-header h1 {
+  font-family: var(--display); font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400; color: var(--ink); letter-spacing: 6px;
+}
+.page-header .page-en {
+  font-size: 11px; color: var(--ink-ghost);
+  letter-spacing: 6px; text-transform: uppercase; margin-top: 6px;
+}
+.page-header .page-line {
+  width: 48px; height: 2px; background: var(--gold); margin: 20px auto 0;
+}
+
+/* ═══════════════════════════════════════════
+   FILTERS
+   ═══════════════════════════════════════════ */
+.filters {
+  padding: 0 clamp(24px, 5vw, 64px) 8px;
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 16px;
+  align-items: center; justify-content: center;
+}
+.filter-group {
+  display: flex; gap: 2px;
+  background: var(--parchment-l);
+  border: 1px solid var(--parchment-d);
+  border-radius: 8px; padding: 3px;
+}
+.filter-btn {
+  padding: 7px 16px; border: none; border-radius: 6px;
+  background: transparent; color: var(--ink-muted);
+  font-size: 13px; font-family: var(--sans); font-weight: 500;
+  cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  letter-spacing: 0.5px; white-space: nowrap;
+}
+.filter-btn:hover { color: var(--ink); background: rgba(184,150,62,0.06); }
+.filter-btn.active {
+  background: var(--ink); color: var(--parchment);
+  box-shadow: 0 2px 8px rgba(30,26,20,0.15);
+}
+.filter-sep { width: 1px; height: 28px; background: var(--parchment-d); }
+.relic-count {
+  font-size: 13px; color: var(--ink-ghost);
+  letter-spacing: 1px; font-weight: 500; padding: 8px 0;
+}
+
+/* ═══════════════════════════════════════════
+   RELIC GRID
+   ═══════════════════════════════════════════ */
+.relic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 32px clamp(24px, 5vw, 64px) 80px;
+  max-width: 1200px; margin: 0 auto;
+}
+.relic-item {
+  background: var(--parchment-l);
+  border: 2px solid var(--parchment-d);
+  border-radius: 12px;
+  padding: 20px 16px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.relic-item:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 40px rgba(30,26,20,0.1), 0 0 0 1px var(--gold), 0 0 16px rgba(184,150,62,0.15);
+}
+.relic-item.RARE:hover {
+  border-color: var(--sapphire);
+  box-shadow: 0 16px 40px rgba(58,107,140,0.12), 0 0 0 1px var(--sapphire), 0 0 16px rgba(58,107,140,0.15);
+}
+.relic-item.EPIC:hover {
+  border-color: var(--amethyst);
+  box-shadow: 0 16px 40px rgba(123,94,167,0.12), 0 0 0 1px var(--amethyst), 0 0 16px rgba(123,94,167,0.15);
+}
+.relic-item.LEGENDARY:hover {
+  border-color: var(--gold-light);
+  box-shadow: 0 16px 40px rgba(184,150,62,0.15), 0 0 0 1px var(--gold-light), 0 0 20px rgba(184,150,62,0.25);
+}
+
+.relic-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.relic-icon img {
+  width: 100%; height: 100%;
+  object-fit: contain; display: block;
+  transition: transform 0.3s;
+}
+.relic-item:hover .relic-icon img { transform: scale(1.08); }
+/* Rarity icon glow */
+.relic-icon { box-shadow: inset 0 0 0 2px var(--parchment-d); transition: box-shadow 0.3s; }
+.relic-item.RARE .relic-icon { box-shadow: inset 0 0 0 2px rgba(58,107,140,0.25); }
+.relic-item.EPIC .relic-icon { box-shadow: inset 0 0 0 2px rgba(123,94,167,0.25); }
+.relic-item.LEGENDARY .relic-icon { box-shadow: inset 0 0 0 2px rgba(184,150,62,0.35); }
+.relic-item.RARE:hover .relic-icon { box-shadow: inset 0 0 0 2px var(--sapphire), 0 0 12px rgba(58,107,140,0.2); }
+.relic-item.EPIC:hover .relic-icon { box-shadow: inset 0 0 0 2px var(--amethyst), 0 0 12px rgba(123,94,167,0.2); }
+.relic-item.LEGENDARY:hover .relic-icon { box-shadow: inset 0 0 0 2px var(--gold), 0 0 12px rgba(184,150,62,0.25); }
+
+.relic-name {
+  font-family: var(--serif); font-size: 14px;
+  font-weight: 700; color: var(--ink);
+  letter-spacing: 0.5px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.relic-rarity {
+  font-size: 11px; margin-top: 4px;
+  letter-spacing: 1px; font-weight: 500;
+}
+.relic-rarity.COMMON { color: var(--ink-ghost); }
+.relic-rarity.RARE { color: var(--sapphire); }
+.relic-rarity.EPIC { color: var(--amethyst); }
+.relic-rarity.LEGENDARY { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(30,26,20,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  z-index: 2000; align-items: center; justify-content: center;
+  padding: 24px; opacity: 0; transition: opacity 0.3s;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+
+.modal {
+  background: var(--parchment-l);
+  border-radius: 14px;
+  max-width: 420px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  position: relative;
+  border: 1px solid var(--parchment-d);
+  box-shadow: 0 32px 80px rgba(30,26,20,0.25), 0 0 0 1px rgba(184,150,62,0.08);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 36px; height: 36px;
+  border: 1px solid var(--parchment-d);
+  background: var(--parchment-l);
+  border-radius: 50%; cursor: pointer;
+  font-size: 18px; color: var(--ink-muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; z-index: 10;
+}
+.modal-close:hover { background: var(--ink); color: var(--parchment); border-color: var(--ink); }
+
+.modal-icon-wrap {
+  text-align: center; padding: 36px 24px 20px;
+  position: relative;
+}
+.modal-icon-wrap::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 20%; right: 20%;
+  height: 1px; background: var(--parchment-d);
+}
+.modal-icon {
+  width: 100px; height: 100px;
+  border-radius: 14px;
+  object-fit: contain;
+  box-shadow: 0 8px 24px rgba(30,26,20,0.12);
+}
+.modal-icon.LEGENDARY { box-shadow: 0 8px 32px rgba(184,150,62,0.25); }
+.modal-icon.EPIC { box-shadow: 0 8px 32px rgba(123,94,167,0.2); }
+
+.modal-body { padding: 24px 28px 28px; text-align: center; }
+.modal-name {
+  font-family: var(--display); font-size: 22px;
+  font-weight: 400; color: var(--ink); letter-spacing: 3px;
+}
+.modal-meta {
+  display: flex; gap: 8px; margin-top: 12px;
+  justify-content: center; flex-wrap: wrap;
+}
+.modal-tag {
+  font-size: 11px; padding: 4px 12px; border-radius: 4px;
+  background: var(--parchment-d); color: var(--ink-muted);
+  letter-spacing: 0.5px; font-weight: 500;
+}
+.modal-tag.RARE { background: rgba(58,107,140,0.1); color: var(--sapphire); }
+.modal-tag.EPIC { background: rgba(123,94,167,0.1); color: var(--amethyst); }
+.modal-tag.LEGENDARY { background: var(--gold-dim); color: var(--gold); }
+.modal-tag.char { background: rgba(74,124,57,0.08); color: var(--jade); }
+
+.modal-divider {
+  width: 100%; height: 1px; background: var(--parchment-d);
+  margin: 20px 0; position: relative;
+}
+.modal-divider::before {
+  content: '◆'; position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--parchment-l); padding: 0 12px;
+  color: var(--gold); font-size: 8px; letter-spacing: 4px;
+}
+.modal-desc {
+  font-size: 15px; color: var(--ink-soft);
+  line-height: 1.9; text-align: left;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .relic-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+  .filters { gap: 10px; }
+  .filter-btn { padding: 6px 12px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .relic-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 16px 12px 48px; }
+  .filter-sep { display: none; }
+  .filters { justify-content: center; }
+  .modal { margin: 0 8px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">斗破苍穹</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="cards.html">图鉴</a>
+    <a href="relics.html" class="active">遗物</a>
+    <a href="events.html">事件</a>
+    <a href="enemies.html">敌人</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="切换暗色模式">☽</button>
+    <a href="download.html" class="nav-cta">下载 Demo</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="菜单">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="page-header">
+  <h1>遗物图鉴</h1>
+  <div class="page-en">Relic Codex</div>
+  <div class="page-line"></div>
+</div>
+
+<div class="filters" id="filters">
+  <div class="filter-group" data-group="rarity">
+    <button class="filter-btn active" data-value="all">全部</button>
+    <button class="filter-btn" data-value="COMMON">普通</button>
+    <button class="filter-btn" data-value="RARE">稀有</button>
+    <button class="filter-btn" data-value="EPIC">史诗</button>
+    <button class="filter-btn" data-value="LEGENDARY">传说</button>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group" data-group="char">
+    <button class="filter-btn active" data-value="all">全部</button>
+    <button class="filter-btn" data-value="">通用</button>
+    <button class="filter-btn" data-value="xiaoyan">萧炎</button>
+    <button class="filter-btn" data-value="xuner">薰儿</button>
+    <button class="filter-btn" data-value="cailin">彩鳞</button>
+  </div>
+  <div class="relic-count" id="count"></div>
+</div>
+
+<div class="relic-grid" id="grid"></div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-icon-wrap">
+      <img class="modal-icon" id="modal-icon" src="" alt="">
+    </div>
+    <div class="modal-body">
+      <div class="modal-name" id="modal-name"></div>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-divider"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+    </div>
+  </div>
+</div>
+
+<script src="relics-data.js"></script>
+<script>
+const RARITY_LABELS = {COMMON:'普通',RARE:'稀有',EPIC:'史诗',LEGENDARY:'传说'};
+const CHAR_LABELS = {'':'通用',xiaoyan:'萧炎',xuner:'薰儿',cailin:'彩鳞'};
+const state = { rarity:'all', char:'all' };
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+const modal = document.getElementById('modal');
+
+function render() {
+  grid.innerHTML = '';
+  let n = 0;
+  RELICS.forEach(r => {
+    const mr = state.rarity === 'all' || r.rarity === state.rarity;
+    const mc = state.char === 'all' || r.exclusive === state.char;
+    if (!mr || !mc) return;
+    n++;
+    const div = document.createElement('div');
+    div.className = `relic-item ${r.rarity}`;
+    div.onclick = () => openModal(r);
+    div.innerHTML = `
+      <div class="relic-icon"><img src="assets/relics/${r.name}.png" alt="${r.name}" loading="lazy"></div>
+      <div class="relic-name">${r.name}</div>
+      <div class="relic-rarity ${r.rarity}">${RARITY_LABELS[r.rarity]||''}</div>`;
+    grid.appendChild(div);
+  });
+  countEl.textContent = `${n} 件`;
+}
+
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  const group = btn.closest('.filter-group').dataset.group;
+  state[group] = btn.dataset.value;
+  btn.closest('.filter-group').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+function openModal(r) {
+  document.getElementById('modal-icon').src = `assets/relics/${r.name}.png`;
+  document.getElementById('modal-icon').className = `modal-icon ${r.rarity}`;
+  document.getElementById('modal-name').textContent = r.name;
+  let meta = `<span class="modal-tag ${r.rarity}">${RARITY_LABELS[r.rarity]||''}</span>`;
+  if (r.exclusive) meta += `<span class="modal-tag char">${CHAR_LABELS[r.exclusive]||r.exclusive}</span>`;
+  document.getElementById('modal-meta').innerHTML = meta;
+  document.getElementById('modal-desc').textContent = r.desc;
+  requestAnimationFrame(() => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; });
+}
+function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('modal-close').onclick = closeModal;
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+render();
+
+// Dark mode toggle
+(function(){
+  const toggle = document.getElementById('theme-toggle');
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = stored || 'light';
+  document.documentElement.setAttribute('data-theme', initial);
+  toggle.textContent = initial === 'dark' ? '☀' : '☽';
+  toggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    toggle.textContent = next === 'dark' ? '☀' : '☽';
+  });
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const lazyImages = document.querySelectorAll('img[data-src]');
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+          imageObserver.unobserve(img);
+        }
+      });
+    }, { rootMargin: '50px 0px' });
+    lazyImages.forEach(function(img) { imageObserver.observe(img); });
+  } else {
+    lazyImages.forEach(function(img) {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  }
+});
+</script>
+<noscript><style>img[data-src] { display: none; }</style></noscript>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+}
+</script>
+</body>
+</html>

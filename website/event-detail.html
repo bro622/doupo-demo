@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件详情 — 斗破苍穹·斗帝之路</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --parchment: #f4efe4;
+            --parchment-l: #faf7f0;
+            --parchment-d: #e8dfce;
+            --ink: #1e1a14;
+            --ink-soft: #3d3428;
+            --ink-muted: #7a6e5d;
+            --ink-ghost: #b5a892;
+            --gold: #b8963e;
+            --gold-light: #d4b45c;
+            --cinnabar: #c23a2b;
+            --jade: #4a7c59;
+            --nav-bg: rgba(244,239,228,0.95);
+            --card-bg: #faf7f0;
+            --shadow: rgba(30,26,20,0.08);
+            --shadow-lg: rgba(30,26,20,0.15);
+        }
+
+        [data-theme="dark"] {
+            --parchment: #1a1714;
+            --parchment-l: #22201b;
+            --parchment-d: #2a2722;
+            --ink: #f0e6d3;
+            --ink-soft: #d4c5a9;
+            --ink-muted: #a89880;
+            --ink-ghost: #7a6e5d;
+            --gold: #d4a843;
+            --gold-light: #e8c170;
+            --nav-bg: rgba(26,23,20,0.95);
+            --card-bg: #22201b;
+            --shadow: rgba(0,0,0,0.2);
+            --shadow-lg: rgba(0,0,0,0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* 纸纹背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b5a892' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] body::before {
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0e6d3' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--parchment-d);
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:not(.nav-cta):hover,
+        .nav-links a:not(.nav-cta).active {
+            color: var(--ink);
+        }
+
+        .nav-links a:not(.nav-cta).active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .nav-cta {
+            display: inline-flex !important;
+            align-items: center !important;
+            height: auto !important;
+            padding: 8px 24px !important;
+            background: var(--ink) !important;
+            color: var(--parchment) !important;
+            border-radius: 6px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            letter-spacing: 1.5px !important;
+            transition: background 0.25s, transform 0.2s !important;
+        }
+        .nav-cta:hover {
+            background: var(--ink-soft) !important;
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--parchment-d);
+            color: var(--ink-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--parchment);
+                flex-direction: column;
+                padding: 80px 24px 24px;
+                transition: right 0.3s;
+                box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                height: auto;
+                padding: 12px 0;
+                font-size: 16px;
+            }
+
+            .filter-btn {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* 主内容 */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 96px 2rem 4rem;
+        }
+
+        /* 返回按钮 */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        /* 事件头部 */
+        .event-hero {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 40px var(--shadow-lg);
+        }
+
+        .event-hero-bg {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .event-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-scene {
+            background: var(--jade);
+            color: white;
+        }
+
+        .badge-category {
+            color: white;
+        }
+
+        .badge-PLOT { background: #3a6b8c; }
+        .badge-COMBAT { background: var(--cinnabar); }
+        .badge-REWARD { background: var(--gold); }
+        .badge-RISK { background: #d4763c; }
+
+        .event-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .event-meta {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        /* 事件描述 */
+        .event-description {
+            background: var(--card-bg);
+            border: 1px solid var(--parchment-d);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .event-description h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+        }
+
+        .event-description p {
+            color: var(--ink-soft);
+        }
+
+        /* 选项区域 */
+        .choices-section {
+            margin-bottom: 2rem;
+        }
+
+        .choices-section h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .choice-card {
+            background: var(--card-bg);
+            border: 1px solid var(--parchment-d);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .choice-card:hover {
+            box-shadow: 0 8px 24px var(--shadow);
+            border-color: var(--gold);
+        }
+
+        .choice-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .choice-number {
+            width: 32px;
+            height: 32px;
+            background: var(--gold);
+            color: var(--parchment);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .choice-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--ink);
+        }
+
+        .choice-outcomes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding-left: 3rem;
+        }
+
+        .outcome-tag {
+            padding: 0.4rem 0.8rem;
+            background: var(--parchment-d);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .outcome-GOLD { background: rgba(184,150,62,0.15); color: var(--gold); }
+        .outcome-HEAL { background: rgba(74,124,90,0.15); color: var(--jade); }
+        .outcome-DAMAGE { background: rgba(194,58,43,0.15); color: var(--cinnabar); }
+        .outcome-CARD { background: rgba(58,107,140,0.15); color: #3a6b8c; }
+        .outcome-RELIC { background: rgba(184,150,62,0.15); color: var(--gold); }
+        .outcome-COMBAT { background: rgba(194,58,43,0.2); color: var(--cinnabar); }
+        .outcome-CURSE_CARD { background: rgba(120,60,150,0.15); color: #8b4fcf; }
+        .outcome-UPGRADE_CARD { background: rgba(74,124,90,0.15); color: var(--jade); }
+        .outcome-REMOVE_CARD { background: rgba(122,110,93,0.15); color: var(--ink-muted); }
+        .outcome-MAX_HP { background: rgba(74,124,90,0.2); color: var(--jade); }
+        .outcome-PERMA_STRENGTH { background: rgba(194,58,43,0.15); color: var(--cinnabar); }
+        .outcome-FLAG { background: rgba(58,107,140,0.15); color: #3a6b8c; }
+        .outcome-POTION { background: rgba(107,142,35,0.15); color: #6b8e23; }
+
+        .outcome-icon {
+            font-size: 1rem;
+        }
+
+        /* 无背景图占位 */
+        .no-bg-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--parchment-d) 0%, var(--parchment) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--ink-ghost);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            main {
+                padding: 80px 1rem 2rem;
+            }
+
+            .event-hero-bg,
+            .no-bg-placeholder {
+                height: 250px;
+            }
+
+            .event-title {
+                font-size: 1.8rem;
+            }
+
+            .event-hero-overlay {
+                padding: 1.5rem;
+            }
+
+            .choice-outcomes {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">斗破苍穹·斗帝之路</a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="cards.html">图鉴</a>
+            <a href="relics.html">遗物</a>
+            <a href="events.html" class="active">事件</a>
+            <button class="theme-toggle" id="themeToggle" title="切换主题">☽</button>
+            <a href="download.html" class="nav-cta">下载 Demo</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="菜单">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main>
+        <a href="events.html" class="back-link">← 返回事件列表</a>
+
+        <div id="eventContent">
+            <!-- 动态加载 -->
+        </div>
+    </main>
+
+    <script src="events-data.js"></script>
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀' : '☽';
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀' : '☽';
+        });
+
+        // HTML转义函数
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 统一处理换行符（兼容实际换行和字面\n字符串）
+        function formatNewlines(text) {
+            if (!text) return '';
+            return escapeHtml(text).replace(/\\n|\n/g, '<br>');
+        }
+
+        // 获取URL参数中的事件ID
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = parseInt(urlParams.get('id'));
+
+        // 检查数据是否加载
+        if (typeof EVENTS === 'undefined') {
+            document.getElementById('eventContent').innerHTML = `
+                <div style="text-align: center; padding: 4rem 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+                    <h2 style="color: var(--ink-muted);">数据加载失败</h2>
+                    <p style="color: var(--ink-ghost); margin-top: 1rem;">无法加载事件数据，请刷新页面重试</p>
+                </div>
+            `;
+        } else {
+            // 查找事件
+            const event = EVENTS.find(e => e.id === eventId);
+
+            if (!event) {
+                document.getElementById('eventContent').innerHTML = `
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">📜</div>
+                        <h2 style="color: var(--ink-muted);">未找到该事件</h2>
+                        <p style="color: var(--ink-ghost); margin-top: 1rem;">
+                            <a href="events.html" style="color: var(--gold);">返回事件列表</a>
+                        </p>
+                    </div>
+                `;
+            } else {
+            const scene = SCENE_MAP[event.scene_id] || {name: '未知', color: '#888'};
+            const cat = CATEGORY_MAP[event.category] || {name: '未知', color: '#888'};
+            const charLabel = event.character
+                ? (event.character === 'xiaoyan' ? '萧炎专属' : event.character === 'xuner' ? '薰儿专属' : '彩鳞专属')
+                : '';
+            const ancientLabel = event.is_ancient ? '守灵事件' : '';
+
+            const safeName = escapeHtml(event.name);
+            const safeDesc = escapeHtml(event.description) || '暂无描述';
+            const safeBg = event.bg_image ? escapeHtml(event.bg_image) : '';
+
+            // 守灵事件：添加角色选择器
+            const isAncient = event.is_ancient && event.character_choices;
+            let characterSelector = '';
+            let currentCharacter = 'xiaoyan'; // 默认选择萧炎
+
+            // 获取当前角色的背景图（守灵事件使用角色特定背景）
+            const getCurrentBg = (charId) => {
+                if (isAncient && event.bg_images && event.bg_images[charId]) {
+                    return escapeHtml(event.bg_images[charId]);
+                }
+                return safeBg;
+            };
+
+            const currentBg = getCurrentBg(currentCharacter);
+            const heroHtml = currentBg
+                ? `<img class="event-hero-bg" src="${currentBg}" alt="${safeName}">`
+                : `<div class="no-bg-placeholder">📜</div>`;
+
+            if (isAncient) {
+                characterSelector = `
+                    <div class="character-selector" style="margin-bottom: 2rem; text-align: center;">
+                        <h3 style="font-family: 'Noto Serif SC', serif; margin-bottom: 1rem; color: var(--ink);">选择角色视角</h3>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button class="char-btn active" data-char="xiaoyan" onclick="switchCharacter('xiaoyan')" style="padding: 0.5rem 1.5rem; border: 2px solid var(--gold); background: var(--gold); color: white; border-radius: 8px; cursor: pointer; font-family: 'Noto Sans SC', sans-serif;">萧炎</button>
+                            <button class="char-btn" data-char="xuner" onclick="switchCharacter('xuner')" style="padding: 0.5rem 1.5rem; border: 2px solid var(--parchment-d); background: var(--card-bg); color: var(--ink); border-radius: 8px; cursor: pointer; font-family: 'Noto Sans SC', sans-serif;">薰儿</button>
+                            <button class="char-btn" data-char="cailin" onclick="switchCharacter('cailin')" style="padding: 0.5rem 1.5rem; border: 2px solid var(--parchment-d); background: var(--card-bg); color: var(--ink); border-radius: 8px; cursor: pointer; font-family: 'Noto Sans SC', sans-serif;">彩鳞</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 获取当前角色的对话和选项
+            const currentDialog = isAncient ? (event.character_dialogs[currentCharacter] || safeDesc) : safeDesc;
+            const currentChoices = isAncient ? (event.character_choices[currentCharacter] || event.choices) : event.choices;
+
+            // 每个choice自带outcomes数组
+            const choicesHtml = currentChoices && currentChoices.length > 0
+                ? currentChoices.map((c, idx) => {
+                    const choiceOutcomes = c.outcomes || [];
+                    return `
+                        <div class="choice-card">
+                            <div class="choice-header">
+                                <div class="choice-number">${idx + 1}</div>
+                                <div class="choice-text">${escapeHtml(c.text)}</div>
+                            </div>
+                            ${choiceOutcomes.length > 0
+                                ? `<div class="choice-outcomes">
+                                    ${choiceOutcomes.map(o => `
+                                        <span class="outcome-tag outcome-${o.type}">
+                                            <span class="outcome-icon">${getOutcomeIcon(o.type)}</span>
+                                            ${escapeHtml(o.desc) || o.type}${o.value ? ': ' + o.value : ''}
+                                        </span>
+                                    `).join('')}
+                                </div>`
+                                : '<div class="choice-outcomes" style="padding-left:3rem;color:var(--ink-ghost);font-size:0.85rem;">暂无结果数据</div>'}
+                        </div>
+                    `;
+                }).join('')
+                : '<div style="text-align:center;color:var(--ink-ghost);padding:2rem;">暂无选项数据</div>';
+
+            document.getElementById('eventContent').innerHTML = `
+                <div class="event-hero">
+                    ${heroHtml}
+                    <div class="event-hero-overlay">
+                        <div class="event-badges">
+                            <span class="badge badge-scene" style="background:${scene.color}">${scene.name}</span>
+                            <span class="badge badge-category badge-${event.category}">${cat.name}</span>
+                            ${charLabel ? `<span class="badge" style="background:var(--gold);color:white;">${charLabel}</span>` : ''}
+                            ${ancientLabel ? `<span class="badge" style="background:var(--jade);color:white;">${ancientLabel}</span>` : ''}
+                        </div>
+                        <h1 class="event-title">${safeName}</h1>
+                        <div class="event-meta">事件ID: ${event.id} · ${currentChoices ? currentChoices.length : 0} 个选项</div>
+                    </div>
+                </div>
+
+                ${characterSelector}
+
+                <div class="event-description">
+                    <h2>事件背景</h2>
+                    <p>${formatNewlines(currentDialog)}</p>
+                </div>
+
+                <div class="choices-section">
+                    <h2>抉择时刻</h2>
+                    ${choicesHtml}
+                </div>
+            `;
+
+            // 更新页面标题
+            document.title = `${safeName} — 斗破苍穹·斗帝之路`;
+            }
+        }
+
+        // 角色切换函数（守灵事件专用）
+        function switchCharacter(charId) {
+            // 更新按钮状态
+            document.querySelectorAll('.char-btn').forEach(btn => {
+                if (btn.dataset.char === charId) {
+                    btn.style.background = 'var(--gold)';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = 'var(--gold)';
+                    btn.classList.add('active');
+                } else {
+                    btn.style.background = 'var(--card-bg)';
+                    btn.style.color = 'var(--ink)';
+                    btn.style.borderColor = 'var(--parchment-d)';
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 重新获取事件数据
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = parseInt(urlParams.get('id'));
+            const event = EVENTS.find(e => e.id === eventId);
+
+            if (event && event.character_choices && event.character_choices[charId]) {
+                // 更新背景图（守灵事件使用角色特定背景）
+                const heroImg = document.querySelector('.event-hero-bg');
+                if (heroImg && event.bg_images && event.bg_images[charId]) {
+                    heroImg.src = escapeHtml(event.bg_images[charId]);
+                }
+
+                // 更新对话
+                const dialogEl = document.querySelector('.event-description p');
+                if (dialogEl && event.character_dialogs[charId]) {
+                    dialogEl.innerHTML = formatNewlines(event.character_dialogs[charId]);
+                }
+
+                // 更新选项
+                const choicesSection = document.querySelector('.choices-section');
+                if (choicesSection) {
+                    const choices = event.character_choices[charId];
+                    let choicesHtml = '';
+                    choices.forEach((c, idx) => {
+                        const choiceOutcomes = c.outcomes || [];
+                        choicesHtml += `
+                            <div class="choice-card">
+                                <div class="choice-header">
+                                    <div class="choice-number">${idx + 1}</div>
+                                    <div class="choice-text">${escapeHtml(c.text)}</div>
+                                </div>
+                                ${choiceOutcomes.length > 0
+                                    ? `<div class="choice-outcomes">
+                                        ${choiceOutcomes.map(o => `
+                                            <span class="outcome-tag outcome-${o.type}">
+                                                <span class="outcome-icon">${getOutcomeIcon(o.type)}</span>
+                                                ${escapeHtml(o.desc) || o.type}${o.value ? ': ' + o.value : ''}
+                                            </span>
+                                        `).join('')}
+                                    </div>`
+                                    : '<div class="choice-outcomes" style="padding-left:3rem;color:var(--ink-ghost);font-size:0.85rem;">暂无结果数据</div>'}
+                            </div>
+                        `;
+                    });
+                    choicesSection.innerHTML = '<h2>抉择时刻</h2>' + choicesHtml;
+                }
+
+                // 更新选项数量显示
+                const metaEl = document.querySelector('.event-meta');
+                if (metaEl) {
+                    const choices = event.character_choices[charId];
+                    metaEl.textContent = `事件ID: ${event.id} · ${choices.length} 个选项`;
+                }
+            }
+        }
+
+        function getOutcomeIcon(type) {
+            const icons = {
+                'GOLD': '💰',
+                'HEAL': '💚',
+                'DAMAGE': '⚔️',
+                'CARD': '🃏',
+                'RELIC': '💎',
+                'COMBAT': '⚔️',
+                'CURSE_CARD': '💀',
+                'UPGRADE_CARD': '⬆️',
+                'REMOVE_CARD': '🗑️',
+                'MAX_HP': '❤️',
+                'PERMA_STRENGTH': '💪',
+                'FLAG': '🚩',
+                'POTION': '🧪'
+            };
+            return icons[type] || '✨';
+        }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const lazyImages = document.querySelectorAll('img[data-src]');
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+              imageObserver.unobserve(img);
+            }
+          });
+        }, { rootMargin: '50px 0px' });
+        lazyImages.forEach(function(img) { imageObserver.observe(img); });
+      } else {
+        lazyImages.forEach(function(img) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        });
+      }
+    });
+    </script>
+    <noscript><style>img[data-src] { display: none; }</style></noscript>
+
+    <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+        });
+      });
+    }
+    </script>
+</body>
+</html>

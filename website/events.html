@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件图鉴 — 斗破苍穹·斗帝之路</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --parchment: #f4efe4;
+            --parchment-l: #faf7f0;
+            --parchment-d: #e8dfce;
+            --ink: #1e1a14;
+            --ink-soft: #3d3428;
+            --ink-muted: #7a6e5d;
+            --ink-ghost: #b5a892;
+            --gold: #b8963e;
+            --gold-light: #d4b45c;
+            --cinnabar: #c23a2b;
+            --jade: #4a7c59;
+            --nav-bg: rgba(244,239,228,0.95);
+            --card-bg: #faf7f0;
+            --shadow: rgba(30,26,20,0.08);
+            --shadow-lg: rgba(30,26,20,0.15);
+        }
+
+        [data-theme="dark"] {
+            --parchment: #1a1714;
+            --parchment-l: #22201b;
+            --parchment-d: #2a2722;
+            --ink: #f0e6d3;
+            --ink-soft: #d4c5a9;
+            --ink-muted: #a89880;
+            --ink-ghost: #7a6e5d;
+            --gold: #d4a843;
+            --gold-light: #e8c170;
+            --nav-bg: rgba(26,23,20,0.95);
+            --card-bg: #22201b;
+            --shadow: rgba(0,0,0,0.2);
+            --shadow-lg: rgba(0,0,0,0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* 纸纹背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b5a892' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] body::before {
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0e6d3' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--parchment-d);
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:not(.nav-cta):hover,
+        .nav-links a:not(.nav-cta).active {
+            color: var(--ink);
+        }
+
+        .nav-links a:not(.nav-cta).active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .nav-cta {
+            display: inline-flex !important;
+            align-items: center !important;
+            height: auto !important;
+            padding: 8px 24px !important;
+            background: var(--ink) !important;
+            color: var(--parchment) !important;
+            border-radius: 6px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            letter-spacing: 1.5px !important;
+            transition: background 0.25s, transform 0.2s !important;
+        }
+        .nav-cta:hover {
+            background: var(--ink-soft) !important;
+            transform: translateY(-1px);
+        }
+        .nav-cta.active {
+            background: var(--gold) !important;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--parchment-d);
+            color: var(--ink-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--parchment);
+                flex-direction: column;
+                padding: 80px 24px 24px;
+                transition: right 0.3s;
+                box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                height: auto;
+                padding: 12px 0;
+                font-size: 16px;
+            }
+
+            .filter-btn {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* 主内容 */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 96px 2rem 4rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-title h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: var(--ink-muted);
+            font-size: 0.95rem;
+        }
+
+        /* 筛选栏 */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            font-weight: 500;
+        }
+
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--parchment-d);
+            background: var(--card-bg);
+            color: var(--ink-muted);
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .filter-btn.active {
+            background: var(--gold);
+            color: var(--parchment);
+            border-color: var(--gold);
+        }
+
+        /* 事件网格 */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            border: 1px solid var(--parchment-d);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 8px 24px var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .event-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .event-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-scene {
+            background: var(--jade);
+            color: var(--parchment);
+        }
+
+        .badge-category {
+            color: var(--parchment);
+        }
+
+        .badge-PLOT { background: #3a6b8c; }
+        .badge-COMBAT { background: var(--cinnabar); }
+        .badge-REWARD { background: var(--gold); }
+        .badge-RISK { background: #d4763c; }
+        .badge-SPECIAL { background: #8b5cf6; }
+
+        .event-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        .event-desc {
+            color: var(--ink-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--ink-ghost);
+        }
+
+        .expand-hint {
+            font-size: 0.75rem;
+            color: var(--ink-ghost);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--ink-ghost);
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            main {
+                padding: 80px 1rem 2rem;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">斗破苍穹·斗帝之路</a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="cards.html">图鉴</a>
+            <a href="relics.html">遗物</a>
+            <a href="events.html" class="active">事件</a>
+            <button class="theme-toggle" id="themeToggle" title="切换主题">☽</button>
+            <a href="download.html" class="nav-cta">下载 Demo</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="菜单">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main>
+        <div class="page-title">
+            <h1>事件图鉴</h1>
+            <p>记录旅途中的每一个抉择与命运</p>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>场景：</label>
+                <button class="filter-btn active" data-filter="scene" data-value="all">全部</button>
+                <button class="filter-btn" data-filter="scene" data-value="1">加玛帝国</button>
+                <button class="filter-btn" data-filter="scene" data-value="2">黑角域</button>
+                <button class="filter-btn" data-filter="scene" data-value="3">迦南学院</button>
+                <button class="filter-btn" data-filter="scene" data-value="4">中州</button>
+            </div>
+            <div class="filter-group">
+                <label>类型：</label>
+                <button class="filter-btn active" data-filter="category" data-value="all">全部</button>
+                <button class="filter-btn" data-filter="category" data-value="PLOT">剧情</button>
+                <button class="filter-btn" data-filter="category" data-value="COMBAT">战斗</button>
+                <button class="filter-btn" data-filter="category" data-value="REWARD">奖励</button>
+                <button class="filter-btn" data-filter="category" data-value="RISK">风险</button>
+                <button class="filter-btn" data-filter="category" data-value="SPECIAL">特殊</button>
+            </div>
+        </div>
+
+        <div class="events-grid" id="eventsGrid"></div>
+    </main>
+
+    <script src="events-data.js"></script>
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀' : '☽';
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀' : '☽';
+        });
+
+        // 筛选状态
+        let activeScene = 'all';
+        let activeCategory = 'all';
+
+        // 渲染事件卡片
+        function renderEvents() {
+            const grid = document.getElementById('eventsGrid');
+            const filtered = EVENTS.filter(e => {
+                const sceneMatch = activeScene === 'all' || e.scene_id === parseInt(activeScene);
+                const catMatch = activeCategory === 'all' || e.category === activeCategory;
+                return sceneMatch && catMatch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="icon">📜</div>
+                        <p>未找到匹配的事件</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(event => {
+                const scene = SCENE_MAP[event.scene_id] || {name: '未知', color: '#888'};
+                const cat = CATEGORY_MAP[event.category] || {name: '未知', color: '#888'};
+                const charLabel = event.character ? ` · ${event.character === 'xiaoyan' ? '萧炎' : event.character === 'xuner' ? '薰儿' : '彩鳞'}专属` : '';
+                const ancientLabel = event.is_ancient ? ' · 守灵' : '';
+
+                return `
+                    <div class="event-card" data-id="${event.id}" onclick="window.location.href='event-detail.html?id=${encodeURIComponent(event.id)}'">
+                        <div class="event-header">
+                            <div class="event-badges">
+                                <span class="badge badge-scene" style="background:${scene.color}">${scene.name}</span>
+                                <span class="badge badge-category badge-${event.category}">${cat.name}</span>
+                            </div>
+                        </div>
+                        <div class="event-name">${event.name}</div>
+                        <div class="event-desc">${event.description || ''}</div>
+                        <div class="event-meta">
+                            <span>ID: ${event.id}${charLabel}${ancientLabel}</span>
+                            <span>${event.choices ? event.choices.length : 0} 个选项</span>
+                        </div>
+                        <div class="expand-hint">点击查看详情 →</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 筛选按钮事件
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const button = e.currentTarget;
+                const filterType = button.dataset.filter;
+                const value = button.dataset.value;
+
+                button.closest('.filter-group').querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                button.classList.add('active');
+
+                // 更新筛选状态
+                if (filterType === 'scene') {
+                    activeScene = value;
+                } else if (filterType === 'category') {
+                    activeCategory = value;
+                }
+
+                renderEvents();
+            });
+        });
+
+        // 初始渲染
+        renderEvents();
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const lazyImages = document.querySelectorAll('img[data-src]');
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+              imageObserver.unobserve(img);
+            }
+          });
+        }, { rootMargin: '50px 0px' });
+        lazyImages.forEach(function(img) { imageObserver.observe(img); });
+      } else {
+        lazyImages.forEach(function(img) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        });
+      }
+    });
+    </script>
+    <noscript><style>img[data-src] { display: none; }</style></noscript>
+
+    <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+        });
+      });
+    }
+    </script>
+</body>
+</html>

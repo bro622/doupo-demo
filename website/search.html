@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>搜索 — 斗破苍穹·斗帝之路</title>
+<meta name="description" content="搜索斗破苍穹·斗帝之路游戏内容，包括卡牌、遗物、事件、敌人。">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   ROOT & RESET
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --parchment: #f4efe4;
+  --parchment-l: #faf7f0;
+  --parchment-d: #e8dfce;
+  --ink: #1e1a14;
+  --ink-soft: #3d3428;
+  --ink-muted: #7a6e5d;
+  --ink-ghost: #b5a892;
+  --gold: #b8963e;
+  --gold-light: #d4b45c;
+  --gold-dim: rgba(184,150,62,0.12);
+  --cinnabar: #c23a2b;
+  --jade: #4a7c59;
+  --sapphire: #3a6b8c;
+  --serif: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --display: 'ZCOOL XiaoWei', 'Noto Serif SC', serif;
+  --nav-bg: rgba(244,239,228,0.88);
+  --nav-bg-solid: rgba(244,239,228,0.96);
+  --shadow-color: rgba(30,26,20,0.06);
+}
+[data-theme="dark"] {
+  --parchment: #1a1714;
+  --parchment-l: #222019;
+  --parchment-d: #2a2720;
+  --ink: #f0e6d3;
+  --ink-soft: #d4c5a9;
+  --ink-muted: #a89880;
+  --ink-ghost: #7a6e5d;
+  --gold-dim: rgba(184,150,62,0.18);
+  --nav-bg: rgba(26,23,20,0.88);
+  --nav-bg-solid: rgba(26,23,20,0.96);
+  --shadow-color: rgba(0,0,0,0.2);
+}
+[data-theme="dark"] body::before { opacity: 0.015; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+::selection { background: var(--gold-dim); color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(24px, 5vw, 64px);
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(184,150,62,0.15);
+  z-index: 1000;
+  transition: background 0.3s;
+}
+.nav-brand {
+  font-family: var(--display);
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: 3px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-brand::before {
+  content: '';
+  display: inline-block;
+  width: 32px; height: 32px;
+  background: url('assets/icon.png') center/cover no-repeat;
+  border-radius: 6px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 100%;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  position: relative;
+  transition: color 0.25s;
+}
+.nav-links a:not(.nav-cta):hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); }
+.nav-links a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-links a.active::after,
+.nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+.nav-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: auto !important;
+  padding: 8px 24px !important;
+  background: var(--ink) !important;
+  color: var(--parchment) !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  transition: background 0.25s, transform 0.2s !important;
+}
+.nav-cta:hover {
+  background: var(--ink-soft) !important;
+  transform: translateY(-1px);
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--parchment-d);
+  border-radius: 6px;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+
+/* ═══════════════════════════════════════════
+   SEARCH
+   ═══════════════════════════════════════════ */
+.search-section {
+  max-width: 800px;
+  margin: 100px auto 40px;
+  padding: 0 24px;
+}
+.search-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.search-header h1 {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 6px;
+}
+.search-header .search-en {
+  font-size: 11px;
+  color: var(--ink-ghost);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.search-header .search-line {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin: 20px auto 0;
+}
+.search-box {
+  position: relative;
+  margin-bottom: 16px;
+}
+.search-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-family: var(--sans);
+  border: 2px solid var(--parchment-d);
+  border-radius: 12px;
+  background: var(--parchment-l);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-dim);
+}
+.search-input::placeholder {
+  color: var(--ink-ghost);
+}
+.search-hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-ghost);
+  margin-bottom: 24px;
+}
+.search-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: var(--sans);
+  border: 1px solid var(--parchment-d);
+  border-radius: 4px;
+  background: var(--parchment-l);
+  color: var(--ink-muted);
+}
+
+/* Results */
+.results {
+  margin-top: 24px;
+}
+.results-count {
+  font-size: 13px;
+  color: var(--ink-ghost);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--parchment-l);
+  border: 1px solid var(--parchment-d);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--ink);
+}
+.result-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 12px rgba(30,26,20,0.08);
+  transform: translateY(-2px);
+}
+.result-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.result-icon.card { background: rgba(184,150,62,0.1); }
+.result-icon.relic { background: rgba(58,107,140,0.1); }
+.result-icon.event { background: rgba(74,124,57,0.1); }
+.result-icon.enemy { background: rgba(194,58,43,0.1); }
+.result-content {
+  flex: 1;
+  min-width: 0;
+}
+.result-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.result-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.result-type {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.result-type.card { background: rgba(184,150,62,0.1); color: var(--gold); }
+.result-type.relic { background: rgba(58,107,140,0.1); color: var(--sapphire); }
+.result-type.event { background: rgba(74,124,57,0.1); color: var(--jade); }
+.result-type.enemy { background: rgba(194,58,43,0.1); color: var(--cinnabar); }
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-ghost);
+}
+.no-results .icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--parchment-d);
+  background: var(--parchment-l);
+  margin-top: 40px;
+}
+footer p {
+  font-size: 13px;
+  color: var(--ink-ghost);
+  letter-spacing: 1px;
+}
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .nav-links { gap: 20px; }
+  .nav-links a:not(.nav-cta) { font-size: 13px; letter-spacing: 0.5px; }
+}
+@media (max-width: 640px) {
+  .nav-links { gap: 16px; }
+  .nav-links a:not(.nav-cta) { font-size: 13px; }
+  .hamburger { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--parchment);
+    flex-direction: column;
+    padding: 80px 24px 24px;
+    transition: right 0.3s;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  }
+  .nav-links.active { right: 0; }
+  .nav-links a { height: auto; padding: 12px 0; font-size: 16px; }
+  .search-section { margin-top: 80px; }
+  .result-item { flex-direction: column; align-items: flex-start; }
+  .result-type { align-self: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-brand">斗破苍穹</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="cards.html">图鉴</a>
+    <a href="relics.html">遗物</a>
+    <a href="events.html">事件</a>
+    <a href="enemies.html">敌人</a>
+    <a href="download.html" class="nav-cta">下载 Demo</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="切换暗色模式">☽</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="菜单">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="search-section">
+  <div class="search-header">
+    <h1>搜索</h1>
+    <div class="search-en">Search</div>
+    <div class="search-line"></div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="搜索卡牌、遗物、事件、敌人..." autofocus>
+  </div>
+  <div class="search-hint">
+    按 <kbd>/</kbd> 聚焦搜索框 · 输入至少 2 个字符开始搜索
+  </div>
+
+  <div class="results" id="results"></div>
+</div>
+
+<footer>
+  <p>斗破苍穹·斗帝之路 — 基于《斗破苍穹》的同人卡牌 Roguelike 游戏</p>
+  <p style="margin-top: 8px;">Made with ❤️ and <a href="https://godotengine.org" target="_blank">Godot Engine</a></p>
+</footer>
+
+<script src="cards-data.js"></script>
+<script src="relics-data.js"></script>
+<script src="events-data.js"></script>
+<script src="enemies-data.js"></script>
+<script>
+// Theme
+const toggle = document.getElementById('theme-toggle');
+const stored = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const initial = stored || (prefersDark ? 'dark' : 'light');
+document.documentElement.setAttribute('data-theme', initial);
+toggle.textContent = initial === 'dark' ? '☀' : '☽';
+toggle.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  toggle.textContent = next === 'dark' ? '☀' : '☽';
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+  navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+}
+
+// Keyboard shortcut
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+});
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const resultsDiv = document.getElementById('results');
+const TYPE_LABELS = { ATTACK: '攻击', SKILL: '技能', ABILITY: '能力', CURSE: '诅咒', STATUS: '状态' };
+const RARITY_LABELS = { COMMON: '普通', RARE: '稀有', EPIC: '史诗', LEGENDARY: '传说' };
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function search(query) {
+  if (query.length < 2) {
+    resultsDiv.innerHTML = '';
+    return;
+  }
+  const q = query.toLowerCase();
+  const results = [];
+
+  // Search cards
+  if (typeof CARDS !== 'undefined') {
+    CARDS.forEach(card => {
+      if (card.name.toLowerCase().includes(q) || (card.desc && card.desc.toLowerCase().includes(q))) {
+        results.push({
+          type: 'card',
+          title: card.name,
+          desc: `${RARITY_LABELS[card.rarity] || ''} ${TYPE_LABELS[card.type] || ''} · ${card.cost}费`,
+          url: `cards.html`,
+          icon: '🃏'
+        });
+      }
+    });
+  }
+
+  // Search relics
+  if (typeof RELICS !== 'undefined') {
+    RELICS.forEach(relic => {
+      if (relic.name.toLowerCase().includes(q) || (relic.desc && relic.desc.toLowerCase().includes(q))) {
+        results.push({
+          type: 'relic',
+          title: relic.name,
+          desc: `${RARITY_LABELS[relic.rarity] || ''} · ${relic.desc || ''}`.substring(0, 80),
+          url: `relics.html`,
+          icon: '💎'
+        });
+      }
+    });
+  }
+
+  // Search events
+  if (typeof EVENTS !== 'undefined') {
+    EVENTS.forEach(event => {
+      if (event.name.toLowerCase().includes(q) || (event.description && event.description.toLowerCase().includes(q))) {
+        results.push({
+          type: 'event',
+          title: event.name,
+          desc: (event.description || '').substring(0, 80),
+          url: `event-detail.html?id=${event.id}`,
+          icon: '📖'
+        });
+      }
+    });
+  }
+
+  // Search enemies
+  if (typeof ENEMIES !== 'undefined') {
+    ENEMIES.forEach(enemy => {
+      if (enemy.name.toLowerCase().includes(q)) {
+        results.push({
+          type: 'enemy',
+          title: enemy.name,
+          desc: `HP: ${enemy.hp} · ${enemy.type === 'boss' ? 'Boss' : enemy.type === 'elite' ? '精英' : '普通'}`,
+          url: `enemies.html`,
+          icon: '⚔️'
+        });
+      }
+    });
+  }
+
+  // Render results
+  if (results.length === 0) {
+    resultsDiv.innerHTML = `
+      <div class="no-results">
+        <div class="icon">🔍</div>
+        <p>未找到 "${escapeHtml(query)}" 相关内容</p>
+      </div>
+    `;
+    return;
+  }
+
+  resultsDiv.innerHTML = `
+    <div class="results-count">找到 ${results.length} 个结果</div>
+    ${results.slice(0, 50).map(r => `
+      <a href="${r.url}" class="result-item">
+        <div class="result-icon ${r.type}">${r.icon}</div>
+        <div class="result-content">
+          <div class="result-title">${escapeHtml(r.title)}</div>
+          <div class="result-desc">${escapeHtml(r.desc)}</div>
+        </div>
+        <span class="result-type ${r.type}">${r.type === 'card' ? '卡牌' : r.type === 'relic' ? '遗物' : r.type === 'event' ? '事件' : '敌人'}</span>
+      </a>
+    `).join('')}
+  `;
+}
+
+searchInput.addEventListener('input', e => search(e.target.value));
+</script>
+</body>
+</html>

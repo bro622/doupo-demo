@@ -1,0 +1,931 @@
+[
+  {
+    "id": "cailin_strike",
+    "name": "基础攻击",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "造成 6 点伤害。",
+    "damage": 6,
+    "character_id": "cailin",
+    "upgraded_damage": 9,
+    "upgraded_description": "造成 9 点伤害。",
+    "image_path": "res://assets/cards/cailin/基础打击.png"
+  },
+  {
+    "id": "cailin_defense",
+    "name": "基础防御",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "获得 5 点护盾。",
+    "block": 5,
+    "character_id": "cailin",
+    "upgraded_block": 8,
+    "upgraded_description": "获得 8 点护盾。",
+    "image_path": "res://assets/cards/cailin/基础防御.png"
+  },
+  {
+    "id": "cailin_venom_fang",
+    "name": "毒牙",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "造成 4 点伤害。给予 2 层蛇毒。",
+    "damage": 4,
+    "venom_apply": 2,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 5,
+    "upgraded_venom_apply": 3,
+    "upgraded_description": "造成 5 点伤害。给予 3 层蛇毒。",
+    "image_path": "res://assets/cards/cailin/毒牙.png"
+  },
+  {
+    "id": "queen_pressure",
+    "name": "女王威压",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "获得 4 点护盾。进入女王姿态。",
+    "block": 4,
+    "enter_stance": "queen",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_block": 7,
+    "upgraded_description": "获得 7 点护盾。进入女王姿态。",
+    "image_path": "res://assets/cards/cailin/女王威压.png"
+  },
+  {
+    "id": "spirit_snake_hiss",
+    "name": "灵蛇吐信",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "造成 3 点伤害。给予 1 层蛇毒。",
+    "damage": 3,
+    "venom_apply": 1,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 5,
+    "upgraded_venom_apply": 2,
+    "upgraded_description": "造成 5 点伤害。给予 2 层蛇毒。",
+    "image_path": "res://assets/cards/cailin/灵蛇吐信.png"
+  },
+  {
+    "id": "tail_sweep",
+    "name": "蛇尾横扫",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "对所有敌人造成 5 点伤害。",
+    "damage": 5,
+    "aoe": true,
+    "character_id": "cailin",
+    "upgraded_damage": 8,
+    "upgraded_description": "对所有敌人造成 8 点伤害。",
+    "image_path": "res://assets/cards/cailin/蛇尾横扫.png"
+  },
+  {
+    "id": "shadow_claw",
+    "name": "暗影爪击",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "造成6伤害。目标有蛇毒时+3。",
+    "damage": 6,
+    "bonus_damage_if_venom": 3,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 9,
+    "upgraded_bonus_damage_if_venom": 5,
+    "upgraded_description": "造成9伤害。目标有蛇毒时+5。",
+    "image_path": "res://assets/cards/cailin/暗影爪击.png",
+    "detail": "造成 6 点伤害。如果目标有蛇毒，额外造成 3 点伤害。",
+    "upgraded_detail": "造成 9 点伤害。如果目标有蛇毒，额外造成 5 点伤害。"
+  },
+  {
+    "id": "venom_fang_combo",
+    "name": "毒牙连击",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "造成3伤害2次。每次+1蛇毒。",
+    "damage": 3,
+    "hit_count": 2,
+    "venom_apply": 1,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 4,
+    "upgraded_description": "造成4伤害2次。每次+1蛇毒。",
+    "image_path": "res://assets/cards/cailin/毒牙连击.png",
+    "detail": "造成 3 点伤害 2 次。每次给予 1 层蛇毒。",
+    "upgraded_detail": "造成 4 点伤害 2 次。每次给予 1 层蛇毒。"
+  },
+  {
+    "id": "python_sweep",
+    "name": "狂蟒扫尾",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "AOE 7伤害。进入吞天蟒姿态。",
+    "damage": 7,
+    "aoe": true,
+    "enter_stance": "python",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 10,
+    "upgraded_description": "AOE 10伤害。进入吞天蟒姿态。",
+    "image_path": "res://assets/cards/cailin/狂蟒扫尾.png",
+    "detail": "对所有敌人造成 7 点伤害。进入吞天蟒姿态。",
+    "upgraded_detail": "对所有敌人造成 10 点伤害。进入吞天蟒姿态。"
+  },
+  {
+    "id": "python_constrict",
+    "name": "蟒蛇绞杀",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "造成8伤害。蛇毒≥5时+6。",
+    "damage": 8,
+    "bonus_damage_if_venom_5": 6,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 12,
+    "upgraded_bonus_damage_if_venom_5": 9,
+    "upgraded_description": "造成12伤害。蛇毒≥5时+9。",
+    "image_path": "res://assets/cards/cailin/蟒蛇绞杀.png",
+    "detail": "造成 8 点伤害。如果目标至少 5 层蛇毒，额外造成 6 点伤害。",
+    "upgraded_detail": "造成 12 点伤害。如果目标至少 5 层蛇毒，额外造成 9 点伤害。"
+  },
+  {
+    "id": "shadow_strike",
+    "name": "暗影突袭",
+    "type": "ATTACK",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "造成3伤害。连击：+1蛇毒。",
+    "damage": 3,
+    "combo_threshold": 3,
+    "combo_bonus_venom": 1,
+    "tags": [
+      "连击",
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 5,
+    "upgraded_description": "造成5伤害。连击：+1蛇毒。",
+    "image_path": "res://assets/cards/cailin/暗影突袭.png",
+    "detail": "造成 3 点伤害。连击：给予 1 层蛇毒。",
+    "upgraded_detail": "造成 5 点伤害。连击：给予 1 层蛇毒。"
+  },
+  {
+    "id": "venom_blood_burst",
+    "name": "毒血爆发",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "造成蛇毒层数×2伤害(最多20)。",
+    "damage": 0,
+    "bonus_damage_per_venom": 2,
+    "max_bonus_damage": 20,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_bonus_damage_per_venom": 3,
+    "upgraded_max_bonus_damage": 28,
+    "upgraded_description": "造成蛇毒层数×3伤害(最多28)。",
+    "image_path": "res://assets/cards/cailin/毒血爆发.png",
+    "detail": "造成等同于目标蛇毒层数 × 2 的伤害（最多 20 点）。",
+    "upgraded_detail": "造成等同于目标蛇毒层数 × 3 的伤害（最多 28 点）。"
+  },
+  {
+    "id": "fatal_constrict",
+    "name": "致命绞杀",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成12伤害。吞天蟒姿态下-1费。",
+    "damage": 12,
+    "python_cost_reduction": 1,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 16,
+    "upgraded_description": "造成16伤害。吞天蟒姿态下-1费。",
+    "image_path": "res://assets/cards/cailin/致命绞杀.png",
+    "detail": "造成 12 点伤害。如果处于吞天蟒姿态，此牌耗能变为 1。",
+    "upgraded_detail": "造成 16 点伤害。如果处于吞天蟒姿态，此牌耗能变为 1。"
+  },
+  {
+    "id": "snake_scale_shot",
+    "name": "蛇鳞飞射",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "造成4伤害2次。女王姿态+1蛇毒。",
+    "damage": 4,
+    "hit_count": 2,
+    "queen_bonus_venom": 1,
+    "tags": [
+      "姿态",
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 5,
+    "upgraded_description": "造成6伤害2次。女王姿态+2蛇毒。",
+    "image_path": "res://assets/cards/cailin/蛇鳞飞射.png",
+    "detail": "造成 4 点伤害 2 次。如果处于女王姿态，每次额外给予 1 层蛇毒。",
+    "upgraded_detail": "造成 5 点伤害 2 次。如果处于女王姿态，每次额外给予 1 层蛇毒。"
+  },
+  {
+    "id": "shadow_devour",
+    "name": "暗影吞噬",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成14伤害。回复目标蛇毒层数HP。",
+    "damage": 14,
+    "heal_per_venom": 1,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 18,
+    "upgraded_description": "造成18伤害。回复目标蛇毒层数HP。",
+    "image_path": "res://assets/cards/cailin/暗影吞噬.png",
+    "detail": "造成 14 点伤害。回复等同于目标身上蛇毒层数的生命值。",
+    "upgraded_detail": "造成 18 点伤害。回复等同于目标身上蛇毒层数的生命值。"
+  },
+  {
+    "id": "snake_emperor_combo",
+    "name": "蛇皇连击",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成5伤害3次。进入吞天蟒姿态。",
+    "damage": 5,
+    "hit_count": 3,
+    "enter_stance": "python",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 6,
+    "upgraded_description": "造成6伤害3次。进入吞天蟒姿态。",
+    "image_path": "res://assets/cards/cailin/蛇皇连击.png",
+    "detail": "造成 5 点伤害 3 次。进入吞天蟒姿态。",
+    "upgraded_detail": "造成 6 点伤害 3 次。进入吞天蟒姿态。"
+  },
+  {
+    "id": "python_venom_toxic",
+    "name": "蟒毒剧毒",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成8伤害。+6蛇毒。",
+    "damage": 8,
+    "venom_apply": 6,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 12,
+    "upgraded_venom_apply": 8,
+    "upgraded_description": "造成12伤害。+8蛇毒。",
+    "image_path": "res://assets/cards/cailin/蟒毒剧毒.png",
+    "detail": "造成 8 点伤害。给予 6 层蛇毒。",
+    "upgraded_detail": "造成 12 点伤害。给予 8 层蛇毒。"
+  },
+  {
+    "id": "python_venom_corrode",
+    "name": "蟒毒腐蚀",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成10伤害。护盾先减半。+3蛇毒。",
+    "damage": 10,
+    "halve_block": true,
+    "venom_apply": 3,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 14,
+    "upgraded_description": "造成14伤害。护盾先减半。+4蛇毒。",
+    "image_path": "res://assets/cards/cailin/蟒毒腐蚀.png",
+    "detail": "造成 10 点伤害。先将目标护盾减半，再计算伤害。给予 3 层蛇毒。",
+    "upgraded_detail": "造成 14 点伤害。先将目标护盾减半，再计算伤害。给予 3 层蛇毒。"
+  },
+  {
+    "id": "devour_alive",
+    "name": "生吞活剥",
+    "type": "ATTACK",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "造成10伤害。击杀+3最大HP。消耗。",
+    "damage": 10,
+    "devour": true,
+    "devour_max_hp_bonus": 3,
+    "exhaust": true,
+    "tags": [
+      "吞噬"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 14,
+    "upgraded_devour_max_hp_bonus": 4,
+    "upgraded_description": "造成14伤害。击杀+4最大HP。消耗。",
+    "image_path": "res://assets/cards/cailin/生吞活剥.png",
+    "detail": "造成 10 点伤害。吞噬：如果击杀敌人，最大生命值永久 +3。消耗。",
+    "upgraded_detail": "造成 14 点伤害。吞噬：如果击杀敌人，最大生命值永久 +4。消耗。"
+  },
+  {
+    "id": "rainbow_devour_sky",
+    "name": "七彩吞天",
+    "type": "ATTACK",
+    "rarity": "LEGENDARY",
+    "cost": 3,
+    "description": "造成24伤害。蛇毒≥8时双倍。",
+    "damage": 24,
+    "venom_threshold_double": 8,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 32,
+    "upgraded_venom_threshold_double": 6,
+    "upgraded_description": "造成32伤害。蛇毒≥6时双倍。",
+    "image_path": "res://assets/cards/cailin/七彩吞天.png",
+    "detail": "造成 24 点伤害。如果目标蛇毒至少 8 层，此牌造成双倍伤害。",
+    "upgraded_detail": "造成 32 点伤害。如果目标蛇毒至少 6 层，此牌造成双倍伤害。"
+  },
+  {
+    "id": "medusa_wrath",
+    "name": "美杜莎之怒",
+    "type": "ATTACK",
+    "rarity": "LEGENDARY",
+    "cost": 2,
+    "description": "造成8伤害3次。随机进入一种姿态。",
+    "damage": 8,
+    "hit_count": 3,
+    "random_stance_on_hit": true,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 10,
+    "upgraded_description": "造成10伤害3次。随机进入一种姿态。",
+    "image_path": "res://assets/cards/cailin/美杜莎之怒.png",
+    "detail": "造成 8 点伤害 3 次。打出时随机进入一种姿态。",
+    "upgraded_detail": "造成 10 点伤害 3 次。打出时随机进入一种姿态。"
+  },
+  {
+    "id": "snake_emperor_kill",
+    "name": "蛇皇灭杀",
+    "type": "ATTACK",
+    "rarity": "LEGENDARY",
+    "cost": 3,
+    "description": "造成20伤害。消耗所有蛇毒，每层+2。消耗。",
+    "damage": 20,
+    "consume_venom": true,
+    "damage_per_consume_venom": 2,
+    "exhaust": true,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage": 26,
+    "upgraded_description": "造成26伤害。消耗所有蛇毒，每层+2。消耗。",
+    "image_path": "res://assets/cards/cailin/蛇皇灭杀.png",
+    "detail": "造成 20 点伤害。消耗目标身上所有蛇毒，每层造成 2 点额外伤害。消耗。",
+    "upgraded_detail": "造成 26 点伤害。消耗目标身上所有蛇毒，每层造成 2 点额外伤害。消耗。"
+  },
+  {
+    "id": "purple_venom_fog",
+    "name": "幽紫毒雾",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "所有敌人+4蛇毒。",
+    "venom_apply_all": 4,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_venom_apply_all": 6,
+    "upgraded_description": "所有敌人+6蛇毒。",
+    "image_path": "res://assets/cards/cailin/幽紫毒雾.png",
+    "detail": "给予所有敌人 4 层蛇毒。",
+    "upgraded_detail": "给予所有敌人 6 层蛇毒。"
+  },
+  {
+    "id": "shed_skin",
+    "name": "蜕皮",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "获得5护盾。移除1个负面状态。",
+    "block": 5,
+    "cleanse_count": 1,
+    "character_id": "cailin",
+    "upgraded_block": 8,
+    "upgraded_description": "获得7护盾。移除2个负面状态。",
+    "image_path": "res://assets/cards/cailin/蜕皮.png",
+    "detail": "获得 5 点护盾。移除自身 1 个负面状态。",
+    "upgraded_detail": "获得 8 点护盾。移除自身 1 个负面状态。"
+  },
+  {
+    "id": "python_venom_breath",
+    "name": "蟒毒之息",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "+2蛇毒。",
+    "venom_apply": 2,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_venom_apply": 3,
+    "upgraded_description": "+3蛇毒。",
+    "image_path": "res://assets/cards/cailin/蟒毒之息.png",
+    "detail": "给予 1 名敌人 2 层蛇毒。",
+    "upgraded_detail": "给予 1 名敌人 3 层蛇毒。"
+  },
+  {
+    "id": "snake_shadow_step",
+    "name": "蛇影步",
+    "type": "SKILL",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "获得5护盾。进入女王姿态。",
+    "block": 5,
+    "enter_stance": "queen",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_block": 7,
+    "upgraded_description": "获得7护盾。进入女王姿态。",
+    "image_path": "res://assets/cards/cailin/蛇影步.png",
+    "detail": "获得 5 点护盾。进入女王姿态。",
+    "upgraded_detail": "获得 7 点护盾。进入女王姿态。"
+  },
+  {
+    "id": "shadow_lurk",
+    "name": "暗影潜行",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "离开姿态。抽2牌。",
+    "leave_stance": true,
+    "draw_cards": 2,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_draw_cards": 3,
+    "upgraded_description": "离开姿态。抽3牌。",
+    "image_path": "res://assets/cards/cailin/暗影潜行.png",
+    "detail": "离开当前姿态（回到无姿态）。抽 2 张牌。",
+    "upgraded_detail": "离开当前姿态（回到无姿态）。抽 3 张牌。"
+  },
+  {
+    "id": "snake_emperor_step",
+    "name": "蛇皇步",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "获得7护盾。女王姿态保留最多2张牌。",
+    "block": 7,
+    "queen_retain_cards": 2,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_block": 10,
+    "upgraded_description": "获得10护盾。女王姿态保留最多2张牌。",
+    "image_path": "res://assets/cards/cailin/蛇皇步.png",
+    "detail": "获得 7 点护盾。如果你处于女王姿态，选择手牌中最多 2 张牌保留到下回合。",
+    "upgraded_detail": "获得 10 点护盾。如果你处于女王姿态，选择手牌中最多 2 张牌保留到下回合。"
+  },
+  {
+    "id": "venom_catalyst",
+    "name": "毒素催化",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "使敌人蛇毒层数翻倍。",
+    "double_venom": true,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_cost": 1,
+    "upgraded_description": "使敌人蛇毒层数翻倍。",
+    "image_path": "res://assets/cards/cailin/毒素催化.png",
+    "detail": "使一名敌人身上的蛇毒层数翻倍。",
+    "upgraded_detail": "使一名敌人身上的蛇毒层数翻倍。"
+  },
+  {
+    "id": "python_venom_armor",
+    "name": "蟒毒护甲",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "获得6护盾。受击时给攻击者+2蛇毒。",
+    "block": 6,
+    "venom_thorns": 2,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_block": 9,
+    "upgraded_description": "获得9护盾。受击时给攻击者+3蛇毒。",
+    "image_path": "res://assets/cards/cailin/蟒毒护甲.png",
+    "detail": "获得 6 点护盾。本回合内，每当敌人攻击你，给予其 2 层蛇毒。",
+    "upgraded_detail": "获得 9 点护盾。本回合内，每当敌人攻击你，给予其 2 层蛇毒。"
+  },
+  {
+    "id": "snake_soul_burst",
+    "name": "蛇魂爆发",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "抽2牌。吞天蟒姿态获得最高蛇毒护盾。",
+    "draw_cards": 2,
+    "python_block_max_venom": true,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_draw_cards": 3,
+    "upgraded_description": "抽3牌。吞天蟒姿态获得最高蛇毒护盾。",
+    "image_path": "res://assets/cards/cailin/蛇魂爆发.png",
+    "detail": "抽 2 张牌。如果你处于吞天蟒姿态，获得等同于场上最高蛇毒层数的护盾。",
+    "upgraded_detail": "抽 3 张牌。如果你处于吞天蟒姿态，获得等同于场上最高蛇毒层数的护盾。"
+  },
+  {
+    "id": "shadow_bind",
+    "name": "阴影缠绕",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "给予2层虚弱与1层脆弱。+3蛇毒。",
+    "apply_weak": 2,
+    "apply_frail": 1,
+    "venom_apply": 3,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_venom_apply": 5,
+    "upgraded_description": "给予2层虚弱与1层脆弱。+5蛇毒。",
+    "image_path": "res://assets/cards/cailin/阴影缠绕.png",
+    "detail": "给予 1 名敌人 2 层虚弱与 1 层脆弱。给予 3 层蛇毒。",
+    "upgraded_detail": "给予 1 名敌人 2 层虚弱与 1 层脆弱。给予 5 层蛇毒。"
+  },
+  {
+    "id": "python_venom_domain",
+    "name": "蟒毒领域",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "所有敌人+8蛇毒。进入女王姿态。",
+    "venom_apply_all": 8,
+    "enter_stance": "queen",
+    "tags": [
+      "蛇毒",
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_venom_apply_all": 12,
+    "upgraded_description": "所有敌人+12蛇毒。进入女王姿态。",
+    "image_path": "res://assets/cards/cailin/蟒毒领域.png",
+    "detail": "给予所有敌人 8 层蛇毒。进入女王姿态。",
+    "upgraded_detail": "给予所有敌人 12 层蛇毒。进入女王姿态。"
+  },
+  {
+    "id": "snake_emperor_rage",
+    "name": "蛇皇之怒",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "+1力量。所有敌人+2蛇毒。进入吞天蟒。",
+    "gain_strength": 1,
+    "venom_apply_all": 2,
+    "enter_stance": "python",
+    "tags": [
+      "蛇毒",
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_venom_apply_all": 3,
+    "upgraded_description": "+2力量。所有敌人+3蛇毒。进入吞天蟒。",
+    "image_path": "res://assets/cards/cailin/蛇皇之怒.png",
+    "detail": "获得 1 层力量。给予所有敌人 2 层蛇毒。进入吞天蟒姿态。",
+    "upgraded_detail": "获得 1 层力量。给予所有敌人 3 层蛇毒。进入吞天蟒姿态。"
+  },
+  {
+    "id": "python_venom_explode",
+    "name": "蟒毒爆裂",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "消耗敌人所有蛇毒，每层2伤害。",
+    "consume_venom": true,
+    "damage_per_consume_venom": 2,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_damage_per_consume_venom": 3,
+    "upgraded_description": "消耗敌人所有蛇毒，每层3伤害。",
+    "image_path": "res://assets/cards/cailin/蟒毒爆裂.png",
+    "detail": "消耗一名敌人身上所有蛇毒层数，每层造成 2 点伤害。",
+    "upgraded_detail": "消耗一名敌人身上所有蛇毒层数，每层造成 3 点伤害。"
+  },
+  {
+    "id": "snake_rebirth",
+    "name": "蛇蜕重生",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "消耗。回复10HP。移除所有负面状态。",
+    "heal": 10,
+    "exhaust": true,
+    "clear_debuffs_on_play": true,
+    "character_id": "cailin",
+    "upgraded_heal": 14,
+    "upgraded_description": "消耗。回复14HP。移除所有负面状态。",
+    "image_path": "res://assets/cards/cailin/蛇蜕重生.png",
+    "detail": "消耗。回复 10 点生命值。移除所有负面状态。",
+    "upgraded_detail": "消耗。回复 14 点生命值。移除所有负面状态。"
+  },
+  {
+    "id": "medusa_shield",
+    "name": "美杜莎之盾",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "获得15护盾。女王姿态受击+3蛇毒。",
+    "block": 15,
+    "queen_venom_thorns": 3,
+    "tags": [
+      "姿态",
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_block": 20,
+    "upgraded_description": "获得20护盾。女王姿态受击+4蛇毒。",
+    "image_path": "res://assets/cards/cailin/美杜莎之盾.png",
+    "detail": "获得 15 点护盾。如果你处于女王姿态，给予攻击你的敌人 3 层蛇毒。",
+    "upgraded_detail": "获得 20 点护盾。如果你处于女王姿态，给予攻击你的敌人 3 层蛇毒。"
+  },
+  {
+    "id": "medusa_gaze",
+    "name": "美杜莎之凝望",
+    "type": "SKILL",
+    "rarity": "LEGENDARY",
+    "cost": 2,
+    "description": "所有敌人+1虚弱+1破甲。女王石化1敌人。消耗。",
+    "apply_weak_all": 1,
+    "apply_armor_break_all": 1,
+    "queen_petrify": true,
+    "exhaust": true,
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_apply_weak_all": 2,
+    "upgraded_description": "所有敌人+2虚弱+2破甲。女王石化1敌人。消耗。",
+    "image_path": "res://assets/cards/cailin/美杜莎之凝望.png",
+    "detail": "给予所有敌人 1 层虚弱与 1 层破甲。如果处于女王姿态，给予随机一名敌人石化。消耗。",
+    "upgraded_detail": "给予所有敌人 2 层虚弱与 1 层破甲。如果处于女王姿态，给予随机一名敌人石化。消耗。"
+  },
+  {
+    "id": "nine_color_protection",
+    "name": "九彩庇护",
+    "type": "SKILL",
+    "rarity": "LEGENDARY",
+    "cost": 2,
+    "description": "获得15护盾。下一次伤害归零。",
+    "block": 15,
+    "next_damage_zero": true,
+    "character_id": "cailin",
+    "upgraded_block": 20,
+    "upgraded_description": "获得20护盾。下一次伤害归零。",
+    "image_path": "res://assets/cards/cailin/九彩庇护.png",
+    "detail": "获得 15 点护盾。下一次你受到的生命值伤害降为 0。",
+    "upgraded_detail": "获得 20 点护盾。下一次你受到的生命值伤害降为 0。"
+  },
+  {
+    "id": "snake_soul_reincarnation",
+    "name": "蛇魂轮回",
+    "type": "SKILL",
+    "rarity": "LEGENDARY",
+    "cost": 3,
+    "description": "消耗。消耗所有蛇毒，每层1HP+1护盾。",
+    "exhaust": true,
+    "consume_all_venom_heal": 1,
+    "consume_all_venom_block": 1,
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_consume_all_venom_block": 2,
+    "upgraded_description": "消耗。消耗所有蛇毒，每层1HP+1护盾。",
+    "image_path": "res://assets/cards/cailin/蛇魂轮回.png",
+    "detail": "消耗。消耗场上所有敌人的蛇毒，每层恢复 1 点生命值并获得 1 点护盾。",
+    "upgraded_detail": "消耗。消耗场上所有敌人的蛇毒，每层恢复 1 点生命值并获得 2 点护盾。"
+  },
+  {
+    "id": "venom_body",
+    "name": "毒蛇体质",
+    "type": "ABILITY",
+    "rarity": "COMMON",
+    "cost": 1,
+    "description": "受击时给攻击者+2蛇毒。",
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "受击时给攻击者+3蛇毒。",
+    "image_path": "res://assets/cards/cailin/毒蛇体质.png",
+    "detail": "每当你受到攻击伤害时，给予攻击者 2 层蛇毒。",
+    "upgraded_detail": "每当你受到攻击伤害时，给予攻击者 3 层蛇毒。"
+  },
+  {
+    "id": "cold_blood_killer",
+    "name": "冷血杀手",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "进入吞天蟒时+1力量(本回合)。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "进入吞天蟒时+2力量(本回合)。",
+    "image_path": "res://assets/cards/cailin/冷血杀手.png",
+    "detail": "每当你进入吞天蟒姿态时，获得 1 点力量，持续到回合结束。",
+    "upgraded_detail": "每当你进入吞天蟒姿态时，获得 2 点力量，持续到回合结束。"
+  },
+  {
+    "id": "snake_soul_resonance",
+    "name": "蛇魂共鸣",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "每当你切换姿态时，获得 3 点护盾。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "每当你切换姿态时，获得 4 点护盾。",
+    "image_path": "res://assets/cards/cailin/蛇魂共鸣.png"
+  },
+  {
+    "id": "python_venom_spread",
+    "name": "蟒毒蔓延",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "你每次施加蛇毒时，额外施加 1 层。",
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "你每次施加蛇毒时，额外施加 2 层。",
+    "image_path": "res://assets/cards/cailin/蟒毒蔓延.png"
+  },
+  {
+    "id": "stance_mastery",
+    "name": "姿态精通",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 1,
+    "description": "切换姿态后-1费。首次切换+1能量。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_innate": true,
+    "upgraded_description": "切换姿态后-1费。首次切换+1能量。",
+    "image_path": "res://assets/cards/cailin/姿态精通.png",
+    "detail": "切换姿态后，你打出的下一张牌耗能 -1。每回合首次切换姿态额外获得 1 点能量。",
+    "upgraded_detail": "固有。切换姿态后，你打出的下一张牌耗能 -1。每回合首次切换姿态额外获得 1 点能量。"
+  },
+  {
+    "id": "python_venom_body",
+    "name": "蟒毒体质",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "回合开始时，给予所有敌人 2 层蛇毒。",
+    "tags": [
+      "蛇毒"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "回合开始时，给予所有敌人 3 层蛇毒。",
+    "image_path": "res://assets/cards/cailin/蟒毒体质.png"
+  },
+  {
+    "id": "queen_posture",
+    "name": "女王之姿",
+    "type": "ABILITY",
+    "rarity": "RARE",
+    "cost": 2,
+    "description": "女王姿态护盾+40%。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "女王姿态护盾+70%。",
+    "image_path": "res://assets/cards/cailin/女王之姿.png",
+    "detail": "你在女王姿态下获得的护盾额外增加 40%。",
+    "upgraded_detail": "你在女王姿态下获得的护盾额外增加 70%。"
+  },
+  {
+    "id": "ancient_bloodline_cailin",
+    "name": "远古血脉",
+    "type": "ABILITY",
+    "rarity": "LEGENDARY",
+    "cost": 2,
+    "description": "你在吞天蟒姿态下受到的额外伤害惩罚消失。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_innate": true,
+    "upgraded_description": "固有。你在吞天蟒姿态下受到的额外伤害惩罚消失。",
+    "image_path": "res://assets/cards/cailin/远古血脉.png"
+  },
+  {
+    "id": "nine_color_python_soul",
+    "name": "九彩吞天蟒之魂",
+    "type": "ABILITY",
+    "rarity": "LEGENDARY",
+    "cost": 2,
+    "description": "吞天蟒击杀回复5HP+1永久力量。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_description": "吞天蟒击杀回复8HP+1永久力量。",
+    "image_path": "res://assets/cards/cailin/九彩吞天蟒之魂.png",
+    "detail": "每当你在吞天蟒姿态下击杀一名敌人，回复 5 点生命值并获得 1 点永久力量。",
+    "upgraded_detail": "每当你在吞天蟒姿态下击杀一名敌人，回复 8 点生命值并获得 1 点永久力量。"
+  },
+  {
+    "id": "snake_queen",
+    "name": "蛇族女王",
+    "type": "ABILITY",
+    "rarity": "LEGENDARY",
+    "cost": 3,
+    "description": "回合开始选择进入姿态。取消蟒伤。",
+    "tags": [
+      "姿态"
+    ],
+    "character_id": "cailin",
+    "upgraded_cost": 2,
+    "upgraded_description": "回合开始选择进入姿态。取消蟒伤。",
+    "image_path": "res://assets/cards/cailin/蛇族女王.png",
+    "detail": "每回合开始时，你可以选择进入女王姿态或吞天蟒姿态。同时取消吞天蟒姿态受伤惩罚。",
+    "upgraded_detail": "每回合开始时，你可以选择进入女王姿态或吞天蟒姿态。同时取消吞天蟒姿态受伤惩罚。"
+  },
+  {
+    "id": "soul_sense",
+    "name": "灵魂感知",
+    "type": "SKILL",
+    "rarity": "RARE",
+    "cost": 0,
+    "description": "选择弃1牌。抽1牌。",
+    "discard_count": 1,
+    "draw_cards": 1,
+    "choose_discard": true,
+    "upgraded_discard_count": 2,
+    "upgraded_draw_cards": 2,
+    "upgraded_description": "选择弃2牌。抽2牌。",
+    "character_id": "",
+    "image_path": "res://assets/cards/xiaoyan/灵魂感知.jpg",
+    "detail": "从手牌中选择 1 张牌弃置。抽 1 张牌。",
+    "upgraded_detail": "从手牌中选择 2 张牌弃置。抽 2 张牌。"
+  }
+]
