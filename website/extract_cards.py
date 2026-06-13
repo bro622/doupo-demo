@@ -24,7 +24,7 @@ def load_cards(path, character):
             actual_char = cid
         else:
             actual_char = character
-        is_shared = c.get("type") == "CURSE" and not cid
+        is_shared = (c.get("type") in ("CURSE", "STATUS")) and not cid
         img_sub = "curses" if is_shared else actual_char
         cards.append({
             "id": c.get("id", ""),
@@ -73,7 +73,7 @@ for c in all_cards:
     else:
         # Search in curses/ dir as fallback for curse cards
         found = False
-        if c["type"] == "CURSE":
+        if c["type"] in ("CURSE", "STATUS"):
             alt = os.path.join(cards_src, "curses", c["img"])
             if os.path.exists(alt):
                 src = alt

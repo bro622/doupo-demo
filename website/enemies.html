@@ -554,6 +554,7 @@ function renderEnemies() {
 
     const div = document.createElement('div');
     div.className = `enemy-item ${enemy.type}`;
+    div.onclick = () => window.location.href = `enemy-detail.html?id=${enemy.id}`;
     div.innerHTML = `
       <div class="enemy-sprite">
         <img src="assets/enemies/${enemy.sprite}" alt="${enemy.name}" loading="lazy">

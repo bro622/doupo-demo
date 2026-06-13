@@ -49,6 +49,150 @@ for fm in re.finditer(r'(?:static\s+)?func\s+(create_\w+)\(\)\s*->\s*Enemy:(.*?)
         hp = int(hp_m.group(1)) if hp_m else 0
 
     etype = 'boss' if 'boss' in func_name else ('elite' if 'elite' in func_name else 'normal')
+    enemy_phases = []
+
+    # Extract actions
+    actions = []
+    for am in re.finditer(r'var\s+a\d+\s*=\s*Enemy\.EnemyAction\.new\(\s*Enemy\.IntentType\.(\w+),\s*"([^"]*)"', body):
+        intent = am.group(1)
+        action_name = am.group(2)
+        action = {"intent": intent, "name": action_name}
+        # Find damage, block, hit_count for this action
+        pos = am.end()
+        next_action = re.search(r'var\s+a\d+\s*=', body[pos:])
+        block_end = pos + next_action.start() if next_action else len(body)
+        action_block = body[pos:block_end]
+        dmg_m = re.search(r'\.damage\s*=\s*(\d+)', action_block)
+        if dmg_m:
+            action["damage"] = int(dmg_m.group(1))
+        blk_m = re.search(r'\.block\s*=\s*(\d+)', action_block)
+        if blk_m:
+            action["block"] = int(blk_m.group(1))
+        hit_m = re.search(r'\.hit_count\s*=\s*(\d+)', action_block)
+        if hit_m:
+            action["hit_count"] = int(hit_m.group(1))
+        weak_m = re.search(r'\.apply_weak\s*=\s*(\d+)', action_block)
+        if weak_m:
+            action["apply_weak"] = int(weak_m.group(1))
+        vuln_m = re.search(r'\.apply_vulnerable\s*=\s*(\d+)', action_block)
+        if vuln_m:
+            action["apply_vulnerable"] = int(vuln_m.group(1))
+        frz_m = re.search(r'\.apply_frozen\s*=\s*(\d+)', action_block)
+        if frz_m:
+            action["apply_frozen"] = int(frz_m.group(1))
+        burn_m = re.search(r'\.apply_burn\s*=\s*(\d+)', action_block)
+        if burn_m:
+            action["apply_burn"] = int(burn_m.group(1))
+        str_m = re.search(r'\.strength_gain\s*=\s*(\d+)', action_block)
+        if str_m:
+            action["strength_gain"] = int(str_m.group(1))
+        heal_m = re.search(r'\.heal\s*=\s*(\d+)', action_block)
+        if heal_m:
+            action["heal"] = int(heal_m.group(1))
+        frail_m = re.search(r'\.apply_frail\s*=\s*(\d+)', action_block)
+        if frail_m:
+            action["apply_frail"] = int(frail_m.group(1))
+        actions.append(action)
+
+    # If no actions found via set_actions, try set_phases (boss pattern)
+    if not actions:
+        phases = []
+        # Find phase array declarations to determine phase boundaries
+        phase_decls = list(re.finditer(r'var\s+(phase\d+):\s*Array', body))
+        if phase_decls:
+            # Extract action variable names from each phase array
+            for pi, pd in enumerate(phase_decls):
+                phase_name = pd.group(1)
+                # Get the array content: [p1_a1, p1_a2, ...]
+                arr_match = re.search(rf'var\s+{phase_name}[^=]*=\s*\[([^\]]*)\]', body)
+                if not arr_match:
+                    continue
+                action_vars = [v.strip() for v in arr_match.group(1).split(',')]
+                phase_actions = []
+                for var_name in action_vars:
+                    if not var_name:
+                        continue
+                    # Find this variable's definition
+                    var_pattern = rf'var\s+{re.escape(var_name)}\s*=\s*Enemy\.EnemyAction\.new\(\s*Enemy\.IntentType\.(\w+),\s*"([^"]*)"'
+                    var_match = re.search(var_pattern, body)
+                    if not var_match:
+                        continue
+                    action = {"intent": var_match.group(1), "name": var_match.group(2)}
+                    # Get properties between this var definition and next var/phase
+                    pos = var_match.end()
+                    next_var = re.search(r'var\s+\w+\s*=', body[pos:])
+                    block_end = pos + next_var.start() if next_var else len(body)
+                    ab = body[pos:block_end]
+                    dm = re.search(r'\.damage\s*=\s*(\d+)', ab)
+                    if dm: action["damage"] = int(dm.group(1))
+                    bm = re.search(r'\.block\s*=\s*(\d+)', ab)
+                    if bm: action["block"] = int(bm.group(1))
+                    hm = re.search(r'\.hit_count\s*=\s*(\d+)', ab)
+                    if hm: action["hit_count"] = int(hm.group(1))
+                    wm = re.search(r'\.apply_weak\s*=\s*(\d+)', ab)
+                    if wm: action["apply_weak"] = int(wm.group(1))
+                    vm = re.search(r'\.apply_vulnerable\s*=\s*(\d+)', ab)
+                    if vm: action["apply_vulnerable"] = int(vm.group(1))
+                    fm = re.search(r'\.apply_frozen\s*=\s*(\d+)', ab)
+                    if fm: action["apply_frozen"] = int(fm.group(1))
+                    bm2 = re.search(r'\.apply_burn\s*=\s*(\d+)', ab)
+                    if bm2: action["apply_burn"] = int(bm2.group(1))
+                    sm = re.search(r'\.strength_gain\s*=\s*(\d+)', ab)
+                    if sm: action["strength_gain"] = int(sm.group(1))
+                    hlm = re.search(r'\.heal\s*=\s*(\d+)', ab)
+                    if hlm: action["heal"] = int(hlm.group(1))
+                    flm = re.search(r'\.apply_frail\s*=\s*(\d+)', ab)
+                    if flm: action["apply_frail"] = int(flm.group(1))
+                    phase_actions.append(action)
+                phases.append({"name": f"阶段{pi+1}", "actions": phase_actions})
+        else:
+            # Fallback: extract all boss actions without phase distinction
+            for pm in re.finditer(r'var\s+p\d+_a\d+\s*=\s*Enemy\.EnemyAction\.new\(\s*Enemy\.IntentType\.(\w+),\s*"([^"]*)"', body):
+                action = {"intent": pm.group(1), "name": pm.group(2)}
+                pos = pm.end()
+                next_a = re.search(r'var\s+p?\d*_?a\d+\s*=', body[pos:])
+                block_end = pos + next_a.start() if next_a else len(body)
+                ab = body[pos:block_end]
+                dm = re.search(r'\.damage\s*=\s*(\d+)', ab)
+                if dm: action["damage"] = int(dm.group(1))
+                bm = re.search(r'\.block\s*=\s*(\d+)', ab)
+                if bm: action["block"] = int(bm.group(1))
+                hm = re.search(r'\.hit_count\s*=\s*(\d+)', ab)
+                if hm: action["hit_count"] = int(hm.group(1))
+                wm = re.search(r'\.apply_weak\s*=\s*(\d+)', ab)
+                if wm: action["apply_weak"] = int(wm.group(1))
+                vm = re.search(r'\.apply_vulnerable\s*=\s*(\d+)', ab)
+                if vm: action["apply_vulnerable"] = int(vm.group(1))
+                fm = re.search(r'\.apply_frozen\s*=\s*(\d+)', ab)
+                if fm: action["apply_frozen"] = int(fm.group(1))
+                bm2 = re.search(r'\.apply_burn\s*=\s*(\d+)', ab)
+                if bm2: action["apply_burn"] = int(bm2.group(1))
+                sm = re.search(r'\.strength_gain\s*=\s*(\d+)', ab)
+                if sm: action["strength_gain"] = int(sm.group(1))
+                hlm = re.search(r'\.heal\s*=\s*(\d+)', ab)
+                if hlm: action["heal"] = int(hlm.group(1))
+                if not any(a["name"] == action["name"] and a["intent"] == action["intent"] for a in actions):
+                    actions.append(action)
+
+        sprite = textures.get(name, '')
+
+        if phases:
+            # Map stage sprites for bosses
+            boss_stage_sprites = {
+                "云山": ["云山.png", "云山2阶段.png"],
+                "韩枫": ["韩枫1阶段.png", "韩枫2阶段.png", "韩枫3阶段.png"],
+                "陨落心炎": ["陨落心炎一阶段.png", "陨落心炎二阶段.png", "陨落心炎三阶段.png"],
+                "魂天帝": ["魂天帝1阶段.png", "魂天帝2阶段.png", "魂天帝3阶段.png", "魂天帝4阶段.png", "魂天帝5阶段.png"],
+                "古帝残魂": ["古帝残魂一阶段.png", "古帝残魂二阶段.png", "古帝残魂三阶段.png"],
+            }
+            stage_sprites = boss_stage_sprites.get(name, [])
+            for pi, phase in enumerate(phases):
+                if pi < len(stage_sprites):
+                    phase["sprite"] = f"{os.path.dirname(sprite)}/{stage_sprites[pi]}"
+                else:
+                    phase["sprite"] = sprite
+                actions.extend(phase["actions"])
+            enemy_phases = phases
 
     sprite = textures.get(name, '')
     scene = scene_from_path(sprite)
@@ -63,14 +207,18 @@ for fm in re.finditer(r'(?:static\s+)?func\s+(create_\w+)\(\)\s*->\s*Enemy:(.*?)
                 scene = s
                 break
 
-    enemies.append({
+    enemy_data = {
         "id": func_name,
         "name": name,
         "hp": hp,
         "type": etype,
         "scene": scene,
         "sprite": sprite,
-    })
+        "actions": actions,
+    }
+    if enemy_phases:
+        enemy_data["phases"] = enemy_phases
+    enemies.append(enemy_data)
 
 # Deduplicate by name
 seen = set()
