@@ -1,0 +1,220 @@
+[gd_scene load_steps=3 format=3 uid="uid://ss72xg2fyb0d"]
+
+[ext_resource type="Script" uid="uid://d01m8y5gtfiqd" path="res://scripts/character_select.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ct4i77mogm02s" path="res://assets/characters/xiao-yan/portrait.png" id="2"]
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BgColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02745098, 0.02745098, 0.050980393, 0.13333334)
+
+[node name="LeftPanel" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.42
+anchor_bottom = 0.82
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="RoleName" type="Label" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "萧炎"
+
+[node name="RoleSubtitle" type="Label" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "异火流转 / 爆发输出"
+
+[node name="Sep1" type="HSeparator" parent="LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="StatsBox" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="HPStat" type="HBoxContainer" parent="LeftPanel/VBox/StatsBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HPIcon" type="TextureRect" parent="LeftPanel/VBox/StatsBox/HPStat"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="HPLabel" type="Label" parent="LeftPanel/VBox/StatsBox/HPStat"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "HP: 75"
+
+[node name="GoldStat" type="HBoxContainer" parent="LeftPanel/VBox/StatsBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="GoldLabel" type="Label" parent="LeftPanel/VBox/StatsBox/GoldStat"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "金币: 100"
+
+[node name="Sep2" type="HSeparator" parent="LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="DescLabel" type="RichTextLabel" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+bbcode_enabled = true
+text = "斗气大陆天才少年，曾跌落谷底，如今重新崛起。"
+fit_content = true
+scroll_active = false
+
+[node name="Spacer" type="Control" parent="LeftPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sep3" type="HSeparator" parent="LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="RelicBox" type="VBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RelicHeader" type="Label" parent="LeftPanel/VBox/RelicBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "初始遗物"
+
+[node name="RelicInfo" type="HBoxContainer" parent="LeftPanel/VBox/RelicBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RelicIcon" type="TextureRect" parent="LeftPanel/VBox/RelicBox/RelicInfo"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="RelicText" type="VBoxContainer" parent="LeftPanel/VBox/RelicBox/RelicInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="RelicName" type="Label" parent="LeftPanel/VBox/RelicBox/RelicInfo/RelicText"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "骨炎戒"
+
+[node name="RelicDesc" type="Label" parent="LeftPanel/VBox/RelicBox/RelicInfo/RelicText"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "每场战斗开始凝聚骨灵冷火。HP低于50%时触发药老附体。"
+autowrap_mode = 2
+
+[node name="BottomRoster" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.85
+anchor_right = 0.7
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Center" type="CenterContainer" parent="BottomRoster"]
+layout_mode = 2
+
+[node name="Icons" type="HBoxContainer" parent="BottomRoster/Center"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="CharBtn_xiaoyan" type="Button" parent="BottomRoster/Center/Icons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="CharBtn_xuner" type="Button" parent="BottomRoster/Center/Icons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="CharBtn_cailin" type="Button" parent="BottomRoster/Center/Icons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.9
+anchor_right = 0.12
+anchor_bottom = 0.97
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "返回"
+
+[node name="BottomRight" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.88
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="StartButton" type="Button" parent="BottomRight"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "启程"

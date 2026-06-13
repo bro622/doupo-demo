@@ -10,7 +10,7 @@
     "upgraded_damage": 9,
     "upgraded_description": "造成 9 点伤害。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/基础打击.jpg"
+    "image_path": "res://assets/cards/xiaoyan/基础打击.png"
   },
   {
     "id": "basic_defense",
@@ -23,7 +23,7 @@
     "upgraded_block": 8,
     "upgraded_description": "获得 8 点护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/基础防御.jpg"
+    "image_path": "res://assets/cards/xiaoyan/基础防御.png"
   },
   {
     "id": "fire_palm",
@@ -41,7 +41,7 @@
     "upgraded_apply_burning": 2,
     "upgraded_description": "造成 10 点伤害，给予 2 层燃烧。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/吹火掌.jpg"
+    "image_path": "res://assets/cards/xiaoyan/吹火掌.png"
   },
   {
     "id": "fire_control",
@@ -77,7 +77,7 @@
     "upgraded_bonus_damage_at_threshold": 8,
     "upgraded_description": "造成 11 点伤害。如果本回合已打出过攻击牌，额外造成 8 点伤害。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/八极崩.jpg",
+    "image_path": "res://assets/cards/xiaoyan/八极崩.png",
     "detail": "造成 8 点伤害。如果本回合已打出过攻击牌，额外造成 6 点伤害。",
     "upgraded_detail": "造成 11 点伤害。如果本回合已打出过攻击牌，额外造成 8 点伤害。"
   },
@@ -94,7 +94,7 @@
     "upgraded_damage": 7,
     "upgraded_description": "造成7伤害。所有敌人+1虚弱。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/狮虎碎金吟.jpg",
+    "image_path": "res://assets/cards/xiaoyan/狮虎碎金吟.png",
     "detail": "造成 5 点伤害，给予所有敌人 1 层虚弱。",
     "upgraded_detail": "造成 7 点伤害，给予所有敌人 1 层虚弱。"
   },
@@ -113,7 +113,7 @@
     "upgraded_damage": 9,
     "upgraded_description": "造成 9 点伤害。凝聚 1 朵骨灵冷火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/骨灵冷火·冰焰弹.jpg"
+    "image_path": "res://assets/cards/xiaoyan/骨灵冷火·冰焰弹.png"
   },
   {
     "id": "great_sorrow_tear",
@@ -128,7 +128,7 @@
     "upgraded_draw_cards": 2,
     "upgraded_description": "造成 10 点伤害。抽 2 张牌。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/大悲撕风手.jpg"
+    "image_path": "res://assets/cards/xiaoyan/大悲撕风手.png"
   },
   {
     "id": "thunder_phantom",
@@ -142,7 +142,7 @@
     "upgraded_damage": 4,
     "upgraded_description": "造成 4 点伤害 3 次。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/三千雷幻身.jpg"
+    "image_path": "res://assets/cards/xiaoyan/三千雷幻身.png"
   },
   {
     "id": "stacking_palm",
@@ -158,7 +158,7 @@
     "upgraded_bonus_damage_per_card_played": 3,
     "upgraded_description": "造成 7 点伤害。本回合每打出过 1 张牌，此牌伤害 +3。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/叠浪掌.jpg",
+    "image_path": "res://assets/cards/xiaoyan/叠浪掌.png",
     "detail": "造成 5 点伤害。本回合每打出过 1 张牌，此牌伤害 +2。",
     "upgraded_detail": "造成 7 点伤害。本回合每打出过 1 张牌，此牌伤害 +3。"
   },
@@ -179,7 +179,7 @@
     "upgraded_evoke_count": 2,
     "upgraded_description": "造成18伤害。激发最前端异火，效果触发2次。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺.png",
     "detail": "造成 14 点伤害。强制激发最前端的异火 1 次。",
     "upgraded_detail": "造成 18 点伤害。强制激发最前端的异火 2 次。"
   },
@@ -198,7 +198,7 @@
     "upgraded_energy_refund_amount": 2,
     "upgraded_description": "造成16伤害。有陨落心炎时返还2能量。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/狂狮罡气.jpg",
+    "image_path": "res://assets/cards/xiaoyan/狂狮罡气.png",
     "detail": "造成 12 点伤害。若有陨落心炎，返还 1 点能量。",
     "upgraded_detail": "造成 16 点伤害。若有陨落心炎，返还 2 点能量。"
   },
@@ -214,7 +214,7 @@
     "upgraded_damage": 14,
     "upgraded_description": "造成14伤害。目标易伤时翻倍。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/玄重尺斩.jpg",
+    "image_path": "res://assets/cards/xiaoyan/玄重尺斩.png",
     "detail": "造成 10 点伤害。如果目标处于易伤状态，此牌伤害加倍。",
     "upgraded_detail": "造成 14 点伤害。如果目标处于易伤状态，此牌伤害加倍。"
   },
@@ -234,7 +234,7 @@
     "upgraded_bonus_damage_per_fire_slot": 6,
     "upgraded_description": "造成7伤害。每有异火+6。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/五轮离火法.jpg",
+    "image_path": "res://assets/cards/xiaoyan/五轮离火法.png",
     "detail": "造成 5 点伤害。异火槽中每有 1 朵异火，额外造成 4 点伤害。",
     "upgraded_detail": "造成 7 点伤害。异火槽中每有 1 朵异火，额外造成 6 点伤害。"
   },
@@ -250,7 +250,7 @@
     "upgraded_damage": 20,
     "upgraded_description": "造成 20 点真实伤害（无视护盾）。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/黄泉指.jpg"
+    "image_path": "res://assets/cards/xiaoyan/黄泉指.png"
   },
   {
     "id": "flame_explosion",
@@ -268,7 +268,7 @@
     "upgraded_damage": 16,
     "upgraded_description": "造成16伤害。激发异火，效果触发两次。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/焱暴.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焱暴.png",
     "detail": "造成 12 点伤害。强制激发最前端异火，且该异火的激发效果触发两次。",
     "upgraded_detail": "造成 16 点伤害。强制激发最前端异火，且该异火的激发效果触发两次。"
   },
@@ -286,7 +286,7 @@
     "upgraded_damage": 7,
     "upgraded_description": "造成7伤害。需本回合已激发异火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/异火连击.jpg",
+    "image_path": "res://assets/cards/xiaoyan/异火连击.png",
     "detail": "造成 4 点伤害。只能在本回合激发过异火后打出。",
     "upgraded_detail": "造成 7 点伤害。只能在本回合激发过异火后打出。"
   },
@@ -306,7 +306,7 @@
     "upgraded_damage": 14,
     "upgraded_description": "AOE 14伤害。给予2层燃烧。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/龙炎焚天.jpg",
+    "image_path": "res://assets/cards/xiaoyan/龙炎焚天.png",
     "detail": "对所有敌人造成 10 点伤害，并给予 2 层燃烧。",
     "upgraded_detail": "对所有敌人造成 14 点伤害，并给予 2 层燃烧。"
   },
@@ -325,7 +325,7 @@
     "upgraded_damage": 24,
     "upgraded_description": "造成24伤害。激发所有异火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺·烈.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺·烈.png",
     "detail": "造成 18 点伤害。强制激发你所有的异火。",
     "upgraded_detail": "造成 24 点伤害。强制激发你所有的异火。"
   },
@@ -344,7 +344,7 @@
     "upgraded_damage": 32,
     "upgraded_description": "造成32伤害。给予等量燃烧。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/异火亘古尺.jpg",
+    "image_path": "res://assets/cards/xiaoyan/异火亘古尺.png",
     "detail": "造成 24 点伤害。给予等同于实际伤害值的燃烧。",
     "upgraded_detail": "造成 32 点伤害。给予等同于实际伤害值的燃烧。"
   },
@@ -365,7 +365,7 @@
     "upgraded_damage": 20,
     "upgraded_description": "AOE 20伤害。2层易伤+2层燃烧。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/天阶·大森罗手.jpg",
+    "image_path": "res://assets/cards/xiaoyan/天阶·大森罗手.png",
     "detail": "造成 15 点伤害，给予所有敌人 2 层易伤和 2 层燃烧。",
     "upgraded_detail": "造成 20 点伤害，给予所有敌人 2 层易伤和 2 层燃烧。"
   },
@@ -387,7 +387,7 @@
     "upgraded_bonus_damage_per_fire_slot": 14,
     "upgraded_description": "AOE 14伤害。每有异火+14。清空异火槽。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/佛怒火莲.jpg",
+    "image_path": "res://assets/cards/xiaoyan/佛怒火莲.png",
     "detail": "对所有敌人造成 10 点伤害。每拥有一个异火，额外造成 10 点伤害。随后清空异火槽。",
     "upgraded_detail": "对所有敌人造成 14 点伤害。每拥有一个异火，额外造成 14 点伤害。随后清空异火槽。"
   },
@@ -404,7 +404,7 @@
     "upgraded_draw_cards": 2,
     "upgraded_description": "获得 9 点护盾。抽 2 张牌。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/爆步.jpg"
+    "image_path": "res://assets/cards/xiaoyan/爆步.png"
   },
   {
     "id": "rock_body",
@@ -417,7 +417,7 @@
     "upgraded_block": 11,
     "upgraded_description": "获得 11 点护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/磐石身法.jpg"
+    "image_path": "res://assets/cards/xiaoyan/磐石身法.png"
   },
   {
     "id": "heart_fire_flow",
@@ -436,7 +436,7 @@
     "upgraded_draw_cards": 3,
     "upgraded_description": "凝聚1朵陨落心炎。弃1牌，抽3牌。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/心炎流转.jpg",
+    "image_path": "res://assets/cards/xiaoyan/心炎流转.png",
     "detail": "凝聚 1 朵陨落心炎。选择 1 张手牌丢弃，抽 2 张牌。",
     "upgraded_detail": "凝聚 1 朵陨落心炎。选择 1 张手牌丢弃，抽 3 张牌。"
   },
@@ -454,7 +454,7 @@
     "upgraded_cost": 0,
     "upgraded_description": "凝聚 1 朵青莲地心火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/凝火诀.jpg"
+    "image_path": "res://assets/cards/xiaoyan/凝火诀.png"
   },
   {
     "id": "heal_potion",
@@ -467,7 +467,7 @@
     "upgraded_heal": 8,
     "upgraded_description": "恢复 8 点生命值。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/炼制疗伤药.jpg"
+    "image_path": "res://assets/cards/xiaoyan/炼制疗伤药.png"
   },
   {
     "id": "purple_cloud",
@@ -481,7 +481,7 @@
     "upgraded_block": 8,
     "upgraded_description": "获得 8 点护盾。下一张牌耗能 -1。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/紫云翼.jpg"
+    "image_path": "res://assets/cards/xiaoyan/紫云翼.png"
   },
   {
     "id": "six_dir_body",
@@ -499,7 +499,7 @@
     "upgraded_block": 16,
     "upgraded_description": "16护盾。最前异火移至末尾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/六合游身.jpg",
+    "image_path": "res://assets/cards/xiaoyan/六合游身.png",
     "detail": "获得 12 点护盾。将最前端的异火移至末尾。",
     "upgraded_detail": "获得 16 点护盾。将最前端的异火移至末尾。"
   },
@@ -519,7 +519,7 @@
     "upgraded_trigger_block_on_evoke": 5,
     "upgraded_description": "13护盾。每次激发异火+5护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/药鼎守护.jpg",
+    "image_path": "res://assets/cards/xiaoyan/药鼎守护.png",
     "detail": "获得 10 点护盾。本回合内，每当你激发一次异火，获得 3 点护盾。",
     "upgraded_detail": "获得 13 点护盾。本回合内，每当你激发一次异火，获得 5 点护盾。"
   },
@@ -539,7 +539,7 @@
     "upgraded_trigger_burn_on_hit": 18,
     "upgraded_description": "18护盾。受击时给予敌人燃烧。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺·守.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焰分噬浪尺·守.png",
     "detail": "获得 14 点护盾。本回合内，每当有敌人攻击你，给予其 14 层燃烧。",
     "upgraded_detail": "获得 18 点护盾。本回合内，每当有敌人攻击你，给予其 18 层燃烧。"
   },
@@ -555,7 +555,7 @@
     "upgraded_gain_energy": 3,
     "upgraded_description": "消耗3HP。获得3能量。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/炼制回气丹.jpg",
+    "image_path": "res://assets/cards/xiaoyan/炼制回气丹.png",
     "detail": "失去 3 点生命值。获得 2 点能量。",
     "upgraded_detail": "失去 3 点生命值。获得 3 点能量。"
   },
@@ -575,7 +575,7 @@
     "upgraded_block": 8,
     "upgraded_description": "移除最前异火，选择凝聚1朵。8护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/异火置换.jpg",
+    "image_path": "res://assets/cards/xiaoyan/异火置换.png",
     "detail": "移除最前端的异火，选择凝聚 1 朵异火。获得 5 点护盾。",
     "upgraded_detail": "移除最前端的异火，选择凝聚 1 朵异火。获得 8 点护盾。"
   },
@@ -593,7 +593,7 @@
     "upgraded_draw_cards": 2,
     "upgraded_description": "选择弃2牌。抽2牌。",
     "character_id": "",
-    "image_path": "res://assets/cards/xiaoyan/灵魂感知.jpg",
+    "image_path": "res://assets/cards/xiaoyan/灵魂感知.png",
     "detail": "从手牌中选择 1 张牌弃置。抽 1 张牌。",
     "upgraded_detail": "从手牌中选择 2 张牌弃置。抽 2 张牌。"
   },
@@ -613,7 +613,7 @@
     "upgraded_shield_per_debuff_cleared": 6,
     "upgraded_description": "移除所有负面状态。每个+6护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/净莲妖火·净化.jpg",
+    "image_path": "res://assets/cards/xiaoyan/净莲妖火·净化.png",
     "detail": "移除你身上的所有负面状态。每移除一个，获得 4 点护盾。",
     "upgraded_detail": "移除你身上的所有负面状态。每移除一个，获得 6 点护盾。"
   },
@@ -629,7 +629,7 @@
     "upgraded_block": 26,
     "upgraded_description": "26护盾。下回合无法凝聚。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/斗气化铠.jpg",
+    "image_path": "res://assets/cards/xiaoyan/斗气化铠.png",
     "detail": "获得 20 点护盾。下个回合你无法凝聚异火。",
     "upgraded_detail": "获得 26 点护盾。下个回合你无法凝聚异火。"
   },
@@ -653,7 +653,7 @@
     "on_play_draw": 1,
     "on_play_block": 2,
     "upgraded_on_play_block": 3,
-    "image_path": "res://assets/cards/xiaoyan/焚诀运转.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焚诀运转.png",
     "detail": "每当你打出一张带有异火或燃烧标签的牌时，抽 1 张牌，并获得 2 点护盾。",
     "upgraded_detail": "每当你打出一张带有异火或燃烧标签的牌时，抽 1 张牌，并获得 3 点护盾。"
   },
@@ -672,7 +672,7 @@
     "upgraded_energy_per_fire_removed": 2,
     "upgraded_description": "移除所有异火。每朵+2能量+1牌。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/提炼本源.jpg",
+    "image_path": "res://assets/cards/xiaoyan/提炼本源.png",
     "detail": "移除你所有的异火。每移除一个，获得 1 点能量并抽 1 张牌。",
     "upgraded_detail": "移除你所有的异火。每移除一个，获得 2 点能量并抽 1 张牌。"
   },
@@ -689,7 +689,7 @@
     ],
     "upgraded_description": "激发所有异火。激发后保留异火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/三色火莲.jpg",
+    "image_path": "res://assets/cards/xiaoyan/三色火莲.png",
     "detail": "强制激发你所有的异火。",
     "upgraded_detail": "强制激发你所有的异火。激发后保留这些异火不被清空。"
   },
@@ -704,7 +704,7 @@
     "upgraded_permanent_max_hp_gain": 3,
     "upgraded_description": "永久增加 3 点最大生命值。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/炼制筑基丹.jpg"
+    "image_path": "res://assets/cards/xiaoyan/炼制筑基丹.png"
   },
   {
     "id": "alchemist_talent",
@@ -720,7 +720,7 @@
     "upgraded_description": "消耗1张手牌。+1能量+2牌。",
     "upgraded_draw_cards": 2,
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/药鼎淬炼.jpg",
+    "image_path": "res://assets/cards/xiaoyan/药鼎淬炼.png",
     "detail": "选择手牌中的 1 张牌消耗。获得 1 点能量，并抽 1 张牌。",
     "upgraded_detail": "选择手牌中的 1 张牌消耗。获得 1 点能量，并抽 2 张牌。"
   },
@@ -739,7 +739,7 @@
     "upgraded_burn_damage_mult": 2.0,
     "upgraded_description": "燃烧不递减。伤害+100%。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/怒火中烧.jpg",
+    "image_path": "res://assets/cards/xiaoyan/怒火中烧.png",
     "detail": "你的燃烧效果不再随回合递减。燃烧伤害增加 50%。",
     "upgraded_detail": "你的燃烧效果不再随回合递减。燃烧伤害增加 100%。"
   },
@@ -755,7 +755,7 @@
     ],
     "upgraded_description": "异火槽上限+2。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/焚诀残卷.jpg",
+    "image_path": "res://assets/cards/xiaoyan/焚诀残卷.png",
     "detail": "你的异火槽上限增加 1 个。",
     "upgraded_detail": "你的异火槽上限增加 2 个。"
   },
@@ -773,7 +773,7 @@
     "upgraded_gain_strength": 2,
     "upgraded_description": "激发异火时+2力量。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/天火三玄变.jpg",
+    "image_path": "res://assets/cards/xiaoyan/天火三玄变.png",
     "detail": "每次激发异火时，获得 1 点力量。",
     "upgraded_detail": "每次激发异火时，获得 2 点力量。"
   },
@@ -791,7 +791,7 @@
     "upgraded_innate": true,
     "upgraded_description": "固有。异火被动效果触发两次。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/异火共鸣.jpg",
+    "image_path": "res://assets/cards/xiaoyan/异火共鸣.png",
     "detail": "你所有异火的被动效果触发两次。",
     "upgraded_detail": "固有。你所有异火的被动效果触发两次。"
   },
@@ -809,7 +809,7 @@
     "upgraded_block": 3,
     "upgraded_description": "回合开始：每有异火+3护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/火灵护体.jpg",
+    "image_path": "res://assets/cards/xiaoyan/火灵护体.png",
     "detail": "回合开始时，异火槽中每有 1 朵异火，获得 2 点护盾。",
     "upgraded_detail": "回合开始时，异火槽中每有 1 朵异火，获得 3 点护盾。"
   },
@@ -826,7 +826,7 @@
     "description": "打出异火/燃烧牌时：随机触发炼制效果。",
     "upgraded_description": "打出异火/燃烧牌时：随机触发炼制效果。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/药鼎之魂.jpg",
+    "image_path": "res://assets/cards/xiaoyan/药鼎之魂.png",
     "detail": "每当你打出一张带有异火或燃烧标签的牌时，随机视为使用一个炼制丹药技能（回复5HP / -3HP+2能量 / +2最大HP）。",
     "upgraded_detail": "每当你打出一张带有异火或燃烧标签的牌时，随机视为使用一个炼制丹药技能（回复8HP / -3HP+3能量 / +3最大HP）。"
   },
@@ -841,7 +841,7 @@
     "upgraded_draw_cards": 2,
     "upgraded_description": "回合开始：额外抽2牌。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/斗气凝聚.jpg",
+    "image_path": "res://assets/cards/xiaoyan/斗气凝聚.png",
     "detail": "每回合开始时，额外抽取 1 张牌。",
     "upgraded_detail": "每回合开始时，额外抽取 2 张牌。"
   },
@@ -860,7 +860,7 @@
     "upgraded_innate": true,
     "upgraded_description": "固有。回合开始：凝聚1朵三千焱炎火。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/星空体质.jpg",
+    "image_path": "res://assets/cards/xiaoyan/星空体质.png",
     "detail": "回合开始时，自动凝聚 1 朵三千焱炎火。",
     "upgraded_detail": "固有。回合开始时，自动凝聚 1 朵三千焱炎火。"
   },
@@ -877,7 +877,7 @@
     "upgraded_cost": 2,
     "upgraded_description": "所有异火激发效果触发两次。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/炎帝之姿.jpg",
+    "image_path": "res://assets/cards/xiaoyan/炎帝之姿.png",
     "detail": "你的所有异火激发效果触发两次。",
     "upgraded_detail": "你的所有异火激发效果触发两次。"
   },
@@ -894,7 +894,7 @@
     "upgraded_cost": 2,
     "upgraded_description": "永久凝聚青莲地心火（不占槽）。激发伤害+4。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/青莲地心火·本源.jpg",
+    "image_path": "res://assets/cards/xiaoyan/青莲地心火·本源.png",
     "detail": "永久凝聚 1 朵青莲地心火（不消耗槽位）。本场战斗中，所有青莲地心火激发效果伤害 +4。",
     "upgraded_detail": "永久凝聚 1 朵青莲地心火（不消耗槽位）。本场战斗中，所有青莲地心火激发效果伤害 +4。"
   },
@@ -906,8 +906,8 @@
     "cost": -1,
     "description": "手牌中时：攻击伤害-2。虚无。",
     "ethereal": true,
-    "image_path": "res://assets/cards/curses/退婚之辱.jpg",
-    "character_id": "xiaoyan",
+    "image_path": "res://assets/cards/xiaoyan/退婚之辱.png",
+    "character_id": "",
     "detail": "不能打出。只要此牌在手牌中，你打出的所有攻击牌造成的伤害减少 2 点。虚无。"
   },
   {
@@ -918,21 +918,9 @@
     "cost": -1,
     "description": "不可打出。抽到时-1能量。虚无。",
     "ethereal": true,
-    "image_path": "res://assets/cards/curses/心魔.jpg",
+    "image_path": "res://assets/cards/xiaoyan/心魔来袭.png",
     "character_id": "xiaoyan",
     "detail": "不能打出。抽到此牌时，失去 1 点能量。虚无。"
-  },
-  {
-    "id": "qi_seal",
-    "name": "斗气封印",
-    "type": "CURSE",
-    "rarity": "COMMON",
-    "cost": -1,
-    "description": "手牌中时：下一张牌+1费。虚无。",
-    "ethereal": true,
-    "image_path": "res://assets/cards/curses/封印之力.jpg",
-    "character_id": "xiaoyan",
-    "detail": "不能打出。抽到此牌时，本回合你打出的下一张牌耗能 +1。虚无。"
   },
   {
     "id": "beast_backlash",
@@ -955,7 +943,7 @@
     "description": "手牌中时：护盾获取减半。虚无。",
     "ethereal": true,
     "image_path": "res://assets/cards/curses/萧家耻辱.jpg",
-    "character_id": "xiaoyan",
+    "character_id": "",
     "detail": "不能打出。只要此牌在手牌中，你所有卡牌获得的护盾减半。虚无。"
   },
   {
@@ -969,7 +957,8 @@
     "is_status_card": true,
     "on_turn_end_damage": 2,
     "character_id": "",
-    "detail": "不可打出。回合结束时若在手牌中，受到 2 点伤害。虚无。"
+    "detail": "不可打出。回合结束时若在手牌中，受到 2 点伤害。虚无。",
+    "image_path": "res://assets/cards/curses/风缠.jpg"
   },
   {
     "id": "cailin_strike",
@@ -997,7 +986,7 @@
     "character_id": "cailin",
     "upgraded_block": 8,
     "upgraded_description": "获得 8 点护盾。",
-    "image_path": "res://assets/cards/cailin/基础防御.png"
+    "image_path": "res://assets/cards/xiaoyan/基础防御.png"
   },
   {
     "id": "blood_toxin_backlash",
@@ -1036,18 +1025,6 @@
     "detail": "不能打出。回合开始时受到 3 点伤害。虚无。"
   },
   {
-    "id": "ancient_clan_forbidden",
-    "name": "古族禁令",
-    "type": "CURSE",
-    "rarity": "COMMON",
-    "cost": -1,
-    "description": "手牌中时：无法抽取额外牌。",
-    "ethereal": false,
-    "image_path": "res://assets/cards/curses/古族禁令.jpg",
-    "character_id": "",
-    "detail": "不能打出。当此牌在你的手牌中时，你无法通过卡牌效果抽取额外的牌。"
-  },
-  {
     "id": "soul_trauma",
     "name": "灵魂创伤",
     "type": "CURSE",
@@ -1059,5 +1036,104 @@
     "image_path": "res://assets/cards/curses/灵魂创伤.jpg",
     "character_id": "",
     "detail": "消耗。抽到此牌时受到 3 点伤害。除非你花费 2 点能量打出并消耗它，否则它会一直循环。"
+  },
+  {
+    "id": "seal_power",
+    "name": "封印之力",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "抽到此牌时，随机1张手牌本回合不可使用。虚无。",
+    "ethereal": true,
+    "detail": "不能打出。抽到此牌时，随机 1 张手牌本回合不可使用。虚无。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/封印之力.jpg"
+  },
+  {
+    "id": "bone_poison",
+    "name": "腐骨之毒",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "抽到此牌时，受到等同于本场战斗已过回合数×2的伤害。虚无。",
+    "ethereal": true,
+    "detail": "不能打出。抽到此牌时，受到等同于本场战斗已过回合数 ×2 的伤害。虚无。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/腐骨之毒.jpg"
+  },
+  {
+    "id": "obsession",
+    "name": "执念缠身",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "回合结束时若此牌在手牌中，受到3点伤害。",
+    "detail": "不能打出。回合结束时若此牌在手牌中，受到 3 点伤害。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/执念缠身.jpg"
+  },
+  {
+    "id": "karma_fire",
+    "name": "业火焚身",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "抽到此牌时，给予自己1层燃烧。",
+    "detail": "不能打出。抽到此牌时，给予自己 1 层燃烧。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/业火焚身.jpg"
+  },
+  {
+    "id": "toxic_miasma",
+    "name": "毒瘴缠身",
+    "type": "STATUS",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "回合结束时受到3点伤害。虚无。",
+    "ethereal": true,
+    "is_status_card": true,
+    "on_turn_end_damage": 3,
+    "detail": "不能打出。回合结束时受到 3 点伤害。虚无。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/毒瘴缠身.jpg"
+  },
+  {
+    "id": "inner_demon_status",
+    "name": "心魔",
+    "type": "STATUS",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "抽到此牌时，失去1点能量。虚无。",
+    "ethereal": true,
+    "is_status_card": true,
+    "detail": "不能打出。抽到此牌时，失去 1 点能量。虚无。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/心魔.jpg"
+  },
+  {
+    "id": "space_crack",
+    "name": "空间裂缝",
+    "type": "STATUS",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "占用手牌位，不可弃置。战斗结束后消失。",
+    "is_status_card": true,
+    "detail": "不能打出。占用手牌位，不可弃置。战斗结束后消失。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/空间裂缝.jpg"
+  },
+  {
+    "id": "swallow",
+    "name": "吞噬",
+    "type": "STATUS",
+    "rarity": "COMMON",
+    "cost": 0,
+    "description": "回合结束时若在手牌中，受到5点伤害并回复敌人5HP。虚无。",
+    "ethereal": true,
+    "is_status_card": true,
+    "on_turn_end_damage": 5,
+    "detail": "不能打出。回合结束时若在手牌中，受到 5 点伤害并回复敌人 5 HP。虚无。",
+    "character_id": "",
+    "image_path": "res://assets/cards/curses/吞噬.jpg"
   }
 ]

@@ -876,5 +876,41 @@
     "image_path": "res://assets/cards/xiaoyan/灵魂感知.jpg",
     "detail": "从手牌中选择 1 张牌弃置。抽 1 张牌。",
     "upgraded_detail": "从手牌中选择 2 张牌弃置。抽 2 张牌。"
+  },
+  {
+    "id": "blood_instability",
+    "name": "血脉不稳",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "抽到此牌时，随机使你手牌中的1张牌本回合无法打出。虚无。",
+    "ethereal": true,
+    "detail": "不能打出。抽到此牌时，随机使你手牌中的 1 张牌本回合无法打出。虚无。",
+    "character_id": "xuner",
+    "image_path": "res://assets/cards/xuner/血脉不稳.png"
+  },
+  {
+    "id": "qi_seal",
+    "name": "斗气封印",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "手牌中时：下一张牌+1费。虚无。",
+    "ethereal": true,
+    "image_path": "res://assets/cards/curses/斗气封印.png",
+    "character_id": "xuner",
+    "detail": "不能打出。抽到此牌时，本回合你打出的下一张牌耗能 +1。虚无。"
+  },
+  {
+    "id": "ancient_clan_forbidden",
+    "name": "古族禁令",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "手牌中时：无法抽取额外牌。",
+    "ethereal": false,
+    "image_path": "res://assets/cards/curses/古族禁令.jpg",
+    "character_id": "xuner",
+    "detail": "不能打出。当此牌在你的手牌中时，你无法通过卡牌效果抽取额外的牌。"
   }
 ]

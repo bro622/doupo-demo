@@ -927,5 +927,28 @@
     "image_path": "res://assets/cards/xiaoyan/灵魂感知.jpg",
     "detail": "从手牌中选择 1 张牌弃置。抽 1 张牌。",
     "upgraded_detail": "从手牌中选择 2 张牌弃置。抽 2 张牌。"
+  },
+  {
+    "id": "rainbow_backlash",
+    "name": "七彩反噬",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "固有。抽到此牌的回合，你无法从遗物中获得任何触发收益。虚无。",
+    "ethereal": true,
+    "detail": "不能打出。固有。抽到此牌的回合，你无法从遗物中获得任何触发收益。虚无。",
+    "character_id": "cailin",
+    "image_path": "res://assets/cards/curses/七彩反噬.jpg"
+  },
+  {
+    "id": "serpent_fury",
+    "name": "蛇魂暴走",
+    "type": "CURSE",
+    "rarity": "COMMON",
+    "cost": -1,
+    "description": "回合结束时若此牌在手牌中，且你处于吞天蟒姿态，受到4点伤害。",
+    "detail": "不能打出。回合结束时若此牌在手牌中，且你处于吞天蟒姿态，受到 4 点伤害。",
+    "character_id": "cailin",
+    "image_path": "res://assets/cards/curses/蛇魂暴走.jpg"
   }
 ]

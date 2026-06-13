@@ -1,0 +1,274 @@
+[gd_scene load_steps=6 format=3 uid="uid://dho1aeovcat3b"]
+
+[ext_resource type="Script" uid="uid://c43jnty7fhirr" path="res://scripts/main.gd" id="1"]
+[ext_resource type="Script" uid="uid://hnl2xb3bp4cb" path="res://scripts/potion_bar.gd" id="2"]
+[ext_resource type="Script" uid="uid://bpfdpwetnmxux" path="res://scripts/relic_bar.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://cg3co74xyjt06" path="res://assets/ui/frames/main_menu_bg.png" id="4"]
+
+[sub_resource type="StyleBoxFlat" id="panel_style"]
+bg_color = Color(0.08, 0.07, 0.1, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -1.0
+offset_right = 142.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TitleContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49800003
+anchor_top = 0.5
+anchor_right = 0.49800003
+anchor_bottom = 0.5
+offset_left = -245.44006
+offset_top = -93.0
+offset_right = 54.559937
+offset_bottom = 227.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="BtnContinue" type="Button" parent="TitleContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "继续冒险"
+
+[node name="BtnAdventure" type="Button" parent="TitleContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "开始冒险"
+
+[node name="BtnLayerSelect" type="Button" parent="TitleContainer"]
+custom_minimum_size = Vector2(300, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "起始场景：第1层"
+
+[node name="BtnQuit" type="Button" parent="TitleContainer"]
+custom_minimum_size = Vector2(300, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "退出游戏"
+
+[node name="SceneContainer" type="Control" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("panel_style")
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LeftGroup" type="HBoxContainer" parent="TopBar/MarginContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="TextureRect" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HPIcon" type="TextureRect" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HPLabel" type="Label" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "60/60"
+
+[node name="GoldIcon" type="TextureRect" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GoldLabel" type="Label" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "99"
+
+[node name="PotionBar" type="HBoxContainer" parent="TopBar/MarginContainer/HBox/LeftGroup"]
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("2")
+
+[node name="TitleLabel" type="Label" parent="TopBar/MarginContainer/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "加玛帝国"
+
+[node name="RightGroup" type="HBoxContainer" parent="TopBar/MarginContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="MapBtn" type="Button" parent="TopBar/MarginContainer/HBox/RightGroup"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+flat = true
+
+[node name="DeckLabel" type="Button" parent="TopBar/MarginContainer/HBox/RightGroup"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+flat = true
+
+[node name="SettingsBtn" type="Button" parent="TopBar/MarginContainer/HBox/RightGroup"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+flat = true
+
+[node name="RelicBar" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 48.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("panel_style")
+
+[node name="MarginContainer" type="MarginContainer" parent="RelicBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="HBox" type="HBoxContainer" parent="RelicBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RelicLabel" type="Label" parent="RelicBar/MarginContainer/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "遗物:"
+
+[node name="RelicIcons" type="HBoxContainer" parent="RelicBar/MarginContainer/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("3")
+
+[node name="MapOverlayLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="MapOverlayBg" type="ColorRect" parent="MapOverlayLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="SettingsPopup" type="PopupPanel" parent="."]
+position = Vector2i(490, 235)
+size = Vector2i(300, 250)
+
+[node name="VBox" type="VBoxContainer" parent="SettingsPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 262.0
+theme_override_constants/separation = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPopup/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="InnerVBox" type="VBoxContainer" parent="SettingsPopup/VBox/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="SettingsPopup/VBox/MarginContainer/InnerVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "设置"
+horizontal_alignment = 1
+
+[node name="BtnContinue" type="Button" parent="SettingsPopup/VBox/MarginContainer/InnerVBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "继续"
+
+[node name="BtnRestart" type="Button" parent="SettingsPopup/VBox/MarginContainer/InnerVBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "重新开始"
+
+[node name="BtnAbandon" type="Button" parent="SettingsPopup/VBox/MarginContainer/InnerVBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "放弃"
+
+[node name="BtnSaveQuit" type="Button" parent="SettingsPopup/VBox/MarginContainer/InnerVBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "保存并退出"
+
+[connection signal="pressed" from="TitleContainer/BtnContinue" to="." method="_on_btn_continue_pressed"]
+[connection signal="pressed" from="TitleContainer/BtnAdventure" to="." method="_on_btn_adventure_pressed"]
+[connection signal="pressed" from="TitleContainer/BtnLayerSelect" to="." method="_on_btn_layer_select_pressed"]
+[connection signal="pressed" from="TitleContainer/BtnQuit" to="." method="_on_btn_quit_pressed"]
+[connection signal="pressed" from="TopBar/MarginContainer/HBox/RightGroup/SettingsBtn" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="SettingsPopup/VBox/MarginContainer/InnerVBox/BtnContinue" to="." method="_on_settings_continue_pressed"]
+[connection signal="pressed" from="SettingsPopup/VBox/MarginContainer/InnerVBox/BtnRestart" to="." method="_on_settings_restart_pressed"]
+[connection signal="pressed" from="SettingsPopup/VBox/MarginContainer/InnerVBox/BtnAbandon" to="." method="_on_settings_abandon_pressed"]
+[connection signal="pressed" from="SettingsPopup/VBox/MarginContainer/InnerVBox/BtnSaveQuit" to="." method="_on_settings_save_quit_pressed"]

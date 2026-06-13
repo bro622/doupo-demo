@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/reward_scene.gd" id="1"]
+
+[node name="RewardScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.1, 0.08, 1)
+
+[node name="CenterContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -265.0
+offset_right = 440.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "金币 +20 (总计: 119)"
+horizontal_alignment = 1
+
+[node name="RelicContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 55)
+mouse_filter = 1
+alignment = 1
+separation = 15
+
+[node name="PotionContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 55)
+mouse_filter = 1
+alignment = 1
+separation = 15
+
+[node name="ChooseLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "选择一张卡牌加入卡组："
+horizontal_alignment = 1
+
+[node name="CardContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 220)
+mouse_filter = 1
+alignment = 1
+separation = 30
+
+[node name="LeaveButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 50)
+theme_override_font_sizes/font_size = 18
+text = "离开"
