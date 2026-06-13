@@ -1,60 +1,61 @@
-# 斗破苍穹·斗帝之路 - 纯文字战斗Demo
+# 斗破苍穹·斗帝之路
 
-## 概述
+基于《斗破苍穹》的同人卡牌 Roguelike 游戏，使用 Godot 4.5 开发。
 
-这是一个使用 Godot 4.x 引擎开发的纯文字版战斗系统验证 Demo，用于验证《斗破苍穹·斗帝之路》的核心战斗机制是否可行。
+## 游戏特色
 
-## 已实现功能
+- **3 位可选角色**：萧炎（异火掌控者）、萧薰儿（金印引爆者）、彩鳞（蛇毒姿态者）
+- **170+ 张卡牌**：攻击、技能、能力、诅咒、状态等多种类型
+- **58 件遗物**：普通、稀有、史诗、传说四档品质
+- **4 大场景**：加玛帝国 → 黑角域 → 迦南学院 → 中州
+- **47 个事件**：剧情抉择影响游戏进程
+- **50+ 种敌人**：普通、精英、Boss 三种类型
+- **暗色模式**：支持明暗主题切换
 
-- **回合制卡牌战斗**：抽牌→出牌→弃牌→敌方回合
-- **斗气系统**：每回合恢复，用于打出卡牌
-- **卡牌效果**：伤害、护盾、抽牌、状态效果
-- **异火系统**：萧炎专属，凝聚/激发机制
-- **状态效果**：燃烧、蛇毒、虚弱、易伤、脆弱、冰封、破甲
-- **敌人AI**：基于意图系统的循环行为模式
-- **护盾机制**：每回合清零
-- **力量/敏捷**：永久增益属性
+## 下载
 
-## 文件结构
+### Windows
+- [doupo-demo-v0.1.0.exe](https://github.com/bro622/doupo-demo/releases/download/v0.1.0/doupo-demo-v0.1.0.exe)
+
+### Android
+- [doupo-demo-v0.1.0.apk](https://github.com/bro622/doupo-demo/releases/download/v0.1.0/doupo-demo-v0.1.0.apk)
+
+## 技术栈
+
+- **引擎**：Godot 4.5
+- **语言**：GDScript
+- **美术**：AI 生成（Midjourney / Stable Diffusion）
+- **官网**：纯 HTML/CSS/JS，部署在 Vercel
+
+## 项目结构
 
 ```
 doupo-demo/
-├── project.godot           # Godot 项目配置
-├── scenes/
-│   └── main.tscn           # 主场景
-└── scripts/
-    ├── main.gd             # 主控制器（UI 交互）
-    ├── battle_manager.gd   # 战斗管理器
-    ├── card_data.gd        # 卡牌数据结构
-    ├── card_database.gd    # 卡牌数据库（萧炎初始卡组）
-    ├── combatant.gd        # 战斗单位基类
-    ├── player.gd           # 玩家类（卡组管理、斗气）
-    ├── enemy.gd            # 敌人类（AI 行为）
-    ├── enemy_database.gd   # 敌人数据库
-    └── element_system.gd   # 元素克制系统
+├── addons/           # Godot 插件
+├── assets/           # 游戏素材（图片、音频）
+├── data/             # 卡牌数据（JSON）
+├── scenes/           # Godot 场景文件
+├── scripts/          # 游戏逻辑脚本
+│   ├── events/       # 事件系统
+│   ├── saves/        # 存档系统
+│   └── ...
+├── shaders/          # 着色器
+└── project.godot     # Godot 项目配置
 ```
 
-## 运行方式
+## 官网
 
-1. 安装 Godot 4.3+
-2. 打开 Godot，点击"导入"项目
-3. 选择 `doupo-demo/project.godot`
-4. 点击运行（F5）
+https://doupo.vercel.app
 
-## 操作说明
+## 开发
 
-- 输入数字选择菜单选项
-- 战斗中输入卡牌编号出牌
-- 输入 `0` 结束回合
+本项目使用 Godot 4.5 开发。如需本地运行：
 
-## 验证目标
+1. 安装 [Godot 4.5](https://godotengine.org/download)
+2. 克隆本仓库
+3. 用 Godot 打开 `doupo-demo/project.godot`
+4. 按 F5 运行
 
-| 验证项 | 状态 |
-|--------|------|
-| 卡牌洗牌/抽牌/弃牌循环 | ✅ |
-| 斗气消耗与恢复 | ✅ |
-| 伤害计算（力量+元素克制） | ✅ |
-| 护盾每回合清零 | ✅ |
-| 状态效果系统 | ✅ |
-| 敌人意图系统 | ✅ |
-| 战斗胜负判定 | ✅ |
+## 许可证
+
+本项目为同人作品，基于《斗破苍穹》（作者：天蚕土豆）创作。仅供学习交流，不得用于商业用途。
