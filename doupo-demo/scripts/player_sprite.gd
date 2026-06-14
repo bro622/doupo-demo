@@ -166,7 +166,7 @@ func _update_stance_icon(stance: int) -> void:
 			_stance_icon_tween.tween_property(_stance_icon, "modulate:a", 0.0, 0.3)
 		1:
 			_stance_icon.texture = preload("res://assets/ui/stances/queen.png")
-			_stance_icon.tooltip_text = "美杜莎女王姿态\n被动：每次打出技能牌获得2层荆棘（反弹伤害）"
+			_stance_icon.tooltip_text = "美杜莎女王姿态\n被动1：施加蛇毒时层数+1\n被动2：回合结束获得场上最高蛇毒层数的护盾"
 			_stance_icon.modulate = Color(1, 1, 1, 0)
 			_stance_icon_tween.tween_property(_stance_icon, "modulate:a", 0.35, 0.3)
 			_stance_icon_tween.set_loops()
@@ -174,7 +174,7 @@ func _update_stance_icon(stance: int) -> void:
 			_stance_icon_tween.tween_property(_stance_icon, "scale", Vector2(1.0, 1.0), 1.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 		2:
 			_stance_icon.texture = preload("res://assets/ui/stances/python.png")
-			_stance_icon.tooltip_text = "吞天蟒姿态\n被动：每次打出攻击牌额外造成3点伤害"
+			_stance_icon.tooltip_text = "吞天蟒姿态\n被动：攻击时附加目标蛇毒层数的额外伤害"
 			_stance_icon.modulate = Color(1, 1, 1, 0)
 			_stance_icon_tween.tween_property(_stance_icon, "modulate:a", 0.35, 0.3)
 			_stance_icon_tween.set_loops()
