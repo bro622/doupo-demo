@@ -14,10 +14,13 @@
 ## 下载
 
 ### Windows
-- [doupo-demo-v0.1.0.exe](https://github.com/bro622/doupo-demo/releases/download/v0.1.0/doupo-demo-v0.1.0.exe)
+- [doupo-demo-v0.1.1.exe](https://github.com/bro622/doupo-demo/releases/download/v0.1.1/doupo-demo-v0.1.1.exe)
 
 ### Android
-- [doupo-demo-v0.1.0.apk](https://github.com/bro622/doupo-demo/releases/download/v0.1.0/doupo-demo-v0.1.0.apk)
+- [doupo-demo-v0.1.1.apk](https://github.com/bro622/doupo-demo/releases/download/v0.1.1/doupo-demo-v0.1.1.apk)
+
+### macOS
+- [doupo-demo-v0.1.1-macos.zip](https://github.com/bro622/doupo-demo/releases/download/v0.1.1/doupo-demo-v0.1.1-macos.zip)
 
 ## 技术栈
 
