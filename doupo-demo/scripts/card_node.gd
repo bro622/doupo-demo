@@ -145,6 +145,7 @@ func _update_visuals() -> void:
 
 	# 费用徽章：用角色能量图标替代蓝色方块
 	var cost_badge = $CostBadge as Panel
+	cost_badge.clip_contents = true  # 裁剪子节点，防止 z_index 穿透覆盖层
 	# 清除默认样式
 	var empty_style = StyleBoxEmpty.new()
 	cost_badge.add_theme_stylebox_override("panel", empty_style)
@@ -265,12 +266,20 @@ func set_selected(selected: bool) -> void:
 		scale = Vector2.ONE
 
 
+## 记录高亮前位置（用于恢复）
+var _pre_highlight_pos: Vector2 = Vector2.ZERO
+
 ## 高亮卡牌(鼠标悬停)
 func highlight() -> void:
 	if shop_mode or is_dragging or _is_highlighted:
 		return
 	_is_highlighted = true
-	position.y -= 30
+	_pre_highlight_pos = position
+	var new_y = position.y - 30
+	# 上边界保护
+	if new_y < 0:
+		new_y = 0
+	position.y = new_y
 	scale = Vector2(1.15, 1.15)
 	z_index = 10
 
@@ -280,7 +289,7 @@ func unhighlight() -> void:
 	if not _is_highlighted:
 		return
 	_is_highlighted = false
-	position.y += 30
+	position = _pre_highlight_pos
 	scale = Vector2.ONE
 	z_index = 0
 

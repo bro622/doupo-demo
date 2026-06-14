@@ -16,7 +16,6 @@ static func _ensure_loaded() -> void:
 	var cailin_cards = CardLoader.load_from_json("res://data/cards_cailin.json")
 	for card in cailin_cards:
 		_all_cards.append(card)
-	print("[CardDatabase] 加载了 %d 张卡牌（萧炎 + 萧薰儿 + 美杜莎）" % _all_cards.size())
 
 
 ## 通过 ID 查找卡牌（返回副本）
@@ -54,7 +53,7 @@ static func create_starter_deck_for_character(char_id: String) -> Array[CardData
 	var defense_id = _get_basic_defense_id(char_id)
 	var deck: Array[CardData] = []
 
-	# 美杜莎特殊处理：基础打击×4 + 基础防御×4 + 毒牙×1 + 女王威压×1
+	# 美杜莎特殊处理：基础攻击×4 + 基础防御×4 + 毒牙×1 + 女王威压×1
 	if char_id == "cailin":
 		for i in range(4):
 			var card = get_card_by_id("cailin_strike")

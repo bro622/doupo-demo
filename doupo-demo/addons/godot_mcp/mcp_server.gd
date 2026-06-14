@@ -62,12 +62,12 @@ const SERVER_VERSION = "1.0.0"
 
 
 func _ready() -> void:
-	_tcp_server = TCPServer.new()
+	_ensure_tcp_server()
 	_register_tools()
 
 
 func _process(_delta: float) -> void:
-	if not _running:
+	if not _running or _tcp_server == null:
 		return
 
 	# Accept new connections
@@ -119,6 +119,7 @@ func start() -> bool:
 	if _running:
 		return true
 
+	_ensure_tcp_server()
 	var error = _tcp_server.listen(_port, _host)
 	if error != OK:
 		push_error("[MCP] Failed to start server on port %d: %s" % [_port, error_string(error)])
@@ -140,10 +141,16 @@ func stop() -> void:
 	_clients.clear()
 	_pending_data.clear()
 
-	_tcp_server.stop()
+	if _tcp_server != null:
+		_tcp_server.stop()
 	_running = false
 	print("[MCP] Server stopped")
 	server_stopped.emit()
+
+
+func _ensure_tcp_server() -> void:
+	if _tcp_server == null:
+		_tcp_server = TCPServer.new()
 
 
 func is_running() -> bool:

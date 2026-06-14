@@ -66,7 +66,7 @@ static func _register_all() -> void:
 	# 2. 古族金令 - 薰儿初始遗物
 	var gujin = RelicData.new(2, "古族金令", RelicData.Rarity.COMMON,
 		"薰儿初始遗物。每回合前两次引爆各抽1牌。每场第一张攻击牌施加2层金印", Color(0.8, 0.8, 0.8),
-		RelicData.EffectType.BATTLE_START_DRAW, 0)  # TODO: 引爆/金印系统
+		RelicData.EffectType.BATTLE_START_DRAW, 0)
 	gujin.set_exclusive_to("xuner")
 	_register(gujin)
 
@@ -401,4 +401,3 @@ static func _register_all() -> void:
 	_register(RelicData.new(58, "古帝残魂碎片", RelicData.Rarity.LEGENDARY,
 		"第 1 回合前 5 张牌费用为 0", Color(1.0, 0.85, 0.2),
 		RelicData.EffectType.FIRST_TURN_CARDS_COST_ZERO, 5))
-

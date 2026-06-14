@@ -39,7 +39,7 @@ project/assembly_name="斗破苍穹·斗帝之路"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
+enabled=PackedStringArray()
 
 [gui]
 

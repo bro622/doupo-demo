@@ -23,7 +23,7 @@ enum EffectType {
 	TURN_START_BLOCK_PERCENT,# 回合开始获得等同于已损失HP*N%的护盾
 	VICTORY_GOLD_EVERY_N,    # 每N场胜利获得金币(effect_value=N*1000+金币数)
 	VICTORY_GOLD_ELITE,      # 击败精英额外获得N金币
-	SHOP_PRICE_DISCOUNT,     # 商店价格降低N%(预留)
+	SHOP_PRICE_DISCOUNT,     # 商店价格降低N%
 	TURN_START_SHIELD,       # 回合开始获得N点护盾
 	BATTLE_START_DRAW,         # 战斗开始时额外抽N张牌
 	TURN_3_CARDS_PLAYED_SHIELD, # 一回合内打出3+张牌时，获得N点护盾

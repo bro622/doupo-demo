@@ -2,6 +2,8 @@
 ## 处理事件选择、结果执行
 class_name EventManager
 
+const PERMANENT_STRENGTH_FLAG_PREFIX := "event_permanent_strength_"
+
 
 ## 选择事件（按场景隔离）
 static func generate_event() -> EventModel:
@@ -231,10 +233,16 @@ static func _execute_outcome(outcome: EventModel.EventOutcome, result: Dictionar
 			_upgrade_random_cards(outcome.value, result)
 
 		EventModel.OutcomeType.PERMA_STRENGTH:
-			var main_node = Engine.get_main_loop().root.get_node_or_null("Main")
-			if main_node != null and main_node.has("player"):
-				main_node.player.strength += outcome.value
-				result.log.append("[color=orange]永久力量 +%d[/color]" % outcome.value)
+			_add_permanent_strength(outcome.value)
+			result.log.append("[color=orange]永久力量 +%d[/color]" % outcome.value)
+
+
+static func _add_permanent_strength(amount: int) -> void:
+	for _i in range(max(0, amount)):
+		var idx = 1
+		while RunManager.has_event_flag("%s%d" % [PERMANENT_STRENGTH_FLAG_PREFIX, idx]):
+			idx += 1
+		RunManager.add_event_flag("%s%d" % [PERMANENT_STRENGTH_FLAG_PREFIX, idx])
 
 
 ## 给予卡牌
@@ -284,7 +292,7 @@ static func _give_card(ref_id: String, result: Dictionary) -> void:
 		PlayerManager.add_card_to_deck(card)
 		result.log.append("[color=cyan]获得卡牌「%s」[/color]" % card.card_name)
 	else:
-		result.log.append("[color=gray]获得卡牌（待实现）[/color]")
+		result.log.append("[color=gray]未找到卡牌（ID:%s）[/color]" % ref_id)
 
 
 ## 给予遗物
@@ -292,13 +300,15 @@ static func _give_relic(ref_id: String, result: Dictionary) -> void:
 	# "random_common" -> 随机普通遗物
 	# "rare" -> 随机稀有遗物
 	# "epic" -> 随机史诗遗物
+	# "legendary" -> 随机传说遗物
 	# 数字ID -> 给予指定遗物
-	if ref_id == "random_common" or ref_id == "rare" or ref_id == "epic":
+	if ref_id == "random_common" or ref_id == "rare" or ref_id == "epic" or ref_id == "legendary":
 		var target_rarity: RelicData.Rarity
 		match ref_id:
 			"random_common": target_rarity = RelicData.Rarity.COMMON
 			"rare": target_rarity = RelicData.Rarity.RARE
 			"epic": target_rarity = RelicData.Rarity.EPIC
+			"legendary": target_rarity = RelicData.Rarity.LEGENDARY
 			_: target_rarity = RelicData.Rarity.COMMON
 		var all = RelicDatabase.get_relics_by_rarity(target_rarity)
 		var available: Array[RelicData] = []
@@ -329,7 +339,7 @@ static func _give_relic(ref_id: String, result: Dictionary) -> void:
 			PlayerManager.add_gold(50)
 			result.log.append("[color=gray]遗物「%s」与当前角色不兼容，获得 50 金币补偿[/color]" % relic.relic_name)
 		else:
-			result.log.append("[color=gray]获得遗物（ID:%s，待实现）[/color]" % ref_id)
+			result.log.append("[color=gray]未找到遗物（ID:%s）[/color]" % ref_id)
 
 
 ## 给予诅咒牌（直接从全卡池查找，洗入牌库）

@@ -197,9 +197,14 @@ func start_battle() -> String:
 	# 遗物： 战斗开始效果
 	RelicManager.on_battle_start(player, PlayerManager.relics, enemies)
 
-	# 守灵永久力量加成
+	# 事件永久力量加成
+	var event_strength_bonus = 0
 	if RunManager.has_event_flag("ancient_power_boost"):
-		player.strength += 1
+		event_strength_bonus += 1
+	for flag in RunManager.event_flags.keys():
+		if str(flag).begins_with(EventManager.PERMANENT_STRENGTH_FLAG_PREFIX):
+			event_strength_bonus += 1
+	player.strength += event_strength_bonus
 
 	# 事件22选项C:观战学习 — 首回合多抽1牌（一次性）
 	if RunManager.has_event_flag("learned_from_observation"):
