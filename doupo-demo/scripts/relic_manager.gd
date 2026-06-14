@@ -402,8 +402,8 @@ static func check_low_hp_trigger(player: Player, relics: Array[RelicData]) -> St
 			var val = relic.effect_value_2 if relic.effect_type_2 == RelicData.EffectType.LOW_HP_ENERGY_DRAW_CLEANSE else relic.effect_value
 			var energy_gain = int(val / 100.0) if val >= 100 else 2
 			var draw_count = val % 100 if val >= 100 else 3
-			# 立即获得能量
-			player.energy += energy_gain
+			# 立即获得能量（存入bonus_energy，回合开始时保留）
+			player.bonus_energy += energy_gain
 			var drawn = player.draw_cards(draw_count)
 			player.clear_all_debuffs()
 			var draw_names = []
