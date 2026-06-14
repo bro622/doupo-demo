@@ -421,7 +421,7 @@ func _trigger_on_draw(card: CardData) -> String:
 			return "腐骨之毒：失去 6 HP\n"
 		"karma_fire":
 			# 业火焚身：获得1层燃烧
-			burning += 1
+			burn += 1
 			return "业火焚身：获得 1 层燃烧\n"
 		"blood_instability":
 			# 血脉不稳：随机1张手牌本回合不可使用
