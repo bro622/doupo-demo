@@ -185,6 +185,14 @@ static func get_texture_path(enemy_name: String) -> String:
 	return ""
 
 
+## 根据ID获取敌人实例（用于召唤系统）
+static func get_enemy(enemy_id: String) -> Enemy:
+	match enemy_id:
+		"heart_flame_phantom": return create_heart_flame_phantom()
+		"soul_phantom": return create_soul_phantom()
+	return null
+
+
 ## ============================================================
 ##  普通敌人（9 个工厂函数，其中 6 个在随机池中）
 ## ============================================================
@@ -638,6 +646,7 @@ static func create_elite_fan_lao() -> Enemy:
 static func create_elite_mo_tianxing() -> Enemy:
 	var enemy = Enemy.new("莫天行", 75)
 	enemy.add_passive("turn_start", "gain_strength", 1)
+	enemy.bonus_damage_to_debuffed = 5
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "黑帝印")
 	a1.damage = 10
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.SPECIAL, "宗主威压")
@@ -925,6 +934,8 @@ static func create_elite_lin_xiuya() -> Enemy:
 ## 柳擎 HP90：山岳护体10盾 / 山岳拳10 / 铁壁12盾 / 山崩地裂12+脆弱1 / 连山拳6×2
 static func create_elite_liu_qing() -> Enemy:
 	var enemy = Enemy.new("柳擎", 90)
+	enemy.shield_on_low_damage_threshold = 10
+	enemy.shield_on_low_damage_amount = 8
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.DEFEND, "山岳护体")
 	a1.block = 10
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "山岳拳")
@@ -954,8 +965,9 @@ static func create_elite_earth_devil() -> Enemy:
 	var a4 = Enemy.EnemyAction.new(Enemy.IntentType.DEBUFF, "灵魂侵蚀")
 	a4.apply_weak = 2
 	a4.apply_burn = 2
-	var a5 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "召唤+攻击")
-	a5.damage = 5
+	var a5 = Enemy.EnemyAction.new(Enemy.IntentType.SUMMON, "召唤心炎幻影")
+	a5.summon_id = "heart_flame_phantom"
+	a5.summon_count = 1
 	enemy.set_actions([a1, a2, a3, a4, a5])
 	return enemy
 
@@ -963,6 +975,7 @@ static func create_elite_earth_devil() -> Enemy:
 ## 紫妍 HP75：强榜第一，太虚古龙族，肉身强悍
 static func create_elite_ziyan() -> Enemy:
 	var enemy = Enemy.new("紫妍", 75)
+	enemy.add_passive("turn_start", "first_hit_reduction", 3)
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "内院绝技")
 	a1.damage = 10
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.DEBUFF, "威压震慑")
@@ -1000,7 +1013,7 @@ static func create_elite_han_yue() -> Enemy:
 ## 禁地守卫 HP100：封印结界12盾 / 禁制反击12 / 结界加固(10盾+脆弱1) / 封印解放(清盾×1.5伤) / 重新封印(7盾+回5)
 static func create_elite_forbidden_guard() -> Enemy:
 	var enemy = Enemy.new("禁地守卫", 100)
-	enemy.add_passive("turn_start", "gain_block", 3)
+	enemy.add_passive("turn_start", "gain_block", 6)
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.DEFEND, "封印结界")
 	a1.block = 12
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "禁制反击")
@@ -1034,8 +1047,9 @@ static func create_boss_fallen_heart_flame() -> Enemy:
 	p1_a1.apply_burn = 2
 	var p1_a2 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "心炎之触")
 	p1_a2.damage = 10
-	var p1_a3 = Enemy.EnemyAction.new(Enemy.IntentType.BUFF, "心火分身")
-	p1_a3.strength_gain = 1
+	var p1_a3 = Enemy.EnemyAction.new(Enemy.IntentType.SUMMON, "心火分身")
+	p1_a3.summon_id = "heart_flame_phantom"
+	p1_a3.summon_count = 1
 	var p1_a4 = Enemy.EnemyAction.new(Enemy.IntentType.SPECIAL, "双炎击")
 	p1_a4.damage = 6
 	p1_a4.hit_count = 2
@@ -1047,8 +1061,9 @@ static func create_boss_fallen_heart_flame() -> Enemy:
 	p2_a1.strength_gain = 2
 	var p2_a2 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "心炎巨浪")
 	p2_a2.damage = 15
-	var p2_a3 = Enemy.EnemyAction.new(Enemy.IntentType.BUFF, "心火分身")
-	p2_a3.strength_gain = 2
+	var p2_a3 = Enemy.EnemyAction.new(Enemy.IntentType.SUMMON, "心火分身")
+	p2_a3.summon_id = "heart_flame_phantom"
+	p2_a3.summon_count = 2
 	var p2_a4 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "三炎连击")
 	p2_a4.damage = 5
 	p2_a4.hit_count = 3
@@ -1058,8 +1073,9 @@ static func create_boss_fallen_heart_flame() -> Enemy:
 	var p3_a1 = Enemy.EnemyAction.new(Enemy.IntentType.SPECIAL, "焚天")
 	p3_a1.apply_burn = 4
 	p3_a1.damage = 15
-	var p3_a2 = Enemy.EnemyAction.new(Enemy.IntentType.BUFF, "心火军团")
-	p3_a2.strength_gain = 3
+	var p3_a2 = Enemy.EnemyAction.new(Enemy.IntentType.SUMMON, "心火军团")
+	p3_a2.summon_id = "heart_flame_phantom"
+	p3_a2.summon_count = 3
 	var p3_a3 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "心炎灭世")
 	p3_a3.damage = 20
 	var p3_a4 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "五炎连爆")
@@ -1250,6 +1266,7 @@ static func create_pill_tower_guard() -> Enemy:
 ## 药丹 HP100：药火掌12 / 药鼎护体10盾 / 炼药(回15) / 药火焚天18+燃烧2 / 药雾(虚弱2+脆弱2) / 双火掌8×2
 static func create_elite_yao_dan() -> Enemy:
 	var enemy = Enemy.new("药丹", 100)
+	enemy.generate_potion_interval = 3
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "药火掌")
 	a1.damage = 12
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.DEFEND, "药鼎护体")
@@ -1272,6 +1289,7 @@ static func create_elite_yao_dan() -> Enemy:
 ## 魂灭生 HP120：魂刃风暴8×2 / 灵魂锁链(虚弱1+冰封1) / 魂灭斩18 / 三魂连击6×3 / 灵魂风暴15+易伤2 / 魂刃12
 static func create_elite_hun_miesheng() -> Enemy:
 	var enemy = Enemy.new("魂灭生", 120)
+	enemy.add_passive("turn_start", "damage_player", 3)
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "魂刃风暴")
 	a1.damage = 8
 	a1.hit_count = 2
@@ -1346,6 +1364,7 @@ static func create_soul_elder_d() -> Enemy:
 static func create_elite_soul_hall_elder() -> Enemy:
 	var enemy = Enemy.new("魂殿尊老", 100)
 	enemy.add_passive("turn_start", "first_hit_reduction", 3)
+	enemy.add_passive("turn_start", "apply_weak_player", 1)
 	var a1 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "灵魂收割")
 	a1.damage = 12
 	var a2 = Enemy.EnemyAction.new(Enemy.IntentType.DEBUFF, "灵魂锁链")
@@ -1373,6 +1392,8 @@ static func create_elite_soul_hall_elder() -> Enemy:
 ## 魂天帝 HP250
 static func create_boss_huntiandi() -> Enemy:
 	var enemy = Enemy.new("魂天帝", 250)
+	enemy.add_passive("turn_start", "gain_strength", 1)
+	enemy.add_passive("turn_start", "damage_player", 3)
 
 	# 阶段 1（HP>200）：血之帝身
 	var p1_a1 = Enemy.EnemyAction.new(Enemy.IntentType.SPECIAL, "血之帝身")
@@ -1390,8 +1411,9 @@ static func create_boss_huntiandi() -> Enemy:
 	var phase1: Array[Enemy.EnemyAction] = [p1_a1, p1_a2, p1_a3, p1_a4]
 
 	# 阶段 2（HP 160-200）：万魂归一
-	var p2_a1 = Enemy.EnemyAction.new(Enemy.IntentType.BUFF, "万魂召唤")
-	p2_a1.strength_gain = 2
+	var p2_a1 = Enemy.EnemyAction.new(Enemy.IntentType.SUMMON, "万魂召唤")
+	p2_a1.summon_id = "soul_phantom"
+	p2_a1.summon_count = 2
 	var p2_a2 = Enemy.EnemyAction.new(Enemy.IntentType.ATTACK, "万魔噬心")
 	p2_a2.damage = 18
 	var p2_a3 = Enemy.EnemyAction.new(Enemy.IntentType.DEBUFF, "灵魂风暴")

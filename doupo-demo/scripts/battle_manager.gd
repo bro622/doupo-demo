@@ -1622,6 +1622,8 @@ func player_end_turn() -> String:
 		msg += "--- 异火被动 ---\n" + fire_passive_log
 
 	# 敌人行动
+	# 收集召唤请求，循环结束后统一处理
+	var _pending_summons: Array[Dictionary] = []
 	for enemy in enemies:
 		if enemy.is_alive():
 			# 玩家已死亡则中断敌人循环（对标STS2)
@@ -1642,7 +1644,7 @@ func player_end_turn() -> String:
 			if _saved_venom > 0 and enemy.is_alive():
 				msg += "  %s 受到 %d 点蛇毒伤害\n" % [enemy.char_name, _saved_venom]
 			# 敌人回合开始：被动效果（如护盾，需在on_turn_start清block后）
-			var passive_log = enemy.execute_passives("turn_start")
+			var passive_log = enemy.execute_passives("turn_start", player)
 			if passive_log != "":
 				msg += passive_log
 			# 怒火中烧：燃烧不减少
@@ -1666,6 +1668,11 @@ func player_end_turn() -> String:
 				var phase_before = enemy.current_phase
 				player.last_relic_log = ""
 				msg += enemy.execute_intent(player) + "\n"
+				# 收集召唤请求，循环结束后处理
+				if enemy.pending_summons.size() > 0:
+					for summon in enemy.pending_summons:
+						_pending_summons.append({"id": summon["id"], "count": summon["count"], "summoner": enemy.char_name})
+					enemy.pending_summons.clear()
 				if player.last_relic_log != "":
 					msg += player.last_relic_log
 				# 检查玩家是否存活（敌人攻击可能击杀玩家）
@@ -1701,6 +1708,20 @@ func player_end_turn() -> String:
 				if enemy.current_phase != phase_before:
 					msg += "  ★ %s 进入了第 %d 阶段!\n" % [enemy.char_name, enemy.current_phase + 1]
 				enemy.decrement_statuses()
+
+	# 处理召唤请求（循环结束后，最多2个召唤物）
+	for summon in _pending_summons:
+		var current_summons = 0
+		for e in enemies:
+			if e.is_summoned:
+				current_summons += 1
+		var to_summon = mini(summon["count"], 2 - current_summons)
+		for _i in range(to_summon):
+			var summoned = EnemyDatabase.get_enemy(summon["id"])
+			if summoned:
+				summoned.is_summoned = true
+				enemies.append(summoned)
+				msg += "  %s 召唤了 %s！\n" % [summon["summoner"], summoned.char_name]
 
 	# 检查玩家是否存活
 	if not player.is_alive():

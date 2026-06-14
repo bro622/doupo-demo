@@ -4,7 +4,7 @@ class_name Enemy
 extends Combatant
 
 ## 敌人意图类型
-enum IntentType { ATTACK, DEFEND, BUFF, DEBUFF, SPECIAL, UNKNOWN }
+enum IntentType { ATTACK, DEFEND, BUFF, DEBUFF, SPECIAL, UNKNOWN, SUMMON }
 
 ## 行动定义
 class EnemyAction:
@@ -30,6 +30,8 @@ class EnemyAction:
 	var self_damage: int = 0       # 自伤：行动后对自身造成伤害（走火入魔者等）
 	var damage_per_burn_stack: int = 0  # 每层燃烧额外伤害（心炎幻影等）
 	var clear_player_block_mult: float = 0.0  # 清除玩家护盾并造成等量×mult伤害（禁地守卫等）
+	var summon_id: String = ""       # 召唤敌人ID（心炎幻影等）
+	var summon_count: int = 0        # 召唤数量
 	var description: String = ""
 
 	func _init(p_intent: IntentType, p_desc: String = "") -> void:
@@ -51,6 +53,23 @@ var passive_effects: Array[Dictionary] = []
 
 ## 首击减伤（每回合重置，纳兰嫣然等精英用）
 var first_hit_reduction: int = 0
+
+## 黑皇诀：对虚弱/易伤目标额外伤害
+var bonus_damage_to_debuffed: int = 0
+
+## 山岳之体：受到低于阈值的伤害时获得护盾
+var shield_on_low_damage_threshold: int = 0
+var shield_on_low_damage_amount: int = 0
+
+## 药丹被动：每N回合生成丹药
+var generate_potion_interval: int = 0
+var _potion_turn_counter: int = 0
+
+## 召唤请求（由 battle_manager 处理）
+var pending_summons: Array[Dictionary] = []
+
+## 是否为召唤物（用于召唤上限计数）
+var is_summoned: bool = false
 
 ## 石化延迟意图（被石化时保存当前意图，下回合执行）
 var delayed_intent: EnemyAction = null
@@ -83,7 +102,11 @@ func take_damage(amount: int, is_true_damage: bool = false) -> int:
 		var reduced = mini(amount, first_hit_reduction)
 		amount -= reduced
 		first_hit_reduction -= reduced
-	return super(amount, is_true_damage)
+	var actual = super(amount, is_true_damage)
+	# 山岳之体：受到低于阈值的伤害时获得护盾
+	if shield_on_low_damage_threshold > 0 and actual > 0 and actual < shield_on_low_damage_threshold:
+		gain_block(shield_on_low_damage_amount)
+	return actual
 
 
 ## 设置行动模式（单阶段敌人）
@@ -112,7 +135,7 @@ func add_passive(trigger: String, type: String, value: int = 0) -> void:
 
 
 ## 执行被动效果（按触发时机）
-func execute_passives(trigger: String) -> String:
+func execute_passives(trigger: String, player = null) -> String:
 	var msg = ""
 	for passive in passive_effects:
 		if passive["trigger"] != trigger:
@@ -131,6 +154,22 @@ func execute_passives(trigger: String) -> String:
 			"first_hit_reduction":
 				first_hit_reduction = passive["value"]
 				msg += "%s 被动：首次受击伤害 -%d。\n" % [char_name, passive["value"]]
+			"damage_player":
+				if player != null:
+					player.take_damage(passive["value"], true)
+					msg += "%s 领域：对玩家造成 %d 点灵魂伤害。\n" % [char_name, passive["value"]]
+			"apply_weak_player":
+				if player != null:
+					player.apply_weak(passive["value"])
+					msg += "%s 被动：施加 %d 层虚弱。\n" % [char_name, passive["value"]]
+	# 药丹被动：每N回合生成丹药
+	if generate_potion_interval > 0:
+		_potion_turn_counter += 1
+		if _potion_turn_counter % generate_potion_interval == 0:
+			if PlayerManager.potions.size() < PlayerManager.max_potions:
+				var potion = PotionDatabase.get_all_potions().pick_random()
+				PlayerManager.potions.append(potion)
+				msg += "%s 被动：生成丹药「%s」。\n" % [char_name, potion.potion_name]
 	return msg
 
 
@@ -213,6 +252,9 @@ func execute_intent(player: Player) -> String:
 			var total_damage = 0
 			for i in range(intent.hit_count):
 				var dmg = calc_attack_damage(intent.damage)
+				# 黑皇诀：对虚弱/易伤目标额外伤害
+				if bonus_damage_to_debuffed > 0 and (player.weak > 0 or player.vulnerable > 0):
+					dmg += bonus_damage_to_debuffed
 				var actual = player.take_damage(dmg, intent.true_damage)
 				total_damage += actual
 			if intent.hit_count > 1:
@@ -326,6 +368,10 @@ func execute_intent(player: Player) -> String:
 				parts.append("塞入 %d 张状态牌" % intent.add_card_count)
 			log_msg = "%s：%s" % [char_name, "，".join(parts)]
 
+		IntentType.SUMMON:
+			pending_summons.append({"id": intent.summon_id, "count": intent.summon_count})
+			log_msg = "%s 召唤了援军！" % char_name
+
 	# 应用临时力量（当前行动后生效，下次行动后消失）
 	if intent.temp_strength > 0:
 		strength += intent.temp_strength
@@ -366,6 +412,8 @@ func get_intent_icon() -> String:
 				return "🛡️"
 			else:
 				return "🔮"
+		IntentType.SUMMON:
+			return "👥"
 	return "?"
 
 
@@ -403,6 +451,8 @@ func get_intent_icon_path() -> String:
 				return "res://assets/ui/intents/intent_defend.png"
 			else:
 				return "res://assets/ui/intents/intent_debuff.png"
+		IntentType.SUMMON:
+			return "res://assets/ui/intents/intent_buff.png"
 	return "res://assets/ui/intents/intent_unknown.png"
 
 
@@ -471,6 +521,8 @@ func get_intent_text() -> String:
 			if current_intent.apply_frozen > 0:
 				parts.append("冰封 %d" % current_intent.apply_frozen)
 			detail = ", ".join(parts) if parts.size() > 0 else "特殊"
+		IntentType.SUMMON:
+			detail = "召唤 ×%d" % current_intent.summon_count
 
 	return detail
 

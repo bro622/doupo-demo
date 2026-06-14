@@ -663,6 +663,26 @@ func draw_cards(count: int) -> Array[CardData]:
 			var curse_msg = _trigger_on_draw(card)
 			if curse_msg != "":
 				last_curse_log += curse_msg
+			# 诅咒护符：抽到诅咒牌时自动消耗并重新抽牌
+			if card.card_type == CardData.CardType.CURSE and PlayerManager.has_relic(53):
+				hand.erase(card)
+				exhaust_pile.append(card)
+				drawn.erase(card)
+				last_curse_log += "诅咒护符：消耗「%s」，重新抽牌\n" % card.card_name
+				# 重新抽一张（带弃牌堆洗入）
+				if draw_pile.size() == 0 and discard_pile.size() > 0:
+					for dc in discard_pile:
+						draw_pile.append(dc)
+					discard_pile.clear()
+					_shuffle_draw_pile()
+					deck_shuffled.emit()
+				if draw_pile.size() > 0:
+					var replacement = draw_pile.pop_back()
+					hand.append(replacement)
+					drawn.append(replacement)
+					var rep_msg = _trigger_on_draw(replacement)
+					if rep_msg != "":
+						last_curse_log += rep_msg
 	return drawn
 
 

@@ -29,11 +29,25 @@ func _ready() -> void:
 ## 初始化
 func setup() -> void:
 	title_label.text = "修炼驿站"
+
+	# 大长老手令/灵药圃：自动回复，不占选项
+	var auto_heal = 0
+	for relic in PlayerManager.relics:
+		if relic.id == 42 or relic.id == 54:
+			auto_heal += 15
+	if auto_heal > 0:
+		var old_hp = PlayerManager.hp
+		PlayerManager.heal(auto_heal)
+		var healed = PlayerManager.hp - old_hp
+		if healed > 0:
+			result_label.text = "遗物自动恢复了 %d 点HP！" % healed
+	else:
+		result_label.text = ""
+
 	var base_heal = RestManager.get_heal_amount(PlayerManager.max_hp)
 	var total_heal = RelicManager.calculate_rest_heal(base_heal, PlayerManager.hp, PlayerManager.max_hp, PlayerManager.relics)
 	heal_button.text = "运功疗伤 (恢复%d HP)" % total_heal
 	upgrade_button.text = "研习斗技 (升级1张卡牌)"
-	result_label.text = ""
 
 	# 如果满血禁用回血
 	heal_button.disabled = PlayerManager.hp >= PlayerManager.max_hp

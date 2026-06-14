@@ -448,8 +448,8 @@ static func on_card_played(player: Player, card: CardData, relics: Array[RelicDa
 				if player.cards_played_for_relic_count == 3:
 					player.gain_block(relic.effect_value)
 			RelicData.EffectType.CONSECUTIVE_ATTACK_STRENGTH:
-				# 凌影的暗镖：同回合连续打出3张攻击牌获得力量
-				if player.consecutive_attacks_this_turn >= 3 and player.consecutive_attacks_this_turn % 3 == 0:
+				# 凌影的暗镖：战斗内每累计打出3张攻击牌获得力量
+				if player.total_attacks_this_battle > 0 and player.total_attacks_this_battle % 3 == 0:
 					player.temp_strength += relic.effect_value
 			RelicData.EffectType.UNUPGRADED_AUTO_UPGRADE:
 				# 魂殿拘灵锁：打出未升级卡牌时自动升级
@@ -490,7 +490,7 @@ static func on_card_played(player: Player, card: CardData, relics: Array[RelicDa
 						if player.skill_cards_this_turn % 3 == 0:
 							player.temp_dexterity += relic.effect_value_2
 				RelicData.EffectType.CONSECUTIVE_ATTACK_STRENGTH:
-					if player.consecutive_attacks_this_turn >= 3 and player.consecutive_attacks_this_turn % 3 == 0:
+					if player.total_attacks_this_battle > 0 and player.total_attacks_this_battle % 3 == 0:
 						player.temp_strength += relic.effect_value_2
 		# 检查第三效果
 		if relic.effect_value_3 > 0:
