@@ -5,7 +5,7 @@ node_modules/
 
 # Large binary files
 website/downloads/
-doupo-demo/assets/
+
 website/assets/enemies/
 website/assets/events/
 website/assets/cards/
