@@ -37,6 +37,8 @@ var _bgm_fade_tween: Tween = null
 # Preloaded audio pools
 var _sfx_cache: Dictionary = {}
 var _ui_cache: Dictionary = {}
+var _is_shutting_down: bool = false
+var _audio_disabled: bool = false
 
 # RNG
 var _rng := RandomNumberGenerator.new()
@@ -44,6 +46,9 @@ var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_rng.randomize()
+	_audio_disabled = DisplayServer.get_name() == "headless"
+	if _audio_disabled:
+		return
 	_ensure_buses()
 	_preload_audio()
 	# BGM players (dedicated, not pooled — for crossfade)
@@ -55,6 +60,12 @@ func _ready() -> void:
 	add_child(_bgm_player_b)
 	_bgm_player_a.finished.connect(_on_bgm_finished.bind(true))
 	_bgm_player_b.finished.connect(_on_bgm_finished.bind(false))
+	tree_exiting.connect(_shutdown_audio)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_EXIT_TREE or what == NOTIFICATION_PREDELETE:
+		_shutdown_audio()
 
 
 func _ensure_buses() -> void:
@@ -103,6 +114,8 @@ func _preload_audio() -> void:
 
 ## Play a one-shot SFX. Returns handle for stop/fade control.
 func sfx(sfx_name: String, volume_db_offset: float = 0.0, pitch_var: PitchVar = PitchVar.NONE, bus_override: String = "") -> int:
+	if _audio_disabled:
+		return -1
 	if not _sfx_cache.has(sfx_name):
 		push_warning("AudioManager: SFX not found: %s" % sfx_name)
 		return -1
@@ -112,6 +125,8 @@ func sfx(sfx_name: String, volume_db_offset: float = 0.0, pitch_var: PitchVar = 
 
 ## Play a one-shot UI sound. Returns handle.
 func ui(ui_name: String, volume_db_offset: float = 0.0, pitch_var: PitchVar = PitchVar.NONE) -> int:
+	if _audio_disabled:
+		return -1
 	if not _ui_cache.has(ui_name):
 		push_warning("AudioManager: UI sound not found: %s" % ui_name)
 		return -1
@@ -120,6 +135,8 @@ func ui(ui_name: String, volume_db_offset: float = 0.0, pitch_var: PitchVar = Pi
 
 ## Stop a playing sound by handle, with optional fade-out.
 func stop(handle_id: int, fade_time: float = 0.0) -> void:
+	if _audio_disabled:
+		return
 	if not _active.has(handle_id):
 		return
 	var player: AudioStreamPlayer = _active[handle_id]
@@ -142,6 +159,8 @@ func stop_ambience(fade_time: float = 1.0) -> void:
 
 ## Play ambience sound (looping). Stores handle for stop_ambience().
 func play_ambience(sfx_name: String, volume_db_offset: float = 0.0) -> void:
+	if _audio_disabled:
+		return
 	stop_ambience(0.0)
 	if not _sfx_cache.has(sfx_name):
 		push_warning("AudioManager: Ambience SFX not found: %s" % sfx_name)
@@ -187,7 +206,49 @@ func _release(handle_id: int) -> void:
 	if is_instance_valid(player):
 		player.stop()
 		player.stream = null
-		_free_players.append(player)
+		if _is_shutting_down:
+			player.free()
+		else:
+			_free_players.append(player)
+
+
+func _shutdown_audio() -> void:
+	if _is_shutting_down:
+		return
+	_is_shutting_down = true
+
+	if _bgm_fade_tween and _bgm_fade_tween.is_valid():
+		_bgm_fade_tween.kill()
+	_bgm_fade_tween = null
+
+	for handle_id in _active.keys():
+		var player: AudioStreamPlayer = _active[handle_id]
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
+			player.free()
+	_active.clear()
+
+	for player in _free_players:
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
+			player.free()
+	_free_players.clear()
+
+	for player in [_bgm_player_a, _bgm_player_b]:
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
+
+	_bgm_playlist.clear()
+	_sfx_cache.clear()
+	_ui_cache.clear()
+	_ambience_handle = -1
+
+
+func shutdown() -> void:
+	_shutdown_audio()
 
 
 func _play_stream(stream: AudioStream, bus_name: String, volume_db_offset: float, pitch_var: PitchVar, looping: bool = false) -> int:
@@ -226,6 +287,8 @@ func _on_finished(handle_id: int) -> void:
 ## If playlist is empty, stops current BGM.
 ## volume_db: base volume for BGM playback.
 func play_bgm_playlist(tracks: Array[String], volume_db: float = -10.0, crossfade_time: float = 2.0) -> void:
+	if _audio_disabled:
+		return
 	if tracks.is_empty():
 		stop_bgm(1.0)
 		return
@@ -243,6 +306,8 @@ func play_bgm_playlist(tracks: Array[String], volume_db: float = -10.0, crossfad
 signal bgm_once_finished
 
 func play_bgm_once(track_name: String, volume_db: float = -6.0, fade_in: float = 1.5, fade_out: float = 2.0) -> int:
+	if _audio_disabled:
+		return -1
 	var path := "res://assets/audio/bgm/" + track_name
 	if not ResourceLoader.exists(path):
 		push_warning("AudioManager: BGM once track not found: %s" % path)
@@ -290,6 +355,8 @@ func play_bgm_once(track_name: String, volume_db: float = -6.0, fade_in: float =
 
 ## Stop BGM with fade-out.
 func stop_bgm(fade_time: float = 1.0) -> void:
+	if _audio_disabled:
+		return
 	_bgm_playlist.clear()
 	var current := _get_active_player()
 	if current and current.playing:
@@ -298,6 +365,8 @@ func stop_bgm(fade_time: float = 1.0) -> void:
 
 ## Skip to next track with crossfade.
 func bgm_next() -> void:
+	if _audio_disabled:
+		return
 	if _bgm_playlist.is_empty():
 		return
 	_bgm_index = (_bgm_index + 1) % _bgm_playlist.size()

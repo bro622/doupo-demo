@@ -58,7 +58,7 @@
     "upgraded_block": 5,
     "upgraded_description": "凝聚1朵青莲地心火。获得5护盾。",
     "character_id": "xiaoyan",
-    "image_path": "res://assets/cards/xiaoyan/控火诀.jpg",
+    "image_path": "res://assets/cards/xiaoyan/控火诀.png",
     "detail": "凝聚 1 朵青莲地心火。获得 3 点护盾。",
     "upgraded_detail": "凝聚 1 朵青莲地心火。获得 5 点护盾。"
   },
@@ -959,34 +959,6 @@
     "character_id": "",
     "detail": "不可打出。回合结束时若在手牌中，受到 2 点伤害。虚无。",
     "image_path": "res://assets/cards/curses/风缠.jpg"
-  },
-  {
-    "id": "cailin_strike",
-    "name": "基础攻击",
-    "type": "ATTACK",
-    "rarity": "COMMON",
-    "cost": 1,
-    "description": "造成 6 点伤害。",
-    "damage": 6,
-    "tags": [],
-    "character_id": "cailin",
-    "upgraded_damage": 9,
-    "upgraded_description": "造成 9 点伤害。",
-    "image_path": "res://assets/cards/cailin/基础打击.png"
-  },
-  {
-    "id": "cailin_defense",
-    "name": "基础防御",
-    "type": "SKILL",
-    "rarity": "COMMON",
-    "cost": 1,
-    "description": "获得 5 点护盾。",
-    "block": 5,
-    "tags": [],
-    "character_id": "cailin",
-    "upgraded_block": 8,
-    "upgraded_description": "获得 8 点护盾。",
-    "image_path": "res://assets/cards/xiaoyan/基础防御.png"
   },
   {
     "id": "blood_toxin_backlash",

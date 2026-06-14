@@ -147,10 +147,15 @@ func _ready() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if is_instance_valid(AudioManager) and AudioManager.has_method("shutdown"):
+			AudioManager.shutdown()
 		# 退出时自动保存（仅在有活跃运行时）
 		if current_phase != GamePhase.TITLE and current_phase != GamePhase.VICTORY and current_phase != GamePhase.FLOOR_ZERO:
 			SaveManager.save_game()
 		get_tree().quit()
+	elif what == NOTIFICATION_EXIT_TREE or what == NOTIFICATION_PREDELETE:
+		if is_instance_valid(AudioManager) and AudioManager.has_method("shutdown"):
+			AudioManager.shutdown()
 
 
 func _input(event: InputEvent) -> void:
@@ -211,7 +216,7 @@ func _show_title_screen() -> void:
 	top_bar.visible = false
 	relic_bar_panel.visible = false
 	_clear_scene()
-	AudioManager.ui("logo_echo.mp3")
+	AudioManager.sfx("logo_echo.mp3")
 	# 标题页BGM播放列表（2秒交叉淡入淡出）
 	var title_bgm: Array[String] = [
 		"zhu_jue.mp3", "ru_shi_zhi_mo.mp3", "su.mp3", "que_yue.mp3",
@@ -1586,6 +1591,8 @@ func _get_enemies_for_combat_id(combat_id: String) -> Array[Enemy]:
 			enemies.append(EnemyDatabase.create_elite_earth_devil())
 		"forbidden_guard_fight":
 			enemies.append(EnemyDatabase.create_elite_forbidden_guard())
+		"fallen_heart_flame":
+			enemies.append(EnemyDatabase.create_boss_fallen_heart_flame())
 		# === 中州事件战斗 ===
 		"pill_tower_guard_fight":
 			enemies.append(EnemyDatabase.create_pill_tower_guard())
@@ -1596,6 +1603,8 @@ func _get_enemies_for_combat_id(combat_id: String) -> Array[Enemy]:
 			enemies.append(EnemyDatabase.create_soul_elder_b())
 			enemies.append(EnemyDatabase.create_soul_elder_c())
 			enemies.append(EnemyDatabase.create_soul_elder_d())
+		"soul_hall_elder":
+			enemies.append(EnemyDatabase.create_soul_hall_elder())
 		"ancient_puppet_fight":
 			enemies.append(EnemyDatabase.create_ancient_puppet())
 		"ancient_clan_trial_fight":

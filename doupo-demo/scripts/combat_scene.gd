@@ -175,15 +175,11 @@ func _load_battle_background(enemies: Array[Enemy]) -> void:
 			child.queue_free()
 
 	var bg_path = EnemyDatabase.get_background_path(enemies)
-	print("[背景加载] 路径: '%s'" % bg_path)
 	if bg_path != "":
 		# 尝试加载背景纹理（优先用 load，失败则用 Image 直接读取）
 		var texture: Texture2D = null
 		if ResourceLoader.exists(bg_path):
 			texture = load(bg_path)
-			print("[背景加载] load() 结果: %s" % ("成功" if texture != null else "失败"))
-		else:
-			print("[背景加载] ResourceLoader.exists = false，使用 fallback")
 		if texture == null:
 			# fallback: 用 Image 直接从文件系统加载
 			var abs_path = ProjectSettings.globalize_path(bg_path)
@@ -830,7 +826,6 @@ func _play_card(hand_index: int, enemy_index: int) -> void:
 			player_sprite.play_attack(target_pos)
 			AudioManager.sfx("slash_attack.mp3")
 		CardData.CardType.SKILL:
-			print("[CombatScene] SKILL card played")
 			player_sprite.play_skill_burst(skill_effect_area)
 			AudioManager.sfx("blunt_attack.mp3")
 		CardData.CardType.ABILITY:

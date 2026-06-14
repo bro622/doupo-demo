@@ -4,6 +4,7 @@ node_modules/
 .superpowers/
 
 # Large binary files
+downloads/
 website/downloads/
 
 website/assets/enemies/

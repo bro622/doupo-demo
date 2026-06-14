@@ -231,7 +231,7 @@
     "detail": "造成等同于目标身上金印层数 × 3 的伤害。"
   },
   {
-    "id": "shadow_strike",
+    "id": "xuner_shadow_strike",
     "name": "凌影突袭",
     "type": "ATTACK",
     "rarity": "RARE",
@@ -860,7 +860,7 @@
     "image_path": "res://assets/cards/xuner/神品血脉.png"
   },
   {
-    "id": "soul_sense",
+    "id": "xuner_soul_sense",
     "name": "灵魂感知",
     "type": "SKILL",
     "rarity": "RARE",
@@ -873,7 +873,7 @@
     "upgraded_draw_cards": 2,
     "upgraded_description": "选择弃2牌。抽2牌。",
     "character_id": "",
-    "image_path": "res://assets/cards/xiaoyan/灵魂感知.jpg",
+    "image_path": "res://assets/cards/xuner/灵魂感知.jpg",
     "detail": "从手牌中选择 1 张牌弃置。抽 1 张牌。",
     "upgraded_detail": "从手牌中选择 2 张牌弃置。抽 2 张牌。"
   },
