@@ -96,15 +96,10 @@ const ENEMY_BACKGROUNDS: Dictionary = {
 static func get_background_path(enemies: Array[Enemy]) -> String:
 	for enemy in enemies:
 		var name = enemy.char_name
-		print("[背景查找] 敌人: '%s', 在表中: %s" % [name, ENEMY_BACKGROUNDS.has(name)])
 		if ENEMY_BACKGROUNDS.has(name):
 			var bg_id = ENEMY_BACKGROUNDS[name]
-			print("[背景查找] bg_id: '%s'" % bg_id)
 			if BACKGROUND_PATHS.has(bg_id):
-				var path = BACKGROUND_PATHS[bg_id]
-				print("[背景查找] 返回路径: '%s'" % path)
-				return path
-	print("[背景查找] 未匹配，返回空")
+				return BACKGROUND_PATHS[bg_id]
 	return ""
 
 

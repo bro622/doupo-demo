@@ -355,8 +355,8 @@ const EVENTS = [
           {
             "type": "CARD",
             "value": 0,
-            "ref": "rare",
-            "desc": "获得稀有卡牌（暗影潜行待实现）"
+            "ref": "shadow_lurk",
+            "desc": "获得卡牌【暗影潜行】"
           }
         ]
       }

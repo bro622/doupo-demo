@@ -247,6 +247,15 @@ if(!enemy){
   if (enemy.phases) {
     const phaseTitle = document.getElementById('phase-title');
     const phaseActions = document.getElementById('phase-actions');
+    // Preload all phase sprites
+    const phaseImages = {};
+    enemy.phases.forEach(p => {
+      if (p.sprite) {
+        const img = new Image();
+        img.src = `assets/enemies/${p.sprite}`;
+        phaseImages[p.sprite] = img;
+      }
+    });
     function renderPhase(idx) {
       if (!enemy.phases || idx < 0 || idx >= enemy.phases.length) return;
       const phase = enemy.phases[idx];
@@ -254,7 +263,14 @@ if(!enemy){
       // Update stage sprite if available
       if (phase.sprite) {
         const heroSprite = document.querySelector('.enemy-hero-sprite');
-        if (heroSprite) heroSprite.src = `assets/enemies/${phase.sprite}`;
+        if (heroSprite) {
+          const preloaded = phaseImages[phase.sprite];
+          if (preloaded && preloaded.complete) {
+            heroSprite.src = preloaded.src;
+          } else {
+            heroSprite.src = `assets/enemies/${phase.sprite}`;
+          }
+        }
       }
       phaseActions.innerHTML = phase.actions.map((a,i) => `
         <div class="action-item">
