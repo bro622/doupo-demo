@@ -20,7 +20,7 @@ func get_choices() -> Array[EventChoice]:
 	var choice_a = EventChoice.new("深入探索")
 	choice_a.add_outcome(OutcomeType.COMBAT, 0, "mountain_beast", "遭遇洞穴守护魔兽！")
 	choice_a.add_outcome(OutcomeType.CARD, 0, "rare", "击败后获得稀有卡牌")
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "34", "获得遗物「七彩灵鹤羽」")
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "59", "获得遗物「七彩灵鹤羽」")
 	choice_a.add_outcome(OutcomeType.CURSE_CARD, 0, "beast_backlash", "受到兽性反噬...")
 	choices.append(choice_a)
 

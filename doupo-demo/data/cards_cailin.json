@@ -249,7 +249,7 @@
     ],
     "character_id": "cailin",
     "upgraded_damage": 5,
-    "upgraded_description": "造成6伤害2次。女王姿态+2蛇毒。",
+    "upgraded_description": "造成5伤害2次。女王姿态+2蛇毒。",
     "image_path": "res://assets/cards/cailin/蛇鳞飞射.png",
     "detail": "造成 4 点伤害 2 次。如果处于女王姿态，每次额外给予 1 层蛇毒。",
     "upgraded_detail": "造成 5 点伤害 2 次。如果处于女王姿态，每次额外给予 1 层蛇毒。"
@@ -331,7 +331,8 @@
     "upgraded_description": "造成14伤害。护盾先减半。+4蛇毒。",
     "image_path": "res://assets/cards/cailin/蟒毒腐蚀.png",
     "detail": "造成 10 点伤害。先将目标护盾减半，再计算伤害。给予 3 层蛇毒。",
-    "upgraded_detail": "造成 14 点伤害。先将目标护盾减半，再计算伤害。给予 3 层蛇毒。"
+    "upgraded_detail": "造成 14 点伤害。先将目标护盾减半，再计算伤害。给予 3 层蛇毒。",
+    "upgraded_venom_apply": 4
   },
   {
     "id": "devour_alive",
@@ -445,7 +446,7 @@
     "cleanse_count": 1,
     "character_id": "cailin",
     "upgraded_block": 8,
-    "upgraded_description": "获得7护盾。移除2个负面状态。",
+    "upgraded_description": "获得8护盾。移除1个负面状态。",
     "image_path": "res://assets/cards/cailin/蜕皮.png",
     "detail": "获得 5 点护盾。移除自身 1 个负面状态。",
     "upgraded_detail": "获得 8 点护盾。移除自身 1 个负面状态。"
@@ -560,7 +561,8 @@
     "upgraded_description": "获得9护盾。受击时给攻击者+3蛇毒。",
     "image_path": "res://assets/cards/cailin/蟒毒护甲.png",
     "detail": "获得 6 点护盾。本回合内，每当敌人攻击你，给予其 2 层蛇毒。",
-    "upgraded_detail": "获得 9 点护盾。本回合内，每当敌人攻击你，给予其 2 层蛇毒。"
+    "upgraded_detail": "获得 9 点护盾。本回合内，每当敌人攻击你，给予其 2 层蛇毒。",
+    "upgraded_venom_thorns": 3
   },
   {
     "id": "snake_soul_burst",
@@ -640,7 +642,8 @@
     "upgraded_description": "+2力量。所有敌人+3蛇毒。进入吞天蟒。",
     "image_path": "res://assets/cards/cailin/蛇皇之怒.png",
     "detail": "获得 1 层力量。给予所有敌人 2 层蛇毒。进入吞天蟒姿态。",
-    "upgraded_detail": "获得 1 层力量。给予所有敌人 3 层蛇毒。进入吞天蟒姿态。"
+    "upgraded_detail": "获得 1 层力量。给予所有敌人 3 层蛇毒。进入吞天蟒姿态。",
+    "upgraded_gain_strength": 2
   },
   {
     "id": "python_venom_explode",
@@ -696,7 +699,8 @@
     "upgraded_description": "获得20护盾。女王姿态受击+4蛇毒。",
     "image_path": "res://assets/cards/cailin/美杜莎之盾.png",
     "detail": "获得 15 点护盾。如果你处于女王姿态，给予攻击你的敌人 3 层蛇毒。",
-    "upgraded_detail": "获得 20 点护盾。如果你处于女王姿态，给予攻击你的敌人 3 层蛇毒。"
+    "upgraded_detail": "获得 20 点护盾。如果你处于女王姿态，给予攻击你的敌人 3 层蛇毒。",
+    "upgraded_queen_venom_thorns": 4
   },
   {
     "id": "medusa_gaze",
@@ -717,7 +721,8 @@
     "upgraded_description": "所有敌人+2虚弱+2破甲。女王石化1敌人。消耗。",
     "image_path": "res://assets/cards/cailin/美杜莎之凝望.png",
     "detail": "给予所有敌人 1 层虚弱与 1 层破甲。如果处于女王姿态，给予随机一名敌人石化。消耗。",
-    "upgraded_detail": "给予所有敌人 2 层虚弱与 1 层破甲。如果处于女王姿态，给予随机一名敌人石化。消耗。"
+    "upgraded_detail": "给予所有敌人 2 层虚弱与 1 层破甲。如果处于女王姿态，给予随机一名敌人石化。消耗。",
+    "upgraded_apply_armor_break_all": 2
   },
   {
     "id": "nine_color_protection",
@@ -750,7 +755,7 @@
     ],
     "character_id": "cailin",
     "upgraded_consume_all_venom_block": 2,
-    "upgraded_description": "消耗。消耗所有蛇毒，每层1HP+1护盾。",
+    "upgraded_description": "消耗。消耗所有蛇毒，每层1HP+2护盾。",
     "image_path": "res://assets/cards/cailin/蛇魂轮回.png",
     "detail": "消耗。消耗场上所有敌人的蛇毒，每层恢复 1 点生命值并获得 1 点护盾。",
     "upgraded_detail": "消耗。消耗场上所有敌人的蛇毒，每层恢复 1 点生命值并获得 2 点护盾。"

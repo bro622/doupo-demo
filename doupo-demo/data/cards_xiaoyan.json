@@ -500,8 +500,8 @@
     "upgraded_description": "16护盾。最前异火移至末尾。",
     "character_id": "xiaoyan",
     "image_path": "res://assets/cards/xiaoyan/六合游身.png",
-    "detail": "获得 12 点护盾。将最前端的异火移至末尾。",
-    "upgraded_detail": "获得 16 点护盾。将最前端的异火移至末尾。"
+    "detail": "将最后的异火移至最前。获得6护盾。",
+    "upgraded_detail": "将最后的异火移至最前。获得9护盾。"
   },
   {
     "id": "cauldron_guard",

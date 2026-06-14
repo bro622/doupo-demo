@@ -430,10 +430,14 @@ static func on_card_played(player: Player, card: CardData, relics: Array[RelicDa
 	else:
 		player.consecutive_attacks_this_turn = 0
 
+	# 七彩反噬：本回合遗物效果失效
+	if player.relics_disabled_this_turn:
+		return
+
 	for relic in relics:
 		match relic.effect_type:
 			RelicData.EffectType.CARD_PLAY_HEAL:
-				if relic.effect_value > 0:
+				if relic.effect_value > 0 and card.card_type == CardData.CardType.ABILITY:
 					player.hp = min(player.max_hp, player.hp + relic.effect_value)
 			RelicData.EffectType.TURN_3_CARDS_PLAYED_SHIELD:
 				# 回气散配方：每回合第3张牌打出时获护盾
@@ -469,7 +473,8 @@ static func on_card_played(player: Player, card: CardData, relics: Array[RelicDa
 		if relic.effect_value_2 > 0:
 			match relic.effect_type_2:
 				RelicData.EffectType.CARD_PLAY_HEAL:
-					player.hp = min(player.max_hp, player.hp + relic.effect_value_2)
+					if card.card_type == CardData.CardType.ABILITY:
+						player.hp = min(player.max_hp, player.hp + relic.effect_value_2)
 				RelicData.EffectType.NTH_CARD_ENERGY_AND_DRAW:
 					if relic.effect_value_2 > 0 and player.cards_played_for_relic_count % relic.effect_value_2 == 0:
 						player.gain_energy(1)
@@ -491,7 +496,8 @@ static func on_card_played(player: Player, card: CardData, relics: Array[RelicDa
 		if relic.effect_value_3 > 0:
 			match relic.effect_type_3:
 				RelicData.EffectType.CARD_PLAY_HEAL:
-					player.hp = min(player.max_hp, player.hp + relic.effect_value_3)
+					if card.card_type == CardData.CardType.ABILITY:
+						player.hp = min(player.max_hp, player.hp + relic.effect_value_3)
 				RelicData.EffectType.NTH_CARD_ENERGY_AND_DRAW:
 					if player.cards_played_for_relic_count % relic.effect_value_3 == 0:
 						player.gain_energy(1)

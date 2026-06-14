@@ -36,6 +36,7 @@ var _skip_energy_deduction: bool = false
 
 ## 下一张牌耗能修改（紫云翼等）
 var next_card_cost_modifier: int = 0
+var relics_disabled_this_turn: bool = false  # 七彩反噬：本回合遗物不触发
 ## 本回合所有手牌费用减免（天雁九行翼）
 var hand_cost_reduction: int = 0
 
@@ -403,6 +404,46 @@ func _trigger_on_draw(card: CardData) -> String:
 		"soul_trauma":
 			hp = max(0, hp - 3)
 			return "灵魂创伤：失去 3 HP\n"
+		"seal_power":
+			# 封印之力：随机1张手牌本回合不可使用
+			var playable: Array[int] = []
+			for i in range(hand.size()):
+				if hand[i].id != "seal_power" and not hand[i].sealed_this_turn:
+					playable.append(i)
+			if playable.size() > 0:
+				var idx = playable[RNGManager.monster_rng.randi() % playable.size()]
+				hand[idx].sealed_this_turn = true
+				return "封印之力：「%s」本回合无法使用\n" % hand[idx].card_name
+			return "封印之力：无可用目标\n"
+		"bone_poison":
+			# 腐骨之毒：受到6点伤害
+			hp = max(0, hp - 6)
+			return "腐骨之毒：失去 6 HP\n"
+		"karma_fire":
+			# 业火焚身：获得1层燃烧
+			burning += 1
+			return "业火焚身：获得 1 层燃烧\n"
+		"blood_instability":
+			# 血脉不稳：随机1张手牌本回合不可使用
+			var playable2: Array[int] = []
+			for i in range(hand.size()):
+				if hand[i].id != "blood_instability" and not hand[i].sealed_this_turn:
+					playable2.append(i)
+			if playable2.size() > 0:
+				var idx2 = playable2[RNGManager.monster_rng.randi() % playable2.size()]
+				hand[idx2].sealed_this_turn = true
+				return "血脉不稳：「%s」本回合无法使用\n" % hand[idx2].card_name
+			return "血脉不稳：无可用目标\n"
+		"rainbow_backlash":
+			# 七彩反噬：本回合遗物不触发
+			relics_disabled_this_turn = true
+			return "七彩反噬：本回合遗物效果失效\n"
+		"serpent_fury":
+			# 蛇魂暴走：回合结束时在手牌中+蟒蛇姿态受到伤害（由on_turn_end处理）
+			pass
+		"obsession":
+			# 执念缠身：回合结束时在手牌中受到伤害（由on_turn_end处理）
+			pass
 	return ""
 
 
@@ -508,6 +549,9 @@ func on_turn_start() -> Dictionary:
 	next_card_double_remaining = 0
 	first_card_free_this_turn = false
 	next_card_cost_modifier = 0
+	relics_disabled_this_turn = false
+	for c in hand:
+		c.sealed_this_turn = false
 	evoke_block_this_turn = 0
 	on_hit_burn_this_turn = 0
 	last_card_block = 0
@@ -567,7 +611,13 @@ func on_turn_start() -> Dictionary:
 		gain_block(shield)
 		msg += "  火灵护体：获得 %d 护盾\n" % shield
 	# 斗气凝聚：回合开始多抽N张
-	if ability_extra_draw > 0:
+	# 古族禁令：手牌中时禁止额外抽牌
+	var has_ancient_forbidden = false
+	for card in hand:
+		if card.id == "ancient_clan_forbidden":
+			has_ancient_forbidden = true
+			break
+	if ability_extra_draw > 0 and not has_ancient_forbidden:
 		draw_count += ability_extra_draw
 	# 星空体质：回合开始自动凝聚异火（可叠加，每张凝聚1朵）
 	if ability_auto_channel_fire >= 0 and ability_auto_channel_count > 0:
@@ -622,6 +672,10 @@ func play_card(hand_index: int, _target: Combatant = null) -> bool:
 		return false
 
 	var card = hand[hand_index]
+
+	# 封印之力/血脉不稳：本回合被封印的牌不能使用
+	if card.sealed_this_turn:
+		return false
 
 	# 检查诅咒牌不能打出（灵魂创伤例外：可消耗诅咒）
 	if card.card_type == CardData.CardType.CURSE:
@@ -753,6 +807,16 @@ func on_turn_end() -> void:
 			take_damage(dmg, true)  # 真实伤害，无视护盾
 			if not is_alive():
 				return  # 玩家已死亡，停止手牌处理
+		# 执念缠身：回合结束时在手牌中受到3伤害
+		if card.id == "obsession":
+			take_damage(3, true)
+			if not is_alive():
+				return
+		# 蛇魂暴走：回合结束时在手牌中+蟒毒姿态受到4伤害
+		if card.id == "serpent_fury" and current_stance == 2:
+			take_damage(4, true)
+			if not is_alive():
+				return
 
 	# 处理手牌
 	var cards_to_discard: Array[CardData] = []

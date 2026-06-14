@@ -1724,17 +1724,8 @@ func _on_potion_used(potion_index: int) -> void:
 	if potion_index < 0 or potion_index >= PlayerManager.potions.size():
 		return
 	var potion = PlayerManager.potions[potion_index]
-	# 非战斗状态只能使用回复类药水
-	if potion.effect_type == PotionData.EffectType.HEAL:
-		var old_hp = PlayerManager.hp
-		PlayerManager.hp = min(PlayerManager.max_hp, PlayerManager.hp + potion.effect_value)
-		print("[药水] 使用 %s：回复 %d HP" % [potion.potion_name, PlayerManager.hp - old_hp])
-		PlayerManager.potions.remove_at(potion_index)
-		PlayerManager.stats_changed.emit()
-	else:
-		print("[药水] %s 只能在战斗中使用，已消耗" % potion.potion_name)
-		PlayerManager.potions.remove_at(potion_index)
-		PlayerManager.stats_changed.emit()
+	# 非战斗状态不允许使用丹药（不消耗）
+	print("[药水] %s 只能在战斗中使用" % potion.potion_name)
 
 
 ## 丢弃药水（非战斗状态；战斗中由 combat_scene._on_potion_discarded 处理）

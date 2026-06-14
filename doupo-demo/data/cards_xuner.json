@@ -267,7 +267,7 @@
     ],
     "character_id": "xuner",
     "upgraded_damage": 14,
-    "upgraded_description": "造成14伤害。+2金印。目标易伤时+6。",
+    "upgraded_description": "造成14伤害。+2金印。目标易伤时+9。",
     "image_path": "res://assets/cards/xuner/古族剑诀.png",
     "detail": "造成 10 点伤害。给予 2 层金印。如果目标处于易伤状态，额外造成 6 点伤害。",
     "upgraded_detail": "造成 14 点伤害。给予 2 层金印。如果目标处于易伤状态，额外造成 9 点伤害。"
@@ -328,7 +328,8 @@
     "upgraded_description": "造成20伤害。-3HP。+3金印。",
     "image_path": "res://assets/cards/xuner/古族天罡拳.png",
     "detail": "造成 15 点伤害。失去 3 点生命值。给予 2 层金印。",
-    "upgraded_detail": "造成 20 点伤害。失去 3 点生命值。给予 2 层金印。"
+    "upgraded_detail": "造成 20 点伤害。失去 3 点生命值。给予 2 层金印。",
+    "upgraded_apply_gold_seal": 3
   },
   {
     "id": "golden_flame_combo_extreme",
@@ -440,7 +441,7 @@
     ],
     "character_id": "xuner",
     "upgraded_apply_gold_seal": 3,
-    "upgraded_description": "+2金印。抽1牌。",
+    "upgraded_description": "+3金印。抽1牌。",
     "image_path": "res://assets/cards/xuner/流光溢彩.png",
     "detail": "给予 2 层金印。抽 1 张牌。",
     "upgraded_detail": "给予 3 层金印。抽 1 张牌。"
@@ -456,7 +457,7 @@
     "exhaust": true,
     "character_id": "xuner",
     "upgraded_heal": 6,
-    "upgraded_description": "消耗。回复6HP。引爆时额外+5HP。",
+    "upgraded_description": "消耗。回复6HP。引爆时额外+6HP。",
     "image_path": "res://assets/cards/xuner/金莲治愈.png",
     "detail": "消耗。回复 4 点生命值。如果你在本回合触发过引爆，额外回复 3 点。",
     "upgraded_detail": "消耗。回复 6 点生命值。如果你在本回合触发过引爆，额外回复 3 点。"
@@ -510,7 +511,8 @@
     "upgraded_description": "获得14护盾。+3金印。",
     "image_path": "res://assets/cards/xuner/金焰壁.png",
     "detail": "获得 10 点护盾。给予目标 2 层金印。",
-    "upgraded_detail": "获得 14 点护盾。给予目标 2 层金印。"
+    "upgraded_detail": "获得 14 点护盾。给予目标 2 层金印。",
+    "upgraded_apply_gold_seal": 3
   },
   {
     "id": "seal_gather_qi",
@@ -559,7 +561,7 @@
     ],
     "character_id": "xuner",
     "upgraded_block": 14,
-    "upgraded_description": "获得12护盾。连击：+1敏捷。",
+    "upgraded_description": "获得14护盾。被攻击时+1格挡。",
     "image_path": "res://assets/cards/xuner/优雅闪避.png",
     "detail": "获得 10 点护盾。连击：获得 1 层敏捷。",
     "upgraded_detail": "获得 14 点护盾。连击：获得 1 层敏捷。"
@@ -575,7 +577,7 @@
     "apply_vulnerable": 1,
     "character_id": "xuner",
     "upgraded_apply_weak": 3,
-    "upgraded_description": "给予2层虚弱与2层易伤。",
+    "upgraded_description": "给予3层虚弱与1层易伤。",
     "image_path": "res://assets/cards/xuner/光之牢笼.png",
     "detail": "给予 1 名敌人 2 层虚弱与 1 层易伤。",
     "upgraded_detail": "给予 1 名敌人 3 层虚弱与 1 层易伤。"

@@ -1,6 +1,6 @@
 ## 遗物注册表
 ## 静态字典存储所有遗物定义，惰性初始化
-## ID规范: #1-3=初始, #4-18=普通, #19-33=稀有, #34-43=史诗, #44-50=传说, #51-58=事件专属
+## ID规范: #1-3=初始, #4-18=普通, #19-33=稀有, #34-43=史诗, #44-50=传说, #51-59=事件专属
 ## 完全对齐 game-design/06-遗物系统.md
 class_name RelicDatabase
 
@@ -262,7 +262,6 @@ static func _register_all() -> void:
 	var tuyu = RelicData.new(36, "陀舍古帝玉碎片", RelicData.Rarity.EPIC,
 		"获得时：最大 HP +10、100 金币、升级 3 张随机牌", Color(0.6, 0.2, 0.8),
 		RelicData.EffectType.MAX_HP_FLAT, 10)
-	tuyu.bonus_max_hp = 10
 	_register(tuyu)
 
 	# 37. 焚炎谷令 - 有燃烧或蛇毒的敌人受伤+30%
@@ -401,3 +400,12 @@ static func _register_all() -> void:
 	_register(RelicData.new(58, "古帝残魂碎片", RelicData.Rarity.LEGENDARY,
 		"第 1 回合前 5 张牌费用为 0", Color(1.0, 0.85, 0.2),
 		RelicData.EffectType.FIRST_TURN_CARDS_COST_ZERO, 5))
+
+	# ================================================================
+	#  事件专属遗物续 (#59+)
+	# ================================================================
+
+	# 59. 七彩灵鹤羽 - 每回合额外抽1张牌（魔兽山脉事件奖励）
+	_register(RelicData.new(59, "七彩灵鹤羽", RelicData.Rarity.RARE,
+		"每回合额外抽 1 张牌", Color(0.3, 0.8, 0.6),
+		RelicData.EffectType.TURN_START_DRAW, 1))

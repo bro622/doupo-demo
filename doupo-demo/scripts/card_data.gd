@@ -155,6 +155,7 @@ var combo_bonus_venom: int = 0                  # 暗影突袭：连击触发时
 
 ## 升级系统（每张卡独立升级数据）
 var upgraded: bool = false
+var sealed_this_turn: bool = false  # 封印之力/血脉不稳：本回合不可使用
 var upgraded_cost: int = -1
 var upgraded_damage: int = -1
 var upgraded_block: int = -1
