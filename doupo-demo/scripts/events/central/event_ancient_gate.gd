@@ -19,8 +19,9 @@ func get_choices() -> Array[EventChoice]:
 
 	# 选项A：进入古界
 	var choice_a = EventChoice.new("进入古界")
-	choice_a.description_rich = "获得遗物【风雷阁主令】（每回合触发2次引爆时抽1张牌）。"
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "38", "获得风雷阁主令")
+	choice_a.description_rich = "获得遗物【古族玉佩】（金印引爆阈值5→4）。解锁古族传承事件链。"
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "28", "获得古族玉佩")
+	choice_a.add_outcome(OutcomeType.FLAG, 0, "ancient_clan_heritage", "解锁古族传承")
 	choices.append(choice_a)
 
 	# 选项B：隔门感应

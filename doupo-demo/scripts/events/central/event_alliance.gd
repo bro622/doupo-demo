@@ -18,8 +18,9 @@ func get_choices() -> Array[EventChoice]:
 
 	# 选项A：担任盟主
 	var choice_a = EventChoice.new("担任盟主")
-	choice_a.description_rich = "获得遗物【大长老手令】（休息点可同时选择休息和修炼）。"
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "36", "获得大长老手令")
+	choice_a.description_rich = "获得遗物【大长老手令】（进入休息点自动回复15HP）。设置联盟集结标记。"
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "42", "获得大长老手令")
+	choice_a.add_outcome(OutcomeType.FLAG, 0, "alliance_formed", "联盟集结")
 	choices.append(choice_a)
 
 	# 选项B：推举他人

@@ -1142,6 +1142,23 @@ func _enter_battle(enemies: Array[Enemy], from_event: bool = false) -> void:
 	# BOSS战斗播放登场音效
 	if current_battle_type == RewardManager.BattleType.BOSS:
 		AudioManager.sfx("regent_intro.wav")
+		# 联盟集结：将基础打击/基础防御替换为稀有卡牌
+		if RunManager.has_event_flag("alliance_formed"):
+			var rare_pool = CardDatabase.create_reward_pool_for_character(PlayerManager.character_id)
+			var rare_cards: Array[CardData] = []
+			for c in rare_pool:
+				if c.rarity == CardData.CardRarity.RARE:
+					rare_cards.append(c)
+			if rare_cards.size() > 0:
+				var replaced = 0
+				for i in range(PlayerManager.deck.size() - 1, -1, -1):
+					var card = PlayerManager.deck[i]
+					if card.id == "basic_strike" or card.id == "basic_defense":
+						var new_card = rare_cards[RNGManager.event_rng.randi() % rare_cards.size()].duplicate_card()
+						PlayerManager.deck[i] = new_card
+						replaced += 1
+				if replaced > 0:
+					print("[联盟集结] 替换了 %d 张基础牌为稀有卡牌" % replaced)
 	# 从事件进入战斗时：保留saved_phase=EVENT
 	# 直接进入战斗时：设置saved_phase=COMBAT
 	if not from_event:

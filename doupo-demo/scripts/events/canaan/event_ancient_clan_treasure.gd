@@ -1,5 +1,5 @@
 ## 事件23：古族秘宝（萧薰儿专属）
-## 触发条件：场景三随机触发
+## 触发条件：古族传承事件链（事件34选项A设置标记后，场景四触发）
 ## 类型：剧情事件
 class_name EventAncientClanTreasure
 extends EventModel
@@ -10,8 +10,9 @@ func _init() -> void:
 	event_name = "古族秘宝"
 	description = "深入古界，你感受到了神品血脉的共鸣。一道金色的光芒从地底涌出。"
 	category = Category.PLOT
-	scene_id = 3
+	scene_id = 4
 	character_id = "xuner"
+	required_flag = "ancient_clan_heritage"
 
 
 func get_choices() -> Array[EventChoice]:
@@ -32,8 +33,8 @@ func get_choices() -> Array[EventChoice]:
 
 	# 选项C：触碰禁忌
 	var choice_c = EventChoice.new("触碰禁忌")
-	choice_c.description_rich = "获得遗物【古族玉佩】（金印引爆阈值5→4）。代价：将诅咒牌【古族禁令】洗入牌库。"
-	choice_c.add_outcome(OutcomeType.RELIC, 0, "28", "获得古族玉佩")
+	choice_c.description_rich = "获得遗物【风雷阁主令】（每回合额外抽1张牌）。代价：将诅咒牌【古族禁令】洗入牌库。"
+	choice_c.add_outcome(OutcomeType.RELIC, 0, "38", "获得风雷阁主令")
 	choice_c.add_outcome(OutcomeType.CURSE_CARD, 1, "ancient_clan_forbidden", "获得诅咒牌古族禁令")
 	choices.append(choice_c)
 
