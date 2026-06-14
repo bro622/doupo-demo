@@ -3,16 +3,16 @@ node_modules/
 *.import
 .superpowers/
 
-# Large binary files
-downloads/
-website/downloads/
+# Non-game directories (root level only)
+/game-design/
+/tools/
+/website/
+/_archive/
+/builds/
+/docs/
+/scripts/
+/downloads/
 
-website/assets/enemies/
-website/assets/events/
-website/assets/cards/
-website/assets/relics/
-website/assets/scenes/
-website/assets/idle/
 doupo-demo/windows/
 doupo-demo/android/
 doupo-demo/.godot/

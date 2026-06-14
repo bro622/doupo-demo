@@ -1293,18 +1293,21 @@ func _on_battle_ended(victory: bool) -> void:
 		if current_node.node_type == MapData.NodeType.BOSS:
 			var three_year_active = PlayerManager.has_relic(51) or RunManager.has_event_flag("three_year_promise")
 			if three_year_active:
-				if PlayerManager.has_relic(51):
+				var had_relic = PlayerManager.has_relic(51)
+				if had_relic:
 					PlayerManager.remove_relic(51)
-				var leg_cards = CardDatabase.create_reward_pool_for_character(PlayerManager.character_id)
-				var legendary_cards: Array[CardData] = []
-				for c in leg_cards:
-					if c.rarity == CardData.CardRarity.LEGENDARY:
-						legendary_cards.append(c)
-				if legendary_cards.size() > 0:
-					var card = legendary_cards[RNGManager.event_rng.randi() % legendary_cards.size()]
+				# 持有遗物→传说卡，仅有标记→稀有卡
+				var target_rarity = CardData.CardRarity.LEGENDARY if had_relic else CardData.CardRarity.RARE
+				var reward_pool = CardDatabase.create_reward_pool_for_character(PlayerManager.character_id)
+				var reward_cards: Array[CardData] = []
+				for c in reward_pool:
+					if c.rarity == target_rarity:
+						reward_cards.append(c)
+				if reward_cards.size() > 0:
+					var card = reward_cards[RNGManager.event_rng.randi() % reward_cards.size()]
 					PlayerManager.add_card_to_deck(card)
-					# [FIX: Bug 6] 收集三年之约的奖励文本
-					special_reward_msg += "履行三年之约，获得传说卡牌「%s」\n" % card.card_name
+					var rarity_name = "传说" if target_rarity == CardData.CardRarity.LEGENDARY else "稀有"
+					special_reward_msg += "履行三年之约，获得%s卡牌「%s」\n" % [rarity_name, card.card_name]
 
 			RunManager.current_room_state = RunManager.RoomState.FINISHED
 			SaveManager.capture_checkpoint()
