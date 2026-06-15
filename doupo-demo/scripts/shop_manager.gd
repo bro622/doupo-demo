@@ -45,9 +45,18 @@ static func generate_shop_inventory() -> Array[ShopItem]:
 	return items
 
 
-## 计算卡牌价格（测试用：全部1金）
-static func _calc_price(_card: CardData) -> int:
-	return 1
+## 计算卡牌价格
+static func _calc_price(card: CardData) -> int:
+	match card.rarity:
+		CardData.CardRarity.COMMON:
+			return 50
+		CardData.CardRarity.RARE:
+			return 75
+		CardData.CardRarity.EPIC:
+			return 110
+		CardData.CardRarity.LEGENDARY:
+			return 160
+	return 50
 
 
 ## 获取商店卡池（根据当前角色过滤）
@@ -85,6 +94,15 @@ static func generate_shop_relics() -> Array[ShopRelicItem]:
 	return items
 
 
-## 计算遗物价格（测试用：全部1金）
-static func _calc_relic_price(_relic: RelicData) -> int:
-	return 1
+## 计算遗物价格
+static func _calc_relic_price(relic: RelicData) -> int:
+	match relic.rarity:
+		RelicData.Rarity.COMMON:
+			return 140
+		RelicData.Rarity.RARE:
+			return 180
+		RelicData.Rarity.EPIC:
+			return 240
+		RelicData.Rarity.LEGENDARY:
+			return 320
+	return 140

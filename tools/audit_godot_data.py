@@ -877,6 +877,11 @@ def _extract_function_body(text: str, func_name: str) -> str:
     return text[start:end]
 
 
+def _function_returns_literal_one(text: str, func_name: str) -> bool:
+    body = _extract_function_body(text, func_name)
+    return bool(re.search(r"^\s*return\s+1\s*$", body, re.MULTILINE))
+
+
 def check_save_restore_symmetry(errors: list[str]) -> None:
     for rel_path in [
         PROJECT / "scripts" / "player_manager.gd",
@@ -1045,6 +1050,8 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
     relic_manager = PROJECT / "scripts" / "relic_manager.gd"
     rest_scene = PROJECT / "scripts" / "rest_scene.gd"
     shop_scene = PROJECT / "scripts" / "shop_scene.gd"
+    shop_manager = PROJECT / "scripts" / "shop_manager.gd"
+    potion_manager = PROJECT / "scripts" / "potion_manager.gd"
 
     battle_text = battle_manager.read_text(encoding="utf-8")
     player_text = player_script.read_text(encoding="utf-8")
@@ -1052,6 +1059,8 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
     relic_manager_text = relic_manager.read_text(encoding="utf-8")
     rest_text = rest_scene.read_text(encoding="utf-8")
     shop_text = shop_scene.read_text(encoding="utf-8")
+    shop_manager_text = shop_manager.read_text(encoding="utf-8")
+    potion_manager_text = potion_manager.read_text(encoding="utf-8")
 
     sync_start = battle_text.find("func _sync_deck_to_manager")
     sync_block = battle_text[sync_start:battle_text.find("## 使用药水", sync_start)]
@@ -1094,6 +1103,15 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
         errors.append("cards_xiaoyan.json: space_crack must retain in hand until battle ends")
     if '"base_price" in item' in shop_text:
         errors.append(f"{shop_scene.relative_to(ROOT)}: shop save must not use dictionary-style membership checks on item objects")
+    for path, text in [
+        (shop_manager, shop_manager_text),
+        (potion_manager, potion_manager_text),
+    ]:
+        if "测试用：全部1金" in text \
+                or _function_returns_literal_one(text, "_calc_price") \
+                or _function_returns_literal_one(text, "_calc_relic_price") \
+                or _function_returns_literal_one(text, "_calc_potion_price"):
+            errors.append(f"{path.relative_to(ROOT)}: shop prices must use release pricing, not 1-gold test pricing")
 
 
 def check_enemy_action_data(cards: list[dict], errors: list[str]) -> None:

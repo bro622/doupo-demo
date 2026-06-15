@@ -108,9 +108,14 @@ static func generate_shop_potions() -> Array:
 	return items
 
 
-## 计算药水价格（测试用：全部1金）
-static func _calc_potion_price(_potion: PotionData) -> int:
-	return 1
+## 计算药水价格
+static func _calc_potion_price(potion: PotionData) -> int:
+	match potion.rarity:
+		PotionData.Rarity.COMMON:
+			return 35
+		PotionData.Rarity.RARE:
+			return 60
+	return 35
 
 
 ## 商店药水物品内部类
