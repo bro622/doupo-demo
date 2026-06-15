@@ -1845,7 +1845,7 @@ func _sync_deck_to_manager() -> void:
 
 
 ## 使用药水
-func use_potion(potion_index: int) -> String:
+func use_potion(potion_index: int, target_index: int = -1) -> String:
 	if potion_index < 0 or potion_index >= potions.size():
 		return ""
 	if state != BattleState.PLAYER_TURN:
@@ -1855,7 +1855,11 @@ func use_potion(potion_index: int) -> String:
 	# 被动丹药（阴阳玄龙丹）:不可手动使用
 	if potion.effect_type == PotionData.EffectType.DEATH_PREVENT:
 		return "[color=gray]此丹药为被动效果，受到致命伤害时自动触发[/color]\n"
-	var msg = PotionManager.use_potion(potion, player, enemies)
+	if potion.effect_type == PotionData.EffectType.ATTACK_ENEMY:
+		if target_index < 0 or target_index >= enemies.size() or not enemies[target_index].is_alive():
+			return "[color=gray]请选择一个存活敌人作为丹药目标[/color]\n"
+
+	var msg = PotionManager.use_potion(potion, player, enemies, target_index)
 	potions.remove_at(potion_index)
 
 	# 遗物： 使用丹药后效果

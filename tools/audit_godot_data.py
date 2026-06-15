@@ -1052,6 +1052,7 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
     shop_scene = PROJECT / "scripts" / "shop_scene.gd"
     shop_manager = PROJECT / "scripts" / "shop_manager.gd"
     potion_manager = PROJECT / "scripts" / "potion_manager.gd"
+    combat_scene = PROJECT / "scripts" / "combat_scene.gd"
 
     battle_text = battle_manager.read_text(encoding="utf-8")
     player_text = player_script.read_text(encoding="utf-8")
@@ -1061,6 +1062,7 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
     shop_text = shop_scene.read_text(encoding="utf-8")
     shop_manager_text = shop_manager.read_text(encoding="utf-8")
     potion_manager_text = potion_manager.read_text(encoding="utf-8")
+    combat_text = combat_scene.read_text(encoding="utf-8")
 
     sync_start = battle_text.find("func _sync_deck_to_manager")
     sync_block = battle_text[sync_start:battle_text.find("## 使用药水", sync_start)]
@@ -1112,6 +1114,12 @@ def check_internal_gameplay_rules(cards: list[dict], errors: list[str]) -> None:
                 or _function_returns_literal_one(text, "_calc_relic_price") \
                 or _function_returns_literal_one(text, "_calc_potion_price"):
             errors.append(f"{path.relative_to(ROOT)}: shop prices must use release pricing, not 1-gold test pricing")
+    if "enemies[0]" in _extract_function_body(potion_manager_text, "use_potion"):
+        errors.append(f"{potion_manager.relative_to(ROOT)}: attack potions must use selected target_index, not the first enemy")
+    if "func use_potion(potion_index: int, target_index: int = -1)" not in battle_text:
+        errors.append(f"{battle_manager.relative_to(ROOT)}: battle potion use must accept a target_index for throwable potions")
+    if "SELECTING_POTION_TARGET" not in combat_text:
+        errors.append(f"{combat_scene.relative_to(ROOT)}: combat scene must provide enemy targeting for throwable potions")
 
 
 def check_enemy_action_data(cards: list[dict], errors: list[str]) -> None:

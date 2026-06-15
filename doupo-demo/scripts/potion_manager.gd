@@ -4,8 +4,8 @@ class_name PotionManager
 
 
 ## 使用药水(执行效果，返回日志文本)
-## enemies参数仅在ATTACK_ENEMY类型时需要
-static func use_potion(potion: PotionData, player: Player, enemies: Array = []) -> String:
+## enemies和target_index仅在ATTACK_ENEMY类型时需要
+static func use_potion(potion: PotionData, player: Player, enemies: Array = [], target_index: int = -1) -> String:
 	var msg = "[color=cyan]使用 [%s]！[/color]\n" % potion.potion_name
 
 	# 丹塔令牌：丹药效果翻倍
@@ -53,13 +53,16 @@ static func use_potion(potion: PotionData, player: Player, enemies: Array = []) 
 			player.ice_armor = true
 			msg += "获得冰甲（本回合单次伤害上限1）\n"
 		PotionData.EffectType.ATTACK_ENEMY:
-			if enemies.size() > 0:
-				var target = enemies[0]
-				target.take_damage(potion.effect_value * effect_mult)
-				target.burn += potion.effect_value2 * effect_mult
-				msg += "对 %s 造成 %d 点伤害 + %d 层燃烧\n" % [target.char_name, potion.effect_value * effect_mult, potion.effect_value2 * effect_mult]
+			if target_index >= 0 and target_index < enemies.size() and enemies[target_index].is_alive():
+				var target = enemies[target_index]
+				var damage = potion.effect_value * effect_mult
+				var burn = potion.effect_value2 * effect_mult
+				var actual = target.take_damage(damage)
+				if burn > 0:
+					target.apply_burn(burn)
+				msg += "对 %s 造成 %d 点伤害 + %d 层燃烧\n" % [target.char_name, actual, burn]
 			else:
-				msg += "[color=gray]没有可攻击的敌人[/color]\n"
+				msg += "[color=gray]没有选择可攻击的敌人[/color]\n"
 		PotionData.EffectType.DEATH_PREVENT:
 			msg += "[color=gray]此丹药为被动效果，受到致命伤害时自动触发[/color]\n"
 

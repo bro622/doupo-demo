@@ -22,11 +22,13 @@ var enemy_nodes: Array[EnemyNode] = []
 var card_nodes: Array[CardNode] = []
 
 ## 目标选择状态
-enum TargetingState { NONE, DRAGGING_CARD }
+enum TargetingState { NONE, DRAGGING_CARD, SELECTING_POTION_TARGET }
 var targeting_state: TargetingState = TargetingState.NONE
 
 ## 当前拖拽的卡牌
 var dragged_card: CardNode = null
+## 等待选择目标的药水索引
+var _pending_potion_index: int = -1
 ## 当前播放动画的卡牌节点（避免_update_hand_display重复释放）
 var _animating_card_node: CardNode = null
 ## 当前拖拽是否为自目标牌（技能/能力）
@@ -119,6 +121,15 @@ func _input(event: InputEvent) -> void:
 
 		if event is InputEventMouseMotion:
 			_update_drag_visuals()
+	elif targeting_state == TargetingState.SELECTING_POTION_TARGET:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+				_on_potion_target_released()
+			elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				_cancel_potion_targeting()
+
+		if event is InputEventMouseMotion:
+			_update_potion_targeting_visuals()
 
 
 ## 初始化战斗
@@ -921,7 +932,8 @@ func _show_damage_number(enemy_index: int, damage: int) -> void:
 ## === 敌人悬停 ===
 
 func _on_enemy_hovered(enemy_node: EnemyNode) -> void:
-	if targeting_state == TargetingState.DRAGGING_CARD and not _drag_is_self_target:
+	if (targeting_state == TargetingState.DRAGGING_CARD and not _drag_is_self_target) \
+			or targeting_state == TargetingState.SELECTING_POTION_TARGET:
 		# 已死亡敌人不可选为目标
 		if not enemy_node.enemy_data.is_alive():
 			return
@@ -934,7 +946,7 @@ func _on_enemy_unhovered(enemy_node: EnemyNode) -> void:
 	if hovered_enemy == enemy_node:
 		hovered_enemy = null
 		enemy_node.unhighlight()
-		if targeting_state == TargetingState.DRAGGING_CARD:
+		if targeting_state == TargetingState.DRAGGING_CARD or targeting_state == TargetingState.SELECTING_POTION_TARGET:
 			targeting_arrow.set_highlighting_on(false)
 
 
@@ -942,6 +954,8 @@ func _on_enemy_unhovered(enemy_node: EnemyNode) -> void:
 
 func _on_end_turn_pressed() -> void:
 	if battle_manager.state != BattleManager.BattleState.PLAYER_TURN:
+		return
+	if targeting_state != TargetingState.NONE:
 		return
 	# 异步选择进行中时禁止结束回合
 	if battle_manager._pending_discard or battle_manager._pending_exhaust or battle_manager._pending_fire_select or battle_manager._pending_relic_choice:
@@ -1091,6 +1105,16 @@ func _on_card_detail_hidden() -> void:
 func _on_potion_used(potion_index: int) -> void:
 	if battle_manager == null:
 		return
+	if targeting_state != TargetingState.NONE:
+		return
+	if potion_index < 0 or potion_index >= battle_manager.potions.size():
+		return
+
+	var potion = battle_manager.potions[potion_index]
+	if potion.effect_type == PotionData.EffectType.ATTACK_ENEMY:
+		_begin_potion_targeting(potion_index)
+		return
+
 	var msg = battle_manager.use_potion(potion_index)
 	_log_text(msg)
 	AudioManager.potion_slosh()
@@ -1103,9 +1127,84 @@ func _on_potion_used(potion_index: int) -> void:
 		_show_battle_result(false)
 
 
+func _begin_potion_targeting(potion_index: int) -> void:
+	var has_alive_enemy := false
+	for node in enemy_nodes:
+		if is_instance_valid(node) and node.enemy_data.is_alive():
+			has_alive_enemy = true
+			break
+	if not has_alive_enemy:
+		_log_text("[color=gray]没有可攻击的敌人[/color]\n")
+		AudioManager.ui("deny.mp3")
+		return
+
+	_pending_potion_index = potion_index
+	targeting_state = TargetingState.SELECTING_POTION_TARGET
+	var arrow_start = player_sprite.global_position + player_sprite.size / 2
+	targeting_arrow.start_drawing(arrow_start)
+	targeting_arrow.update_target(get_global_mouse_position())
+	_log_text("[color=cyan]选择丹药投掷目标，右键取消[/color]\n")
+	AudioManager.ui("card_select.mp3")
+
+
+func _update_potion_targeting_visuals() -> void:
+	targeting_arrow.update_target(get_global_mouse_position())
+	targeting_arrow.set_highlighting_on(hovered_enemy != null)
+
+
+func _on_potion_target_released() -> void:
+	if targeting_state != TargetingState.SELECTING_POTION_TARGET:
+		return
+	if hovered_enemy == null or not is_instance_valid(hovered_enemy) or not hovered_enemy.enemy_data.is_alive():
+		_log_text("[color=gray]请选择一个存活敌人作为丹药目标[/color]\n")
+		AudioManager.ui("deny.mp3")
+		return
+
+	var target_index = enemy_nodes.find(hovered_enemy)
+	_use_potion_at_target(_pending_potion_index, target_index)
+
+
+func _cancel_potion_targeting() -> void:
+	targeting_state = TargetingState.NONE
+	_pending_potion_index = -1
+	targeting_arrow.stop_drawing()
+	if hovered_enemy != null:
+		hovered_enemy.unhighlight()
+		hovered_enemy = null
+	_log_text("[color=gray]取消使用丹药[/color]\n")
+
+
+func _use_potion_at_target(potion_index: int, target_index: int) -> void:
+	var target_node: EnemyNode = null
+	if target_index >= 0 and target_index < enemy_nodes.size():
+		target_node = enemy_nodes[target_index]
+
+	targeting_state = TargetingState.NONE
+	_pending_potion_index = -1
+	targeting_arrow.stop_drawing()
+	if hovered_enemy != null:
+		hovered_enemy.unhighlight()
+		hovered_enemy = null
+
+	var msg = battle_manager.use_potion(potion_index, target_index)
+	_log_text(msg)
+	AudioManager.potion_slosh()
+	if target_node != null and is_instance_valid(target_node):
+		target_node.show_shake()
+	_sync_potions_to_manager()
+	_update_all_displays()
+
+	if battle_manager.state == BattleManager.BattleState.VICTORY:
+		_show_battle_result(true)
+	elif battle_manager.state == BattleManager.BattleState.DEFEAT:
+		_show_battle_result(false)
+
+
 func _on_potion_discarded(potion_index: int) -> void:
 	if battle_manager == null:
 		return
+	if targeting_state == TargetingState.SELECTING_POTION_TARGET:
+		_cancel_potion_targeting()
 	var msg = battle_manager.discard_potion(potion_index)
 	_log_text(msg)
 	_sync_potions_to_manager()
