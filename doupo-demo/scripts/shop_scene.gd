@@ -726,7 +726,7 @@ func _save_inventory_to_state() -> void:
 	for item in relic_items:
 		relics.append({
 			"id": item.relic.id,
-			"base_price": item.base_price if "base_price" in item else item.price,
+			"base_price": item.price,
 			"price": item.price,
 			"sold": item.sold,
 		})

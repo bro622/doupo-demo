@@ -105,6 +105,8 @@ enum EffectType {
 	# === 第二轮审查新增 ===
 	TURN_END_LOST_HP_AOE,        # 回合结束对全体造成已损失HP真伤（厄难毒体原液）
 	FIRST_TURN_DRAW,             # 仅首回合抽牌（三年之约）
+	DRAW_CURSE_EXHAUST_REDRAW,   # 抽到诅咒牌时消耗并补抽
+	REST_AUTO_HEAL_FLAT,         # 进入休息点自动回复HP，不计入手动休息
 }
 
 var id: int

@@ -376,7 +376,7 @@ var last_relic_log: String = ""
 
 ## 抽牌时触发诅咒效果
 func _trigger_on_draw(card: CardData) -> String:
-	if card.card_type != CardData.CardType.CURSE:
+	if card.card_type != CardData.CardType.CURSE and card.card_type != CardData.CardType.STATUS:
 		return ""
 	match card.id:
 		"qi_seal":
@@ -385,6 +385,9 @@ func _trigger_on_draw(card: CardData) -> String:
 		"inner_demon":
 			energy = max(0, energy - 1)
 			return "心魔来袭：能量 -1\n"
+		"inner_demon_status":
+			energy = max(0, energy - 1)
+			return "心魔：能量 -1\n"
 		"beast_backlash":
 			hp = max(0, hp - 2)
 			# 随机丢弃1张手牌（排除beast_backlash自身，它在hand末尾）
@@ -445,6 +448,17 @@ func _trigger_on_draw(card: CardData) -> String:
 			# 执念缠身：回合结束时在手牌中受到伤害（由on_turn_end处理）
 			pass
 	return ""
+
+
+func _has_draw_curse_exhaust_redraw_relic() -> bool:
+	for relic in PlayerManager.relics:
+		if relic.effect_type == RelicData.EffectType.DRAW_CURSE_EXHAUST_REDRAW:
+			return true
+		if relic.effect_type_2 == RelicData.EffectType.DRAW_CURSE_EXHAUST_REDRAW:
+			return true
+		if relic.effect_type_3 == RelicData.EffectType.DRAW_CURSE_EXHAUST_REDRAW:
+			return true
+	return false
 
 
 func _init(p_name: String, p_hp: int) -> void:
@@ -643,7 +657,11 @@ func on_turn_start() -> Dictionary:
 func draw_cards(count: int) -> Array[CardData]:
 	var drawn: Array[CardData] = []
 	last_curse_log = ""
-	for i in range(count):
+	var draws_completed := 0
+	var safety := count + draw_pile.size() + discard_pile.size() + 20
+	var curse_redraw_active := _has_draw_curse_exhaust_redraw_relic()
+	while draws_completed < count and safety > 0:
+		safety -= 1
 		if draw_pile.size() == 0:
 			# 弃牌堆洗入牌库
 			if discard_pile.size() > 0:
@@ -664,25 +682,13 @@ func draw_cards(count: int) -> Array[CardData]:
 			if curse_msg != "":
 				last_curse_log += curse_msg
 			# 诅咒护符：抽到诅咒牌时自动消耗并重新抽牌
-			if card.card_type == CardData.CardType.CURSE and PlayerManager.has_relic(53):
+			if card.card_type == CardData.CardType.CURSE and curse_redraw_active:
 				hand.erase(card)
 				exhaust_pile.append(card)
 				drawn.erase(card)
 				last_curse_log += "诅咒护符：消耗「%s」，重新抽牌\n" % card.card_name
-				# 重新抽一张（带弃牌堆洗入）
-				if draw_pile.size() == 0 and discard_pile.size() > 0:
-					for dc in discard_pile:
-						draw_pile.append(dc)
-					discard_pile.clear()
-					_shuffle_draw_pile()
-					deck_shuffled.emit()
-				if draw_pile.size() > 0:
-					var replacement = draw_pile.pop_back()
-					hand.append(replacement)
-					drawn.append(replacement)
-					var rep_msg = _trigger_on_draw(replacement)
-					if rep_msg != "":
-						last_curse_log += rep_msg
+				continue
+			draws_completed += 1
 	return drawn
 
 
@@ -909,7 +915,7 @@ func get_hand_text() -> String:
 	var text = ""
 	for i in range(hand.size()):
 		var card = hand[i]
-		var playable = card.cost <= energy and card.card_type != CardData.CardType.CURSE
+		var playable = card.cost <= energy and card.card_type != CardData.CardType.CURSE and card.card_type != CardData.CardType.STATUS
 		var mark = ">" if playable else "x"
 		var upgrade_mark = "+" if card.upgraded else ""
 		text += "  [%d] %s %s%s (%d费) %s" % [i + 1, mark, card.card_name, upgrade_mark, card.cost, card.description]

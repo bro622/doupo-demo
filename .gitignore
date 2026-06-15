@@ -2,6 +2,9 @@ node_modules/
 .godot/
 *.import
 .superpowers/
+.claude/
+.codex/
+.mcp.json
 
 # Non-game directories (root level only)
 /game-design/
@@ -15,4 +18,7 @@ node_modules/
 
 doupo-demo/windows/
 doupo-demo/android/
+doupo-demo/Android/
+doupo-demo/builds/
+doupo-demo/macOS/
 doupo-demo/.godot/

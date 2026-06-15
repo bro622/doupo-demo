@@ -33,8 +33,12 @@ func setup() -> void:
 	# 大长老手令/灵药圃：自动回复，不占选项
 	var auto_heal = 0
 	for relic in PlayerManager.relics:
-		if relic.id == 42 or relic.id == 54:
-			auto_heal += 15
+		if relic.effect_type == RelicData.EffectType.REST_AUTO_HEAL_FLAT:
+			auto_heal += relic.effect_value
+		if relic.effect_type_2 == RelicData.EffectType.REST_AUTO_HEAL_FLAT:
+			auto_heal += relic.effect_value_2
+		if relic.effect_type_3 == RelicData.EffectType.REST_AUTO_HEAL_FLAT:
+			auto_heal += relic.effect_value_3
 	if auto_heal > 0:
 		var old_hp = PlayerManager.hp
 		PlayerManager.heal(auto_heal)

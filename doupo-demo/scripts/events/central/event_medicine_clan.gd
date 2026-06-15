@@ -18,8 +18,8 @@ func get_choices() -> Array[EventChoice]:
 
 	# 选项A：接受传承
 	var choice_a = EventChoice.new("接受传承")
-	choice_a.description_rich = "获得遗物【药族秘传令】（战斗开始时药袋空位自动生成高级丹药）。"
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "44", "获得药族秘传令")
+	choice_a.description_rich = "获得遗物【药族秘传】（战斗开始若药袋有空位，生成1瓶丹药）。"
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "41", "获得药族秘传")
 	choices.append(choice_a)
 
 	# 选项B：搜刮药库

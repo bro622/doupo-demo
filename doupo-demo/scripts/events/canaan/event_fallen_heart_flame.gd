@@ -28,14 +28,14 @@ func get_choices() -> Array[EventChoice]:
 	choice_b.description_rich = "失去25点生命值。获得200金币 + 遗物【焚炎谷令】。"
 	choice_b.add_outcome(OutcomeType.DAMAGE, 25, "", "受到25点伤害")
 	choice_b.add_outcome(OutcomeType.GOLD, 200, "", "获得200金币")
-	choice_b.add_outcome(OutcomeType.RELIC, 0, "40", "获得焚炎谷令")
+	choice_b.add_outcome(OutcomeType.RELIC, 0, "37", "获得焚炎谷令")
 	choices.append(choice_b)
 
 	# 选项C：释放心炎
 	var choice_c = EventChoice.new("释放心炎")
-	choice_c.description_rich = "提前触发Boss战（陨落心炎）。胜利后获得传说遗物【守护者之证】。"
+	choice_c.description_rich = "提前触发Boss战（陨落心炎）。胜利后获得遗物【守护者之证】。"
 	choice_c.add_outcome(OutcomeType.COMBAT, 0, "fallen_heart_flame", "与陨落心炎交战")
-	choice_c.add_outcome(OutcomeType.RELIC, 0, "47", "获得守护者之证")
+	choice_c.add_outcome(OutcomeType.RELIC, 0, "40", "获得守护者之证")
 	choices.append(choice_c)
 
 	return choices

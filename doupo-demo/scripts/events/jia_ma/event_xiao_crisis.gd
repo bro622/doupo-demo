@@ -19,7 +19,7 @@ func get_choices() -> Array[EventChoice]:
 	# 选项A：挺身而出
 	var choice_a = EventChoice.new("挺身而出")
 	choice_a.add_outcome(OutcomeType.COMBAT, 0, "xiao_raider", "与袭击者战斗！")
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "2", "战斗胜利后获得遗物「萧家族徽」")
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "5", "战斗胜利后获得遗物「萧家族徽」")
 	choice_a.add_outcome(OutcomeType.GOLD, 100, "", "获得100金币")
 	choices.append(choice_a)
 

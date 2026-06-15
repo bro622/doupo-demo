@@ -549,6 +549,16 @@ func _resolve_card_effect(card: CardData, target: Enemy) -> String:
 		player.gain_block(block_amount)
 		player.last_card_block = block_amount
 		msg += "  获得 %d 点护盾\n" % block_amount
+
+	# 蛇魂爆发：吞天蟒姿态下获得场上最高蛇毒层数的护盾
+	if card.python_block_max_venom and player.current_stance == 2:
+		var max_venom := 0
+		for enemy in enemies:
+			if enemy.is_alive():
+				max_venom = maxi(max_venom, enemy.venom)
+		if max_venom > 0:
+			player.gain_block(max_venom, 0, true)
+			msg += "  吞天蟒姿态：获得 %d 点护盾\n" % max_venom
 	# 连击触发时额外护盾
 	if card.combo_threshold > 0 and card.combo_bonus_block > 0:
 		if cards_played_this_turn >= card.combo_threshold or player.ability_combo_no_condition:
@@ -1592,7 +1602,21 @@ func player_end_turn() -> String:
 	if state != BattleState.PLAYER_TURN:
 		return "当前不是你的回合！"
 
+	var swallow_count := 0
+	for card in player.hand:
+		if card.id == "swallow":
+			swallow_count += 1
 	player.on_turn_end()
+	var status_log := ""
+	for _i in range(swallow_count):
+		for enemy in enemies:
+			if enemy.is_alive():
+				var enemy_hp_before_swallow = enemy.hp
+				enemy.hp = mini(enemy.max_hp, enemy.hp + 5)
+				var healed_by_swallow = enemy.hp - enemy_hp_before_swallow
+				if healed_by_swallow > 0:
+					status_log += "  吞噬：%s 回复 %d HP\n" % [enemy.char_name, healed_by_swallow]
+				break
 	# 美杜莎：女王姿态被动 — 回合结束获得等同于场上最高蛇毒层数的护盾
 	if player.current_stance == 1:
 		var max_venom = 0
@@ -1605,12 +1629,22 @@ func player_end_turn() -> String:
 	# 遗物：回合结束效果（蛇人族护符、守护者之证）
 	RelicManager.on_turn_end(player, PlayerManager.relics, enemies)
 
+	if not player.is_alive():
+		state = BattleState.DEFEAT
+		var defeat_msg = "\n=== 敌方回合 ===\n"
+		if status_log != "":
+			defeat_msg += status_log
+		defeat_msg += "\n你被击败了!\n"
+		return defeat_msg
+
 	# 触发异火被动效果（在虚无牌消耗之后，确保异火被动计数正确）
 	var fire_passive_log = _trigger_fire_passives()
 
 	# 异火被动可能杀敌，提前检查胜利（死亡动画由combat_scene播放）
 	if _check_battle_end():
 		var msg = "\n=== 敌方回合 ===\n"
+		if status_log != "":
+			msg += status_log
 		if fire_passive_log != "":
 			msg += "--- 异火被动 ---\n" + fire_passive_log
 		return msg
@@ -1618,6 +1652,8 @@ func player_end_turn() -> String:
 	state = BattleState.ENEMY_TURN
 
 	var msg = "\n=== 敌方回合 ===\n"
+	if status_log != "":
+		msg += status_log
 	if fire_passive_log != "":
 		msg += "--- 异火被动 ---\n" + fire_passive_log
 
@@ -1777,11 +1813,10 @@ func _sync_potions_to_manager() -> void:
 func _sync_deck_to_manager() -> void:
 	# 收集战斗中所有卡牌（含消耗/在场）
 	var all_cards: Array[CardData] = []
-	all_cards.append_array(player.draw_pile)
-	all_cards.append_array(player.hand)
-	all_cards.append_array(player.discard_pile)
-	all_cards.append_array(player.exhaust_pile)
-	all_cards.append_array(player.in_play)
+	for zone in [player.draw_pile, player.hand, player.discard_pile, player.exhaust_pile, player.in_play]:
+		for card in zone:
+			if card.card_type != CardData.CardType.STATUS:
+				all_cards.append(card)
 	# 按战斗前顺序重建，新增卡牌追加到末尾
 	var old_order = PlayerManager.deck
 	var new_deck: Array[CardData] = []

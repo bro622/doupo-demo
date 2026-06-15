@@ -19,7 +19,7 @@ func get_choices() -> Array[EventChoice]:
 
 	# 选项A：学习炼药术
 	var choice_a = EventChoice.new("学习炼药术")
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "4", "获得遗物「炼药笔记」：休息点升级卡牌时额外获得1瓶丹药")
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "11", "获得遗物「炼药手札」：选择休息时额外回复15HP")
 	choices.append(choice_a)
 
 	# 选项B：请教战斗技巧

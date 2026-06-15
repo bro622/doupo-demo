@@ -1090,6 +1090,7 @@
     "cost": 0,
     "description": "占用手牌位，不可弃置。战斗结束后消失。",
     "is_status_card": true,
+    "retain": true,
     "detail": "不能打出。占用手牌位，不可弃置。战斗结束后消失。",
     "character_id": "",
     "image_path": "res://assets/cards/curses/空间裂缝.jpg"

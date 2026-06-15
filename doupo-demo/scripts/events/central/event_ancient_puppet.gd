@@ -21,7 +21,7 @@ func get_choices() -> Array[EventChoice]:
 	choice_a.description_rich = "强制战斗（远古傀儡）。胜利后获得250金币 + 遗物【天妖傀】。"
 	choice_a.add_outcome(OutcomeType.COMBAT, 0, "ancient_puppet_fight", "击败远古傀儡")
 	choice_a.add_outcome(OutcomeType.GOLD, 250, "", "获得250金币")
-	choice_a.add_outcome(OutcomeType.RELIC, 0, "33", "获得天妖傀")
+	choice_a.add_outcome(OutcomeType.RELIC, 0, "35", "获得天妖傀")
 	choices.append(choice_a)
 
 	# 选项B：寻找弱点

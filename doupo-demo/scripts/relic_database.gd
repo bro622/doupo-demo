@@ -292,7 +292,7 @@ static func _register_all() -> void:
 	# 42. 大长老手令 - 进入休息点自动回复15HP（不占用选项）
 	_register(RelicData.new(42, "大长老手令", RelicData.Rarity.EPIC,
 		"进入休息点自动回复 15 HP（不占用选项）", Color(0.6, 0.2, 0.8),
-		RelicData.EffectType.REST_EXTRA_HEAL_FLAT, 15))
+		RelicData.EffectType.REST_AUTO_HEAL_FLAT, 15))
 
 	# 43. 九彩原石 - 每打出5张牌获得1能量并抽1牌
 	_register(RelicData.new(43, "九彩原石", RelicData.Rarity.EPIC,
@@ -374,12 +374,12 @@ static func _register_all() -> void:
 	# 53. 诅咒护符 - 战斗中抽到诅咒牌时自动消耗并重新抽牌
 	_register(RelicData.new(53, "诅咒护符", RelicData.Rarity.RARE,
 		"战斗中抽到诅咒牌时，自动消耗该诅咒牌并重新抽一张牌", Color(0.4, 0.2, 0.6),
-		RelicData.EffectType.BATTLE_START_REMOVE_CURSE, 1))
+		RelicData.EffectType.DRAW_CURSE_EXHAUST_REDRAW, 1))
 
 	# 54. 灵药圃 - 进入休息节点自动回复15HP（不占用选项）
 	_register(RelicData.new(54, "灵药圃", RelicData.Rarity.RARE,
 		"进入休息节点自动回复 15 HP（不占用选项）", Color(0.3, 0.7, 0.3),
-		RelicData.EffectType.REST_EXTRA_HEAL_FLAT, 15))
+		RelicData.EffectType.REST_AUTO_HEAL_FLAT, 15))
 
 	# 55. 赤火蛇鳞 - 战斗开始给予所有敌人2层燃烧
 	_register(RelicData.new(55, "赤火蛇鳞", RelicData.Rarity.RARE,

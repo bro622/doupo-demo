@@ -611,6 +611,19 @@ static func on_event_hp_loss(_player, relics: Array[RelicData]) -> void:
 					PlayerManager.add_gold(relic.effect_value)
 
 
+static func _grant_random_available_relic() -> void:
+	var candidates: Array[RelicData] = []
+	for relic in RelicDatabase.get_all_relics():
+		if PlayerManager.has_relic(relic.id):
+			continue
+		if not RelicDatabase.is_available_for_character(relic, PlayerManager.character_id):
+			continue
+		candidates.append(relic)
+	if candidates.size() > 0:
+		var idx = RNGManager.drop_rng.randi() % candidates.size()
+		PlayerManager.add_relic(candidates[idx])
+
+
 ## 战斗胜利时触发
 ## reward_gold: 本次战斗奖励金币（用于百分比加成计算）
 static func on_victory(_player: Player, relics: Array[RelicData], battle_type: int = 0, reward_gold: int = 0) -> void:
@@ -648,9 +661,7 @@ static func on_victory(_player: Player, relics: Array[RelicData], battle_type: i
 							PlayerManager.add_potion(potion)
 			RelicData.EffectType.VICTORY_EXTRA_RELIC_POTION:
 				# 黑魔鼎原片：胜利后额外获得遗物+丹药
-				var extra_relic = RelicDatabase.get_relic(RNGManager.drop_rng.randi() % 50 + 1)
-				if extra_relic != null and not PlayerManager.has_relic(extra_relic.id):
-					PlayerManager.add_relic(extra_relic)
+				_grant_random_available_relic()
 				var extra_potion = PotionManager.get_random_potion()
 				if extra_potion != null:
 					PlayerManager.add_potion(extra_potion)
@@ -681,9 +692,7 @@ static func on_victory(_player: Player, relics: Array[RelicData], battle_type: i
 							if potion != null:
 								PlayerManager.add_potion(potion)
 				RelicData.EffectType.VICTORY_EXTRA_RELIC_POTION:
-					var extra_relic_2 = RelicDatabase.get_relic(RNGManager.drop_rng.randi() % 50 + 1)
-					if extra_relic_2 != null and not PlayerManager.has_relic(extra_relic_2.id):
-						PlayerManager.add_relic(extra_relic_2)
+					_grant_random_available_relic()
 					var extra_potion_2 = PotionManager.get_random_potion()
 					if extra_potion_2 != null:
 						PlayerManager.add_potion(extra_potion_2)
@@ -715,9 +724,7 @@ static func on_victory(_player: Player, relics: Array[RelicData], battle_type: i
 							if potion != null:
 								PlayerManager.add_potion(potion)
 				RelicData.EffectType.VICTORY_EXTRA_RELIC_POTION:
-					var extra_relic_3 = RelicDatabase.get_relic(RNGManager.drop_rng.randi() % 50 + 1)
-					if extra_relic_3 != null and not PlayerManager.has_relic(extra_relic_3.id):
-						PlayerManager.add_relic(extra_relic_3)
+					_grant_random_available_relic()
 					var extra_potion_3 = PotionManager.get_random_potion()
 					if extra_potion_3 != null:
 						PlayerManager.add_potion(extra_potion_3)
